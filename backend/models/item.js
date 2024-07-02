@@ -27,8 +27,10 @@ const items = db.define('item', {
         type: Sequllize.DOUBLE,
         allowNull: false
     },
-    Quantity: {
-        type: Sequllize.INTEGER,
+    companyId: {
+        type: Sequllize.STRING,
         allowNull: false
-    },
+    }
 });
+
+module.exports = items;

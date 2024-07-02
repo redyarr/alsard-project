@@ -1,7 +1,7 @@
 
 const Sequllize = require('sequelize');
 
-const db = new Sequllize('alsard-ims', 'root','2003Nr123', {
+const db = new Sequllize('alsard-ims', 'root','12123', {
     host: 'localhost',
     dialect: 'mysql',
 
