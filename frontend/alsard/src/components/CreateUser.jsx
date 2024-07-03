@@ -7,7 +7,7 @@ import { useState } from "react";
     name:"",
     email:"",
     phone:"",
-    address:"",
+    UserID:"",
     position:""
 });
 
@@ -23,7 +23,7 @@ async function fetching(event) {
       name: data.name,
       email: data.email,
       phone: data.phone,
-      address: data.address,
+      UserID: data.address,
       position: data.position
     }),
   });
@@ -57,7 +57,7 @@ function handlechange(event){
         name:"",
         email:"",
         phone:"",
-        address:"",
+        UserID:"",
         position:""
       })
       event.preventDefault();
@@ -136,17 +136,17 @@ function handlechange(event){
 
             <div className="col-span-full">
               <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
-                address
+                UserID
               </label>
               <div className="mt-2">
                 <input
                 required
-                value={data.address}
+                value={data.UserID}
                 onChange={handlechange}
-                  type="text"
-                  name="address"
-                  id="street-address"
-                  autoComplete="street-address"
+                  type="number"
+                  name="UserID"
+                  id="UserID"
+                  autoComplete="UserID"
                   className="p-2 block w-[300px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>

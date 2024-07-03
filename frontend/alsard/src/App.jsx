@@ -37,11 +37,10 @@ export default function App() {
        return (
        <User 
        key={index}
-       id={userdata.id}
-       name={userdata.title} 
+       name={userdata.name} 
        email={userdata.email} 
        phone={userdata.phone}
-       address={userdata.address}
+       UserID={userdata.UserID}
        position={userdata.position}
        delete={deleteData}
        idd={index}
