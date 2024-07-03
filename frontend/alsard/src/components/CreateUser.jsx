@@ -20,8 +20,16 @@ import { useState } from "react";
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        address: data.address,
+        position: data.position
+      }),
     });
+
 
     props.onAdd(data);
     setData({
