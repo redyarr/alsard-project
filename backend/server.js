@@ -36,9 +36,34 @@ app.post('/items', (req, res, next) => {
     });
 });
 
-app.get('/items', (req, res, next) => {
-   
 
+app.post('/addEmployee', (req, res, next) => {
+    employees.create({
+        Name: req.body.name || "nmuna ",
+        Email: req.body.email ,
+        Phone: req.body.phone || "1234567890",
+        Address: req.body.address || "123, Main Street, City",
+        Position: req.body.position || "employee"
+    }).then(result => {
+        res.status(201).json({
+            message: "Employee created successfully",
+            employee: result
+        });
+    }
+    ).catch(error => {
+        res.status(500).json({
+            message: "Failed to create employee",
+            error: error.message
+        });
+    });
+
+
+
+});
+
+
+
+app.get('/items', (req, res, next) => {
 
     items.findAll()
     .then(items => {
