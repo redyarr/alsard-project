@@ -19,18 +19,32 @@ const items = db.define('item', {
         type: Sequllize.STRING,
         allowNull: false
     },
+    model:{
+type:Sequllize.STRING,
+allowNull:false
+    }
+
+    
+    ,
     Category: {
         type: Sequllize.STRING,
         allowNull: false
     },
-    Price: {
-        type: Sequllize.DOUBLE,
-        allowNull: false
-    },
-    companyId: {
+   
+    tagId: {
         type: Sequllize.STRING,
         allowNull: false
+    },
+    company : {
+        type: Sequllize.STRING,
+        allowNull: false
+    },
+
+    subLocation:{
+        type: Sequllize.STRING,  
+        allowNull: false
     }
+    
 });
 
 module.exports = items;

@@ -1,6 +1,7 @@
 const Sequllize = require('sequelize');
 
 const db = require('../util/db');
+const e = require('express');
 
 
 const employees = db.define('employee', {
@@ -23,15 +24,20 @@ const employees = db.define('employee', {
         type: Sequllize.STRING,
         allowNull: false
     },
-    Address: {
+
+    employeeId: {
+        type: Sequllize.STRING,
+        allowNull: false
+    },
+    department: {
         type: Sequllize.STRING,
         allowNull: false
     },
     Position: {
         type: Sequllize.STRING,
         allowNull: false
-    },
-
+    }
+   
 
 });
 
