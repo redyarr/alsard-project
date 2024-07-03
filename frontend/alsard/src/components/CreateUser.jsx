@@ -37,6 +37,18 @@ async function fetching(event) {
   } else {
     alert(responseData.error);
   }
+
+  props.onAdd(data);
+    
+  setData({
+    name:"",
+    email:"",
+    department:"",
+    phone:"",
+    UserID:"",
+    position:""
+  })
+  event.preventDefault();
 }
 
 
@@ -52,19 +64,19 @@ function handlechange(event){
     })
   }
 
-  function handlesubmit(event){
-    props.onAdd(data);
+  // function handlesubmit(event){
+  //   props.onAdd(data);
     
-      setData({
-        name:"",
-        email:"",
-        department:"",
-        phone:"",
-        UserID:"",
-        position:""
-      })
-      event.preventDefault();
-    }
+  //     setData({
+  //       name:"",
+  //       email:"",
+  //       department:"",
+  //       phone:"",
+  //       UserID:"",
+  //       position:""
+  //     })
+  //     event.preventDefault();
+  //   }
 
 
   return (
@@ -198,7 +210,6 @@ function handlechange(event){
 
         <button
         type="submit"
-        onClick={handlesubmit}
           className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
           Save
         </button>
