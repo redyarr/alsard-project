@@ -23,9 +23,8 @@ const items = db.define('item', {
 type:Sequllize.STRING,
 allowNull:false
     }
-
-    
     ,
+
     Category: {
         type: Sequllize.STRING,
         allowNull: false
@@ -41,6 +40,13 @@ allowNull:false
     },
 
     subLocation:{
+        type: Sequllize.STRING,  
+        allowNull: false
+    },status:{
+        type: Sequllize.STRING,  
+        allowNull: false
+    },
+    reserved:{
         type: Sequllize.STRING,  
         allowNull: false
     }

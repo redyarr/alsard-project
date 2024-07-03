@@ -4,10 +4,12 @@ const app = express();
 
 const bodyParser = require('body-parser');
 const db = require('./util/db');
-
+const cors = require('cors');
 const employees = require('./models/employee');
 
 const items = require('./models/item');
+
+app.use(cors());
 
 app.use(bodyParser.json());
 
