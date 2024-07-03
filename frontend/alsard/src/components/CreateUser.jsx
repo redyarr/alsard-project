@@ -12,29 +12,30 @@ import { useState } from "react";
 });
 
 
-  async function fetching(event){
-    event.preventDefault();
-    const res = await fetch("http://localhost:5000/adduser", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-        address: data.address,
-        position: data.position
-      }),
-    });
+async function fetching(event) {
+  event.preventDefault();
+  const res = await fetch("http://localhost:5000/adduser", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      address: data.address,
+      position: data.position
+    }),
+  });
 
-    const data = await res.json();
-    console.log(data);
-    if(data.status === 'ok'){  
-          alert('data added successfully');
-    }else{alert(data.error)}
-
+  const responseData = await res.json(); // Renamed to avoid conflict
+  console.log(responseData);
+  if (responseData.status === 'ok') {
+    alert('Data added successfully');
+  } else {
+    alert(responseData.error);
   }
+}
 
 
 
