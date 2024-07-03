@@ -45,9 +45,9 @@ app.post('/addEmployee', (req, res, next) => {
         Name: req.body.name || "nmuna ",
         Email: req.body.email,
         Phone: req.body.phone || "1234567890",
-        Address: req.body.address || "123, Main Street, City",
+        employeeId: req.body.UserID || "alsard-it-0000725",
         Position: req.body.position || "employee",
-        Department: req.body.department || "IT"
+        department: req.body.department || "IT"
     }).then(result => {
         res.status(201).json({
             message: "Employee created successfully",
