@@ -39,6 +39,7 @@ export default function App() {
        key={index}
        name={userdata.name} 
        email={userdata.email} 
+       department={userdata.department}
        phone={userdata.phone}
        UserID={userdata.UserID}
        position={userdata.position}

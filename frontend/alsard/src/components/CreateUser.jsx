@@ -6,6 +6,7 @@ import { useState } from "react";
   const [data, setData] = useState({
     name:"",
     email:"",
+    department:"",
     phone:"",
     UserID:"",
     position:""
@@ -22,19 +23,32 @@ async function fetching(event) {
     body: JSON.stringify({
       name: data.name,
       email: data.email,
+      department: data.department,
       phone: data.phone,
-      UserID: data.address,
+      UserID: data.UserID,
       position: data.position
     }),
   });
 
   const responseData = await res.json(); 
   console.log(responseData);
-  if (responseData.status === 'ok') {
+  if (responseData.status == 201) {
     alert('Data added successfully');
   } else {
     alert(responseData.error);
   }
+
+  props.onAdd(data);
+    
+  setData({
+    name:"",
+    email:"",
+    department:"",
+    phone:"",
+    UserID:"",
+    position:""
+  })
+  event.preventDefault();
 }
 
 
@@ -50,18 +64,19 @@ function handlechange(event){
     })
   }
 
-  function handlesubmit(event){
-    props.onAdd(data);
+  // function handlesubmit(event){
+  //   props.onAdd(data);
     
-      setData({
-        name:"",
-        email:"",
-        phone:"",
-        UserID:"",
-        position:""
-      })
-      event.preventDefault();
-    }
+  //     setData({
+  //       name:"",
+  //       email:"",
+  //       department:"",
+  //       phone:"",
+  //       UserID:"",
+  //       position:""
+  //     })
+  //     event.preventDefault();
+  //   }
 
 
   return (
@@ -113,6 +128,23 @@ function handlechange(event){
                 />
               </div>
             </div>
+            <div className="sm:col-span-4">
+              <label  htmlFor="department" className="block text-sm font-medium leading-6 text-gray-900">
+                Department
+              </label>
+              <div className="mt-2">
+                <input
+                required
+                value={data.department}
+                onChange={handlechange}
+                  id="department"
+                  name="department"
+                  type="text"
+                  autoComplete="department"
+                  className="p-2 block w-[300px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
         </div> 
           <div className="flex flex-row gap-5">
             <div className="sm:col-span-4">
@@ -136,7 +168,7 @@ function handlechange(event){
 
             <div className="col-span-full">
               <label  htmlFor="UserID" className="block text-sm font-medium leading-6 text-gray-900">
-                UserID
+                Employee ID
               </label>
               <div className="mt-2">
                 <input
@@ -178,7 +210,6 @@ function handlechange(event){
 
         <button
         type="submit"
-        onClick={handlesubmit}
           className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
           Save
         </button>

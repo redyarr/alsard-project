@@ -19,6 +19,7 @@ const User = (props) => {
 
     <div>
         <p className='font-medium'>{props.email}</p>
+        <p className='font-medium'>{props.department}</p>
         <p className='font-medium'>{props.phone}</p>
         <p className='font-medium'>{props.UserID}</p>
         <p className='font-medium'>{props.position}</p>
