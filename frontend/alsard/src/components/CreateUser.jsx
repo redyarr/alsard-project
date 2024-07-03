@@ -14,7 +14,7 @@ import { useState } from "react";
 
 async function fetching(event) {
   event.preventDefault();
-  const res = await fetch("http://localhost:5000/adduser", {
+  const res = await fetch("http://localhost:3000/addEmployee", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
