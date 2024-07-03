@@ -5,7 +5,6 @@ import User from './components/User';
 
 export default function App() {
   const [userData, setUserData]=useState([])
-  console.log(userData);
   
 
   
@@ -32,7 +31,7 @@ export default function App() {
 <section className='p-10'> <CreateUser onAdd={addData} /> </section>
 
 
-<section className='flex  gap-3'>
+<section className=' p-4 flex  gap-3'>
 
 {userData.map((userdata, index) =>{
        return (
