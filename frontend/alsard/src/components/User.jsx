@@ -2,6 +2,8 @@ import React from 'react'
 
 const User = (props) => {
 
+    
+
 
     function DeleteButton(){
         props.delete(props.idd);
