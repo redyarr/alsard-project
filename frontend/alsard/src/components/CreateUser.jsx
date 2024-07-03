@@ -32,7 +32,7 @@ async function fetching(event) {
 
   const responseData = await res.json(); 
   console.log(responseData);
-  if (responseData.status === 'ok') {
+  if (responseData.status == 201) {
     alert('Data added successfully');
   } else {
     alert(responseData.error);
