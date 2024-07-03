@@ -15,7 +15,7 @@ import { useState } from "react";
 
   async function fetching(event){
     event.preventDefault();
-    const response = await fetch("http://localhost:5000/adduser", {
+    const res = await fetch("http://localhost:5000/adduser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,6 +29,13 @@ import { useState } from "react";
         position: data.position
       }),
     });
+
+    const data = await res.json();
+    console.log(data);
+    if(data.status === 'ok'){  
+          alert('data added successfully');
+    }else{alert(data.error)}
+
 
 
     props.onAdd(data);
