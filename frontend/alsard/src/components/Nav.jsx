@@ -9,7 +9,7 @@ const[isSticky, setIsSticky] = useState(false);
 const navLinks=[
     {link:"Home", path:"/"},
     {link:"Add Employee", path:"/adduser"},
-    {link:"Employee", path:"/user"},
+    {link:"Employees", path:"/user"},
     {link:"Add Item", path:"/additems"},
 ]
 
