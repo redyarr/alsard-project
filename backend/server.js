@@ -8,6 +8,7 @@ const cors = require('cors');
 const employees = require('./models/employee');
 const items = require('./models/item');
 const EmployeeItem = require('./models/employeeItem');
+const users = require('./models/users');
 //relation between employee and item
 
 
