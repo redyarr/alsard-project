@@ -6,7 +6,7 @@ const User = (props) => {
 
 
     function DeleteButton(){
-        props.delete(props.idd);
+        props.delete(props.id);
      }
 
 

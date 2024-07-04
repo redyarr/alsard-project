@@ -1,10 +1,18 @@
-import { useState } from 'react';
-import CreateUser from './components/CreateUser';
-import User from './components/User';
+
+import { useState, lazy } from 'react';
+import {Route, Routes} from 'react-router-dom'
+import Home from './components/Home'
+import CreateUser from './components/CreateUser'
+import User from './components/User'
+import Nav from './components/Nav'
+import NotFound from './components/NotFound'
+
+
 
 
 export default function App() {
   const [userData, setUserData]=useState([])
+  
   
 
   
@@ -28,12 +36,15 @@ export default function App() {
   return (
 
 <>
-<section className='p-10'> <CreateUser onAdd={addData} /> </section>
+<Nav />
 
 
-<section className=' p-4 flex  gap-3'>
 
-{userData.map((userdata, index) =>{
+
+<Routes>
+  <Route path="/" element={<Home />} />
+  <Route path='/adduser' element={<CreateUser onAdd={addData} />} />
+  <Route path='/user' element={userData.map((userdata, index) =>{
        return (
        <User 
        key={index}
@@ -44,14 +55,15 @@ export default function App() {
        UserID={userdata.UserID}
        position={userdata.position}
        delete={deleteData}
-       idd={index}
+       id={index}
 
        />
        );
-      })}
-</section>
-
-
+      })} />
+      <Route path="*" element={<NotFound />} />
+</Routes>
 </>
   )
+
+
 }
