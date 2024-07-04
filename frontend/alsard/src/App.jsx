@@ -6,6 +6,7 @@ import CreateUser from './components/CreateUser'
 import User from './components/User'
 import Nav from './components/Nav'
 import NotFound from './components/NotFound'
+import AddItems from './components/AddItems'
 
 
 
@@ -60,6 +61,7 @@ export default function App() {
        />
        );
       })} />
+      <Route path='/additems' element={<AddItems />} />
       <Route path="*" element={<NotFound />} />
 </Routes>
 </>
