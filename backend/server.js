@@ -6,8 +6,13 @@ const bodyParser = require('body-parser');
 const db = require('./util/db');
 const cors = require('cors');
 const employees = require('./models/employee');
-
 const items = require('./models/item');
+const EmployeeItem = require('./models/employeeItem');
+//relation between employee and item
+
+
+employees.belongsToMany(items, { through: EmployeeItem, foreignKey: 'employeeId' });
+items.belongsToMany(employees, { through: EmployeeItem, foreignKey: 'itemId' });
 
 app.use(cors());
 
@@ -108,6 +113,35 @@ app.get('/employees', (req, res, next) => {
     });
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// TO SEARCH FOR A EMPLOYEES NAME AND GET ALL THE ITEMS HE IS USING :
+
+// app.get('/employee-items/:employeeName', async (req, res) => {
+//     try {
+//       const employeeName = req.params.employeeName;
+//       const employee = await employees.findOne({ where: { name: employeeName } });
+//       if (!employee) {
+//         return res.status(404).json({ message: 'Employee not found.' });
+//       }
+//       const items = await employee.getItems(); // Using the getItems method provided by Sequelize for many-to-many relations
+//       res.status(200).json(items);
+//     } catch (error) {
+//       res.status(500).json({ error: error.message });
+//     }
+//   });
 
 
 
