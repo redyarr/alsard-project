@@ -175,7 +175,7 @@ app.post('/login', (req, res, next) => {
 })
 
 
-app.post('signUp', (req, res, next) => {
+app.post('/signUp', (req, res, next) => {
 
     users.create({
         name: req.body.name,
@@ -195,6 +195,7 @@ app.post('signUp', (req, res, next) => {
     });
 }
 );
+
 
 
 
