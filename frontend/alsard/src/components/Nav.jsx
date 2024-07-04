@@ -37,7 +37,7 @@ useEffect(() => {
         <>
         <nav className={` sticky top-0 left-0 w-full z-10 text-black items-center flex justify-between mx-auto max-w-8xl p-5  xl:px-6 2xl:px-20 ${isSticky ? 'bg-white border-b-2 border-gray-300' : 'bg-transparent'} `}>
             <div>
-                <NavLink to={"/"} className='font-bold text-3xl text-blue-600'>logo</NavLink>
+                <h1  className='font-bold text-3xl text-blue-600'>logo</h1>
             </div>
 
             <div>
@@ -47,7 +47,12 @@ useEffect(() => {
             <div>
                 <ul className='flex gap-10'>
                 {navLinks.map((items, index)=>{
-                    return(<NavLink to={items.path} key={index}> {items.link} </NavLink>)
+                    return(<>
+                    <div className='flex flex-col'>
+                    <NavLink to={items.path} key={index}> {items.link} </NavLink>
+                    <label className='underlinee' htmlFor="underline"></label>
+                    </div>
+                    </>)
                 })}
                 </ul>
             </div>
