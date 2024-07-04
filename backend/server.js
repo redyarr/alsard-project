@@ -116,13 +116,92 @@ app.get('/employees', (req, res, next) => {
 });
 
 
+app.post('/addUser', (req, res, next) => {
+
+    users.create({
+        name: req.body.name,
+        password: req.body.password,
+        role: req.body.role
+    }).then(result => {
+        res.status(201).json({
+            message: "User created successfully",
+            user: result
+        });
+    }
+    ).catch(error => {
+        res.status(500).json({
+            message: "Failed to create user",
+            error: error.message
+        });
+    });
+});
 
 
 
 
 
 
+app.post('/login', (req, res, next) => {
 
+    users.findOne({
+
+        where: {
+            name: req.body.name,
+            password: req.body.password
+        }
+    }).then(user => {
+
+        if (user) {
+            res.status(200).json({
+                message: "User logged in successfully",
+                user: user // the user that logged in 
+            });
+        }
+        else {
+            res.status(404).json({
+                message: "User not found"
+            });
+        }
+    }
+    ).catch(error => {
+        res.status(500).json({
+            message: "Failed to login",
+            error: error.message
+        });
+    });
+
+
+
+})
+
+
+app.post('signUp', (req, res, next) => {
+
+    users.create({
+        name: req.body.name,
+        password: req.body.password,
+        role: req.body.role
+    }).then(result => {
+        res.status(201).json({
+            message: "User created  successfully",
+            user: result
+        });
+    }
+    ).catch(error => {
+        res.status(500).json({
+            message: "Failed to create user",
+            error: error.message
+        });
+    });
+}
+);
+
+
+
+
+
+// TO ADD AN ITEM TO AN EMPLOYEE :
+//write it here redyar dont forget .
 
 
 
@@ -151,4 +230,4 @@ db.sync().then((result) => {
     app.listen(3000);
 }).catch((err) => {
     console.log("the server could not start!");
-});
+})
