@@ -13,17 +13,17 @@ const navLinks=[
 
   return (
         <>
-        <nav className='flex justify-between p-5'>
+        <nav className=' bg-blue-600 text-white items-center flex justify-between mx-auto max-w-8xl p-5  xl:px-6 2xl:px-20 flex'>
             <div>
-                <h1>logo</h1>
+                <h1 className='font-bold text-3xl text-white'>logo</h1>
             </div>
 
             <div>
-                <input type="search" />
+                <input placeholder='Search Here' className='w-[400px] h-8 bg-transparent ring-1 ring-white rounded-lg outline-none p-2 text-xs  focus:ring-gray-300 cancel' type="search" />
             </div>
 
             <div>
-                <ul>
+                <ul className='flex gap-10'>
                 {navLinks.map((items, index)=>{
                     return(<NavLink to={items.path} key={index}> {items.link} </NavLink>)
                 })}
