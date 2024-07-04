@@ -35,7 +35,7 @@ useEffect(() => {
 
   return (
         <>
-        <nav className={` sticky top-0 left-0 w-full z-10 text-black items-center flex justify-between mx-auto max-w-8xl p-5  xl:px-6 2xl:px-20 flex ${isSticky ? 'bg-white border-b-2 border-gray-300' : 'bg-transparent'} `}>
+        <nav className={` sticky top-0 left-0 w-full z-10 text-black items-center flex justify-between mx-auto max-w-8xl p-5  xl:px-6 2xl:px-20 ${isSticky ? 'bg-white border-b-2 border-gray-300' : 'bg-transparent'} `}>
             <div>
                 <NavLink to={"/"} className='font-bold text-3xl text-blue-600'>logo</NavLink>
             </div>
