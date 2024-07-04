@@ -92,6 +92,25 @@ app.get('/items', (req, res, next) => {
 
 
 
+app.get('/employees', (req, res, next) => {
+
+    employees.findAll().then(employees => {
+        console.log(employees);
+        res.status(200).json({
+            message: "Employees fetched successfully",
+            employees: employees
+        });
+    }).catch(error => {
+        res.status(500).json({
+            message: "Failed to fetch employees",
+            error: error.message
+        });
+    });
+
+});
+
+
+
 // {force:true}
 db.sync().then((result) => {
     app.listen(3000);
