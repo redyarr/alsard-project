@@ -2,29 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
-.cancel::-webkit-search-cancel-button{
-    display: none;
+.cancel::-webkit-search-cancel-button {
+  display: none;
 }
 
+.nav-link {
+  position: relative;
+  padding-bottom: 5px;
+  display: inline-block;
+}
 
+.active{
+    color: #2563eb;
+}
 
-.underlinee.active{
-    display: block;
-    position: relative;
-    top: 5px;
-    width: 100%;
-    height: 2px;
-    background-color: #000;
-    animation: fade 0.5s linear;
+.underlinee {
+  position: absolute;
+  left: 0;
+  bottom: -3px; /* Adjust the distance between the link and the underline */
+  width: 100%;
+  height: 2px;
+  background-color: #000;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.nav-link.active + .underlinee,
+.nav-link:hover + .underlinee {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav-link.active + .underlinee {
+background-color: #2563eb;
 }
 
 @keyframes fade {
-    from{
-        opacity: 0;
-        top: 0;
-    }
-    to{
-        opacity: 1;
-        top: 5px;
-    }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
