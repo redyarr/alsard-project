@@ -8,15 +8,31 @@ const LoginPage = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Dummy authentication logic (replace with real authentication logic)
-    if (username === 'admin' && password === 'password') {
-      login({ username });
-      navigate(-1); // Navigate back to the previous page
-    } else {
-      alert('Invalid credentials');
-    }
+
+    try{
+        const response = await fetch('/login', {
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({username, password}),
+        });
+        
+        if(!response.ok){
+            throw new Error('Invalid credentials');
+        }
+
+        const data= await response.json();
+        login({username: data.username});
+        navigate(-1); }
+        catch(error){
+            alert('Invalid credentials');
+                }
+
   };
 
   return (
