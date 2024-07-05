@@ -6,7 +6,7 @@ const db = require('../util/db');
 
 const users = db.define('user', {
 
-    id:{
+    id: {
 
         type: Sequllize.INTEGER,
         autoIncrement: true,
@@ -23,14 +23,17 @@ const users = db.define('user', {
         allowNull: false
     },
 
-        role: {
-            type: Sequllize.STRING,
-            allowNull: false,
-            defaultValue: 'user',
-            validate: {
-                isIn: [['user', 'admin']]
-            }
+    role: {
+        type: Sequllize.STRING,
+        allowNull: false,
+        defaultValue: 'user',
+        validate: {
+            isIn: [['user', 'admin']]
         }
-
     }
+
+}
 );
+
+
+module.exports = users;

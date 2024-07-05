@@ -23,6 +23,35 @@ app.use(bodyParser.json());
 
 
 
+
+
+async function ensureAdminUser() {
+
+    users.findOne({ where: { name: "admin", password: "123" } }).then(user => {
+        if (!user) {
+            users.create({
+                name: "admin",
+                password: "123",
+                role: "admin"
+            }).then(result => {
+                console.log("admin created");
+
+            }).catch(error => {
+                console.log("admin not created");
+
+            });
+        }
+    }
+    )
+
+
+};
+
+
+
+
+
+
 app.post('/items', (req, res, next) => {
     items.create({
         Name: req.body.Name || "lenovo monitor",
@@ -47,6 +76,9 @@ app.post('/items', (req, res, next) => {
             });
         });
 });
+
+
+
 
 
 app.post('/addEmployee', (req, res, next) => {
@@ -145,25 +177,28 @@ app.post('/addUser', (req, res, next) => {
 // w lawla la local storage aka bakary benm boway kabra login bmenetawa ka refreshy krd bas am token a bo layani securety'ya 
 //dway 1 sa3at basarache 
 
-const users = [
-    { id: 1, username: 'admin', password: 'password' },
-    // Add more users as needed
-  ];
-  
-  app.post('/login', (req, res) => {
+
+app.post('/login', (req, res) => {
     const { username, password } = req.body;
-  
+
+
+
+
+
     // Dummy authentication logic (replace with database query)
-    const user = users.find(u => u.username === username && u.password === password);
+    const user = users.findOne({ where: { name: username, password: password } });
     if (!user) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+        return res.status(401).json({ error: 'Invalid credentials' });
     }
-  
+
     // Generate JWT token
     const token = jwt.sign({ username: user.username }, 'your_secret_key', { expiresIn: '1h' });
-  
-    res.json({ username: user.username, token });
-  });
+
+    res.json({ username: user.username, token })
+
+});
+
+
 
 
 app.post('/signUp', (req, res, next) => {
@@ -218,7 +253,8 @@ app.post('/signUp', (req, res, next) => {
 
 
 // {force:true}
-db.sync().then((result) => {
+db.sync().then(() => { ensureAdminUser() }).then(() => {
+
     app.listen(3000);
 }).catch((err) => {
     console.log("the server could not start!");
