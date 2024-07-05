@@ -183,7 +183,7 @@ app.post('/login', (req, res) => {
 
 
 
-
+    console.log("username", username);
 
     // Dummy authentication logic (replace with database query)
     const user = users.findOne({ where: { name: username, password: password } });
@@ -194,7 +194,7 @@ app.post('/login', (req, res) => {
     // Generate JWT token
     const token = jwt.sign({ username: user.username }, 'your_secret_key', { expiresIn: '1h' });
 
-    res.json({ username: user.username, token })
+    res.json({ username: user.username, token });
 
 });
 
