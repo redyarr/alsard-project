@@ -1,7 +1,8 @@
 import React from 'react'
+import { useAuth } from './AuthContext';
 
 const User = (props) => {
-
+    const { authState } = useAuth();
     
 
 
@@ -24,8 +25,7 @@ const User = (props) => {
         <p className='font-medium'>{props.UserID}</p>
         <p className='font-medium'>{props.position}</p>
     </div>
-
-    <button className='w-[100px] h-[30px] bg-indigo-500  text-white rounded' onClick={DeleteButton}>delete</button>
+    {authState.isAuthenticated  && <button className='w-[100px] h-[30px] bg-blue-600  text-white rounded' onClick={DeleteButton}>delete</button> }
 </div>
 </>
   )

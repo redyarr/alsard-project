@@ -57,9 +57,16 @@ const Nav = () => {
         </ul>
       </nav>
       <div>
+
+        {authState.isAuthenticated ? 
+        <button onClick={logout}>log out</button> 
+        : 
+        
         <Link to='/login'>
           <Button text='Log In' />
         </Link>
+        }
+
       </div>
     </header>
   );
