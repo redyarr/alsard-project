@@ -28,12 +28,12 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
 
-  const login = (user) => {
+  const login = ({ username, token }) => {
     localStorage.setItem('token', token);
     setAuthState({
       isAuthenticated: true,
       token,
-      user:{username: 'admin'},
+      user: { username },
     });
   };
 
