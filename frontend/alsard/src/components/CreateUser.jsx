@@ -82,7 +82,7 @@ function handlechange(event){
   return (
 <>
 
-    <form onSubmit={fetching}>
+    <form onSubmit={fetching} className="mt-5 text-black mx-auto max-w-8xl   xl:px-6 2xl:px-20 flex  flex-col">
       <div className="space-y-12">
 
 
