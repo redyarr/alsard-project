@@ -38,17 +38,17 @@ async function fetching(event) {
     alert(responseData.error);
   }
 
-  // props.onAdd(data);
+  props.onAdd(data);
     
-  // setData({
-  //   name:"",
-  //   email:"",
-  //   department:"",
-  //   phone:"",
-  //   UserID:"",
-  //   position:""
-  // })
-  // event.preventDefault();
+  setData({
+    name:"",
+    email:"",
+    department:"",
+    phone:"",
+    UserID:"",
+    position:""
+  })
+  event.preventDefault();
 }
 
 
