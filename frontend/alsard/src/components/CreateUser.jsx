@@ -48,7 +48,6 @@ async function fetching(event) {
     UserID:"",
     position:""
   })
-  event.preventDefault();
 }
 
 
