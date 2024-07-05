@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { useAuth } from './AuthContext';
 import { useNavigate } from 'react-router-dom';
 
+
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
 
+
+ 
 
 
   const handleLogin = async (e) => {
@@ -28,6 +31,7 @@ const LoginPage = () => {
 
         const data= await response.json();
         login({username: data.username});
+        localStorage.setItem('token', data.token);
         navigate(-1); }
         catch(error){
             alert('Invalid credentials');
@@ -69,3 +73,4 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+

@@ -4,25 +4,48 @@ import { useNavigate } from 'react-router-dom';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [authState, setAuthState] = useState({
-    isAuthenticated: false,
-    user: null,
-  });
+
   const navigate=useNavigate();
 
+  const [authState, setAuthState] = useState(() => {
+    const token = localStorage.getItem('token');
+    return {
+      isAuthenticated: !!token,
+      token,
+      user: null,
+    };
+  });
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setAuthState({
+        isAuthenticated: true,
+        token,
+        user: { username: 'admin' }, 
+      });
+    }
+  }, []);
+
+
   const login = (user) => {
+    localStorage.setItem('token', token);
     setAuthState({
       isAuthenticated: true,
-      user,
+      token,
+      user:{username: 'admin'},
     });
   };
 
   const logout = () => {
+    localStorage.removeItem('token');
     setAuthState({
       isAuthenticated: false,
+      token: null,
       user: null,
     });
-navigate('/')
+
+  navigate('/')
   };
 
   return (
