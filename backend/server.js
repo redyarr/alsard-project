@@ -10,6 +10,8 @@ const items = require('./models/item');
 const EmployeeItem = require('./models/employeeItem');
 const users = require('./models/users');
 //relation between employee and item
+const jwt = require('jsonwebtoken');
+
 
 
 employees.belongsToMany(items, { through: EmployeeItem, foreignKey: 'employeeId' });
@@ -139,40 +141,29 @@ app.post('/addUser', (req, res, next) => {
 
 
 
+//am API'y login'a mn updatem krdwa la jpt henawma abe token drwskay lerawa boway mn ba post tokenaka benm
+// w lawla la local storage aka bakary benm boway kabra login bmenetawa ka refreshy krd bas am token a bo layani securety'ya 
+//dway 1 sa3at basarache 
 
-
-app.post('/login', (req, res, next) => {
-
-    users.findOne({
-
-        where: {
-            name: req.body.name,
-            password: req.body.password
-        }
-    }).then(user => {
-
-        if (user) {
-            res.status(200).json({
-                message: "User logged in successfully",
-                user: user // the user that logged in 
-            });
-        }
-        else {
-            res.status(404).json({
-                message: "User not found"
-            });
-        }
+const users = [
+    { id: 1, username: 'admin', password: 'password' },
+    // Add more users as needed
+  ];
+  
+  app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+  
+    // Dummy authentication logic (replace with database query)
+    const user = users.find(u => u.username === username && u.password === password);
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid credentials' });
     }
-    ).catch(error => {
-        res.status(500).json({
-            message: "Failed to login",
-            error: error.message
-        });
-    });
-
-
-
-})
+  
+    // Generate JWT token
+    const token = jwt.sign({ username: user.username }, 'your_secret_key', { expiresIn: '1h' });
+  
+    res.json({ username: user.username, token });
+  });
 
 
 app.post('/signUp', (req, res, next) => {
