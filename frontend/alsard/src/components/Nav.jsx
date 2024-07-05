@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Button from './Button';
+import { useAuth } from './AuthContext';
 
 const Nav = () => {
   const [isSticky, setIsSticky] = useState(false);
+  const { logout, authState } = useAuth();
 
   const navLinks = [
     { link: 'Home', path: '/' },
@@ -55,7 +57,9 @@ const Nav = () => {
         </ul>
       </nav>
       <div>
-        <Button text='Log In' />
+        <Link to='/login'>
+          <Button text='Log In' />
+        </Link>
       </div>
     </header>
   );

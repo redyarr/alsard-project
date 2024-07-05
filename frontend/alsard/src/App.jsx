@@ -7,6 +7,8 @@ import User from './components/User'
 import Nav from './components/Nav'
 import NotFound from './components/NotFound'
 import AddItems from './components/AddItems'
+import { AuthProvider } from './components/AuthContext';
+import Login from './components/Login'
 
 
 
@@ -36,35 +38,33 @@ export default function App() {
 
   return (
 
-<>
-<Nav />
+<AuthProvider>
+    <Nav />
 
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path='/adduser' element={<CreateUser onAdd={addData} />} />
+      <Route path='/user' element={userData.map((userdata, index) =>{
+          return (
+          <User 
+          key={index}
+          name={userdata.name} 
+          email={userdata.email} 
+          department={userdata.department}
+          phone={userdata.phone}
+          UserID={userdata.UserID}
+          position={userdata.position}
+          delete={deleteData}
+          id={index}
 
-
-
-<Routes>
-  <Route path="/" element={<Home />} />
-  <Route path='/adduser' element={<CreateUser onAdd={addData} />} />
-  <Route path='/user' element={userData.map((userdata, index) =>{
-       return (
-       <User 
-       key={index}
-       name={userdata.name} 
-       email={userdata.email} 
-       department={userdata.department}
-       phone={userdata.phone}
-       UserID={userdata.UserID}
-       position={userdata.position}
-       delete={deleteData}
-       id={index}
-
-       />
-       );
-      })} />
-      <Route path='/additems' element={<AddItems />} />
-      <Route path="*" element={<NotFound />} />
-</Routes>
-</>
+          />
+          );
+          })} />
+          <Route path='/additems' element={<AddItems />} />
+          <Route path='/login' element={<Login />} />
+          <Route path="*" element={<NotFound />} />
+    </Routes>
+</AuthProvider>
   )
 
 
