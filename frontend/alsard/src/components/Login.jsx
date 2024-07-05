@@ -29,6 +29,10 @@ const LoginPage = () => {
         throw new Error('Invalid credentials');
       }
 
+      if (!response.ok) {
+        throw new Error('Invalid credentials');
+      }
+
       const data = await response.json();
       login({ username: data.username });
       localStorage.setItem('token', data.token);
