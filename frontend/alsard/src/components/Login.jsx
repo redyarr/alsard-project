@@ -35,6 +35,18 @@ const LoginPage = () => {
 
   };
 
+
+//   const handleLogin =  (e) => {
+//     e.preventDefault();
+    
+//     if (username === 'admin' && password === 'password') {
+//       login({ username });
+//       navigate(-1);
+//     } else {
+//       alert('Invalid credentials');
+//     }
+//   };
+
   return (
     <div>
       <form onSubmit={handleLogin}>

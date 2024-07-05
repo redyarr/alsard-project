@@ -59,7 +59,10 @@ const Nav = () => {
       <div>
 
         {authState.isAuthenticated ? 
+        <>
         <button onClick={logout}>log out</button> 
+        <p>Admin</p>
+        </>
         : 
         
         <Link to='/login'>
