@@ -2,7 +2,7 @@ import { useState } from "react";
 
 
 
- function CreateUser(props) {
+ function CreateUser() {
   const [data, setData] = useState({
     name:"",
     email:"",
@@ -32,14 +32,12 @@ async function fetching(event) {
 
   const responseData = await res.json(); 
   console.log(responseData);
-  if (responseData.status == 201) {
+  if (responseData.status == 'ok') {
     alert('Data added successfully');
   } else {
     alert(responseData.error);
   }
 
-  props.onAdd(data);
-    
   setData({
     name:"",
     email:"",

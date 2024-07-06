@@ -1,5 +1,5 @@
 
-import { useState, lazy } from 'react';
+import { useState, useEffect } from 'react';
 import {Route, Routes} from 'react-router-dom'
 import Home from './components/Home'
 import CreateUser from './components/CreateUser'
@@ -9,26 +9,39 @@ import NotFound from './components/NotFound'
 import AddItems from './components/AddItems'
 import { AuthProvider } from './components/AuthContext';
 import Login from './components/Login'
+import UserFetching from './components/UserFetching';
 
 
 
 
 export default function App() {
-  const [userData, setUserData]=useState([])
+  const [users, setUsers]=useState([])
+  console.log(users);
   
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/employees');
+        if (!response.ok) {
+          throw new Error('Failed to fetch users');
+        }
+        const data = await response.json();
+        setUsers(data.employees);
+      } catch (error) {
+        console.error('Error fetching users:', error.message);
+      }
+    };
+
+    fetchUsers();
+  }, []);
   
 
   
-
-  function addData(note){
-    setUserData(prev=>{
-      return [note, ...prev]
-    })
-    }
 
 
     function deleteData(id){
-      setUserData(prevValue=>{
+      setUsers(prevValue=>{
         return prevValue.filter((noteItem, index)=>{
           return index!==id;
         })
@@ -43,23 +56,8 @@ export default function App() {
 
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path='/adduser' element={<CreateUser onAdd={addData} />} />
-      <Route path='/user' element={userData.map((userdata, index) =>{
-          return (
-          <User 
-          key={index}
-          name={userdata.name} 
-          email={userdata.email} 
-          department={userdata.department}
-          phone={userdata.phone}
-          UserID={userdata.UserID}
-          position={userdata.position}
-          delete={deleteData}
-          id={index}
-
-          />
-          );
-          })} />
+      <Route path='/adduser' element={<CreateUser />} />
+      <Route path='/user' element={<UserFetching users={users} deleteData={deleteData} />} />
           <Route path='/additems' element={<AddItems />} />
           <Route path='/login' element={<Login />} />
           <Route path="*" element={<NotFound />} />
