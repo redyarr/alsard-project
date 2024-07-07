@@ -109,6 +109,25 @@ app.post('/addEmployee', (req, res, next) => {
 
 
 
+app.delete('/deleteEmployee/:id', (req, res, next) => {
+    const employeeId = req.params.id;
+
+    employees.destroy({
+        where: { Id: employeeId } 
+    }).then(() => {
+        res.status(200).json({
+            message: "Employee deleted successfully"
+        });
+    }).catch(error => {
+        res.status(500).json({
+            message: "Failed to delete employee",
+            error: error.message
+        });
+    });
+});
+
+
+
 app.get('/items', (req, res, next) => {
 
     items.findAll()

@@ -3,11 +3,12 @@ import User from './User';
 
 const UserFetching = ({ users, deleteData }) => {
   return (
-    <div>
-      {users.map((user) => (
-        <section key={user.id} className='inline-block mr-5'>
+    <div >
+      {users.map((user,) => (
+        <section key={user.Id} className='inline-block mr-5 mb-5'>
           <User
-            key={user.id}
+            key={user.Id}
+            id={user.Id}
             name={user.Name}
             email={user.Email}
             department={user.Department}

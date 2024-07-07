@@ -16,7 +16,6 @@ import UserFetching from './components/UserFetching';
 
 export default function App() {
   const [users, setUsers]=useState([])
-  console.log(users);
   
 
   useEffect(() => {
@@ -34,18 +33,26 @@ export default function App() {
     };
 
     fetchUsers();
-  }, []);
+  }, [users]);
   
 
   
 
 
-    function deleteData(id){
-      setUsers(prevValue=>{
-        return prevValue.filter((noteItem, index)=>{
-          return index!==id;
-        })
-      })
+    async function deleteData(id){
+      try {
+        const response = await fetch(`http://localhost:3000/deleteEmployee/${id}`, {
+          method: 'DELETE'
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to delete user');
+        }
+  
+        setUsers(prevUsers => prevUsers.filter(user => user.id !== id));
+      } catch (error) {
+        console.error('Error deleting user:', error.message);
+      }
       }
 
 

@@ -33,9 +33,9 @@ async function fetching(event) {
   const responseData = await res.json(); 
   console.log(responseData);
   if (responseData.status == 'ok') {
-    alert('Data added successfully');
+    console.log('Data added successfully');
   } else {
-    alert(responseData.error);
+    console.log(responseData.error);
   }
 
   setData({
