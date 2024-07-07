@@ -12,9 +12,11 @@ const Nav = () => {
 
   const navLinks = [
     { link: 'Home', path: '/' },
-    { link: 'Add Employee', path: '/adduser' },
-    { link: 'Employees', path: '/user' },
-    { link: 'Add Item', path: '/additems' },
+    { link: 'Employees', path: '/employees' },
+    { link: 'Add Employees', path: '/addemployees' },
+    { link: 'Items', path: '/items' },
+    { link: 'Add Items', path: '/additems' },
+    { link: 'Recerved Items', path: '/reserved' },
   ];
 
   useEffect(() => {
@@ -32,18 +34,13 @@ const Nav = () => {
 
   return (
     <header className={`sticky top-0 left-0 w-full z-10 text-black flex justify-between items-center mx-auto max-w-8xl p-5 xl:px-6 2xl:px-20 ${isSticky ? 'bg-white border-b-2 border-gray-300' : 'bg-transparent'}`}>
+ <div className='flex gap-20 justify-center items-center'>
+
       <div>
         <h1 className='font-bold text-3xl text-blue-600'>Logo</h1>
       </div>
-      <div>
-        <input
-          name='search'
-          placeholder='Search Here'
-          className='w-[400px] h-8 bg-transparent ring-1 ring-gray-500 focus:ring-blue-600 rounded-lg outline-none p-2 text-xs'
-          type='search'
-        />
-      </div>
-      <nav>
+
+      <nav className='mt-3'>
         <ul className='flex gap-10'>
           {navLinks.map((items, index) => (
             <li key={index} className='relative'>
@@ -59,6 +56,8 @@ const Nav = () => {
           ))}
         </ul>
       </nav>
+ </div>
+ 
       <div>
 
         {authState.isAuthenticated ? 

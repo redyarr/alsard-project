@@ -1,6 +1,6 @@
 import { useAuth } from './AuthContext';
 
-const User = (props) => {
+const Employees = (props) => {
     const { authState } = useAuth();
 
 
@@ -35,4 +35,4 @@ const User = (props) => {
   )
 }
 
-export default User
+export default Employees

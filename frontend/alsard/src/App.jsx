@@ -2,14 +2,15 @@
 import { useState, useEffect } from 'react';
 import {Route, Routes} from 'react-router-dom'
 import Home from './components/Home'
-import CreateUser from './components/CreateUser'
-import User from './components/User'
+import AddEmployees from './components/AddEmployees'
 import Nav from './components/Nav'
 import NotFound from './components/NotFound'
 import AddItems from './components/AddItems'
 import { AuthProvider } from './components/AuthContext';
 import Login from './components/Login'
-import UserFetching from './components/UserFetching';
+import FetchingEmployees from './components/FetchingEmployees';
+import Items from './components/Items';
+import RecervedItems from './components/RecervedItems';
 
 
 
@@ -63,11 +64,13 @@ export default function App() {
 
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path='/adduser' element={<CreateUser />} />
-      <Route path='/user' element={<UserFetching users={users} deleteData={deleteData} />} />
-          <Route path='/additems' element={<AddItems />} />
-          <Route path='/login' element={<Login />} />
-          <Route path="*" element={<NotFound />} />
+      <Route path='/employees' element={<FetchingEmployees users={users} deleteData={deleteData} />} />
+      <Route path='/addemployees' element={<AddEmployees />} />
+      <Route path='items' element={<Items />} />
+      <Route path='/additems' element={<AddItems />} />
+      <Route path='/reserved' element={<RecervedItems />} />
+      <Route path='/login' element={<Login />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
 </AuthProvider>
   )

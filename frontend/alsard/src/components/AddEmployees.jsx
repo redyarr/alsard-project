@@ -2,7 +2,7 @@ import { useState } from "react";
 
 
 
- function CreateUser() {
+ function AddEmployees() {
   const [data, setData] = useState({
     name:"",
     email:"",
@@ -172,7 +172,7 @@ function handlechange(event){
                 required
                 value={data.UserID}
                 onChange={handlechange}
-                  type="number"
+                  type="text"
                   name="UserID"
                   id="UserID"
                   autoComplete="UserID"
@@ -221,4 +221,4 @@ function handlechange(event){
 }
 
 
-export default CreateUser;
+export default AddEmployees;

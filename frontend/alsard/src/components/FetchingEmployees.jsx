@@ -1,17 +1,17 @@
 import React from 'react';
-import User from './User';
+import Employees from './Employees';
 
-const UserFetching = ({ users, deleteData }) => {
+const FetchingEmployees = ({ users, deleteData }) => {
   return (
     <div >
       {users.map((user,) => (
         <section key={user.Id} className='inline-block mr-5 mb-5'>
-          <User
+          <Employees
             key={user.Id}
             id={user.Id}
             name={user.Name}
             email={user.Email}
-            department={user.Department}
+            department={user.department}
             phone={user.Phone}
             UserID={user.employeeId}
             position={user.Position}
@@ -23,4 +23,4 @@ const UserFetching = ({ users, deleteData }) => {
   );
 };
 
-export default UserFetching;
+export default FetchingEmployees;
