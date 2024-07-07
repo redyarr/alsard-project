@@ -1,11 +1,27 @@
-import React from 'react'
+import React from 'react';
+import Items from './Items';
 
-const FetchingItems = () => {
+const FetchingItems = ({ items, deleteItems }) => {
   return (
-    <div>
-      
+    <div >
+      {items.map((item,) => (
+        <section key={user.Id} className='inline-block mr-5 mb-5'>
+          <Items
+            key={item.Id}
+            id={item.Id}
+            name={item.Name}
+            description={item.Description}
+            category={item.Category}
+            model={item.model}
+            tagID={item.tagId}
+            company={item.company}
+            subLocation={item.subLocation}
+            delete={deleteItems}
+          />
+        </section>
+      ))}
     </div>
-  )
-}
+  );
+};
 
-export default FetchingItems
+export default FetchingItems;

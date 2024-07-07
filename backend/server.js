@@ -52,7 +52,7 @@ async function ensureAdminUser() {
 
 
 
-app.post('/items', (req, res, next) => {
+app.post('/additems', (req, res, next) => {
     items.create({
         Name: req.body.Name || "lenovo monitor",
         Description: req.body.Description || "has windows 10 installed",
