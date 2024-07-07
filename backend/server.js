@@ -49,33 +49,33 @@ async function ensureAdminUser() {
 
 
 
-
-
-
 app.post('/additems', (req, res, next) => {
     items.create({
-        Name: req.body.Name || "lenovo monitor",
+        Name: req.body.Name || "lenovo monitor ",
         Description: req.body.Description || "has windows 10 installed",
         Category: req.body.Category || "monitor",
-        model: req.body.model || "lenovo",
-        tagId: req.body.tagId || "alsard-it-0000725",
-        company: req.body.company || "ALSARD",
+        model: req.body.model || "alsard-it-0000725",
+        tagId: req.body.tagId || "ALSARD",
+        company: req.body.company || "IT",
         subLocation: req.body.subLocation || "IT-Department",
-
-    })
-        .then(item => {
-            res.status(201).json({
-                message: "Item created successfully",
-                item: item
-            });
-        })
-        .catch(error => {
-            res.status(500).json({
-                message: "Failed to create item",
-                error: error.message
-            });
+        reserved: req.body.reserved || "no"
+    }).then(result => {
+        res.status(201).json({
+            message: "Item created successfully",
+            item: result
         });
+    }
+    ).catch(error => {
+        res.status(500).json({
+            message: "Failed to create item",
+            error: error.message
+        });
+    });
+
+
+
 });
+
 
 app.get('/items', (req, res, next) => {
 

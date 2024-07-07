@@ -59,7 +59,7 @@ export default function App() {
 
 
   // useEffect(() => {
-  //   const fetchUsers = async () => {
+  //   const fetchItem = async () => {
   //     try {
   //       const response = await fetch('http://localhost:3000/items');
   //       if (!response.ok) {
@@ -72,7 +72,7 @@ export default function App() {
   //     }
   //   };
 
-  //   fetchUsers();
+  //   fetchItem();
   // }, [items]);
   
 

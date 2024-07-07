@@ -10,7 +10,8 @@ import { useState } from "react";
     model:"",
     tagId:"",
     company:"",
-    subLocation:""
+    subLocation:"",
+    reserved: null
 });
 
 
@@ -28,7 +29,8 @@ async function fetching(event) {
       model: data.model,
       tagId: data.tagId,
       company: data.company,
-      subLocation: data.subLocation
+      subLocation: data.subLocation,
+      reserved: data.reserved
     }),
   });
 
@@ -41,12 +43,12 @@ async function fetching(event) {
   }
 
   setData({
-    name:"",
-    description:"",
-    category:"",
+    Name:"",
+    Description:"",
+    Category:"",
     company:"",
     model:"",
-    tagID:"",
+    tagId:"",
     subLocation:""
   })
 }
