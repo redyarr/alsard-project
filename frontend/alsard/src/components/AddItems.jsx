@@ -4,11 +4,11 @@ import { useState } from "react";
 
  function AddItems() {
   const [data, setData] = useState({
-    name:"",
-    description:"",
-    category:"",
+    Name:"",
+    Description:"",
+    Category:"",
     model:"",
-    tagID:"",
+    tagId:"",
     company:"",
     subLocation:""
 });
@@ -22,11 +22,11 @@ async function fetching(event) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name: data.name,
-      Description: data.description,
-      Category: data.category,
+      Name: data.Name,
+      Description: data.Description,
+      Category: data.Category,
       model: data.model,
-      tagId: data.tagID,
+      tagId: data.tagId,
       company: data.company,
       subLocation: data.subLocation
     }),
@@ -94,17 +94,17 @@ function handlechange(event){
 
            <div className="flex flex-row gap-10">
             <div className="sm:col-span-3">
-              <label  htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
+              <label  htmlFor="Name" className="block text-sm font-medium leading-6 text-gray-900">
                 name
               </label>
               <div className="mt-2">
                 <input
                 required
-                value={data.name}
+                value={data.Name}
                 onChange={handlechange}
                   type="text"
-                  name="name"
-                  id="name"
+                  name="Name"
+                  id="Name"
                   autoComplete="given-name"
                   className="p-2 block w-[300px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -112,35 +112,35 @@ function handlechange(event){
             </div>
 
             <div className="sm:col-span-4">
-              <label  htmlFor="description" className="block text-sm font-medium leading-6 text-gray-900">
+              <label  htmlFor="Description" className="block text-sm font-medium leading-6 text-gray-900">
                 Description
               </label>
               <div className="mt-2">
                 <input
                 required
-                value={data.description}
+                value={data.Description}
                 onChange={handlechange}
-                  id="text"
-                  name="description"
-                  type="description"
-                  autoComplete="description"
+                  id="Description"
+                  name="Description"
+                  type="text"
+                  autoComplete="Description"
                   className="p-2 block w-[300px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
             <div className="sm:col-span-4">
-              <label  htmlFor="category" className="block text-sm font-medium leading-6 text-gray-900">
+              <label  htmlFor="Category" className="block text-sm font-medium leading-6 text-gray-900">
               Category
               </label>
               <div className="mt-2">
                 <input
                 required
-                value={data.category}
+                value={data.Category}
                 onChange={handlechange}
-                  id="category"
-                  name="category"
+                  id="Category"
+                  name="Category"
                   type="text"
-                  autoComplete="category"
+                  autoComplete="Category"
                   className="p-2 block w-[300px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -167,18 +167,18 @@ function handlechange(event){
 
 
             <div className="col-span-full">
-              <label  htmlFor="UserID" className="block text-sm font-medium leading-6 text-gray-900">
+              <label  htmlFor="tagId" className="block text-sm font-medium leading-6 text-gray-900">
                 Tag ID
               </label>
               <div className="mt-2">
                 <input
                 required
-                value={data.tagID}
+                value={data.tagId}
                 onChange={handlechange}
                   type="text"
-                  name="UserID"
-                  id="UserID"
-                  autoComplete="UserID"
+                  name="tagId"
+                  id="tagId"
+                  autoComplete="tagId"
                   className="p-2 block w-[300px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -214,7 +214,7 @@ function handlechange(event){
                   type="text"
                   name="subLocation"
                   id="subLocation"
-                  autoComplete="a SubLocation"
+                  autoComplete="a subLocation"
                   className="block w-[300px] p-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>

@@ -77,6 +77,41 @@ app.post('/additems', (req, res, next) => {
         });
 });
 
+app.get('/items', (req, res, next) => {
+
+    items.findAll()
+        .then(items => {
+            res.status(200).json({
+                message: "Items fetched successfully",
+                items: items
+            });
+        })
+        .catch(error => {
+            res.status(500).json({
+                message: "Failed to fetch items",
+                error: error.message
+            });
+        });
+
+
+});
+
+
+app.delete('/deleteItem/:id', (req, res) => {
+    const itemId = req.params.id;
+    items.destroy({
+        where: { Id: itemId }
+    }).then(() => {
+        res.status(200).json({
+            message: "Item deleted successfully"
+        });
+    }).catch(error => {
+        res.status(500).json({
+            message: "Failed to delete item",
+            error: error.message
+        });
+    });
+});
 
 
 
@@ -128,24 +163,7 @@ app.delete('/deleteEmployee/:id', (req, res, next) => {
 
 
 
-app.get('/items', (req, res, next) => {
 
-    items.findAll()
-        .then(items => {
-            res.status(200).json({
-                message: "Items fetched successfully",
-                items: items
-            });
-        })
-        .catch(error => {
-            res.status(500).json({
-                message: "Failed to fetch items",
-                error: error.message
-            });
-        });
-
-
-});
 
 
 

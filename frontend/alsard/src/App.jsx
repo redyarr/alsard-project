@@ -11,7 +11,6 @@ import Login from './components/Login'
 import FetchingEmployees from './components/FetchingEmployees';
 import RecervedItems from './components/RecervedItems';
 import FetchingItems from './components/FetchingItems';
-import Items from './components/Items';
 
 
 
@@ -59,40 +58,42 @@ export default function App() {
 
 
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/items');
-        if (!response.ok) {
-          throw new Error('Failed to fetch users');
-        }
-        const data = await response.json();
-        setItems(data.Items);
-      } catch (error) {
-        console.error('Error fetching users:', error.message);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     try {
+  //       const response = await fetch('http://localhost:3000/items');
+  //       if (!response.ok) {
+  //         throw new Error('Failed to fetch users');
+  //       }
+  //       const data = await response.json();
+  //       setItems(data.Items);
+  //     } catch (error) {
+  //       console.error('Error fetching users:', error.message);
+  //     }
+  //   };
 
-    fetchUsers();
-  }, [items]);
+  //   fetchUsers();
+  // }, [items]);
   
 
       
-    async function deleteItems(id){
-      try {
-        const response = await fetch(`http://localhost:3000/deleteItems/${id}`, {
-          method: 'DELETE'
-        });
-  
-        if (!response.ok) {
-          throw new Error('Failed to delete user');
-        }
-  
-        setUsers(prevUsers => prevUsers.filter(user => user.id !== id));
-      } catch (error) {
-        console.error('Error deleting user:', error.message);
-      }
-      }
+  // async function deleteItems(id) {
+  //   try {
+  //     const response = await fetch(`http://localhost:3000/deleteItem/${id}`, {
+  //       method: 'DELETE',
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error('Failed to delete item');
+  //     }
+
+  //     setItems((prevItems) => prevItems.filter((item) => item.Id !== id));
+  //   } catch (error) {
+  //     console.error('Error deleting item:', error.message);
+  //   }
+  // }
+
+
 
 
   return (
@@ -104,7 +105,7 @@ export default function App() {
       <Route path="/" element={<Home />} />
       <Route path='/employees' element={<FetchingEmployees users={users} deleteData={deleteData} />} />
       <Route path='/addemployees' element={<AddEmployees />} />
-      <Route path='items' element={<FetchingItems items={items} deleteItems={deleteItems} />} />
+      {/* <Route path='items' element={<FetchingItems items={items} deleteItems={deleteItems} />} /> */}
       <Route path='/additems' element={<AddItems />} />
       <Route path='/reserved' element={<RecervedItems />} />
       <Route path='/login' element={<Login />} />

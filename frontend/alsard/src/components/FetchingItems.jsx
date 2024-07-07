@@ -4,8 +4,8 @@ import Items from './Items';
 const FetchingItems = ({ items, deleteItems }) => {
   return (
     <div >
-      {items.map((item,) => (
-        <section key={user.Id} className='inline-block mr-5 mb-5'>
+      {items.map((item) => (
+        <section key={item.Id} className='inline-block mr-5 mb-5'>
           <Items
             key={item.Id}
             id={item.Id}
