@@ -145,7 +145,8 @@ app.get('/items', (req, res, next) => {
         });
 
 
-})
+});
+
 
 
 
@@ -169,25 +170,25 @@ app.get('/employees', (req, res, next) => {
 });
 
 
-app.post('/addUser', (req, res, next) => {
+// app.post('/addUser', (req, res, next) => {
 
-    users.create({
-        name: req.body.name,
-        password: req.body.password,
-        role: req.body.role
-    }).then(result => {
-        res.status(201).json({
-            message: "User created successfully",
-            user: result
-        });
-    }
-    ).catch(error => {
-        res.status(500).json({
-            message: "Failed to create user",
-            error: error.message
-        });
-    });
-});
+//     users.create({
+//         name: req.body.name,
+//         password: req.body.password,
+//         role: req.body.role
+//     }).then(result => {
+//         res.status(201).json({
+//             message: "User created successfully",
+//             user: result
+//         });
+//     }
+//     ).catch(error => {
+//         res.status(500).json({
+//             message: "Failed to create user",
+//             error: error.message
+//         });
+//     });
+// });
 
 
 
@@ -199,9 +200,6 @@ app.post('/addUser', (req, res, next) => {
 
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
-
-
-
     console.log("username", username);
 
     // Dummy authentication logic (replace with database query)
@@ -220,35 +218,146 @@ app.post('/login', (req, res) => {
 
 
 
-app.post('/signUp', (req, res, next) => {
+// to edit an employee
+app.post('editEmployee/:id', (req, res, next) => {
 
-    users.create({
-        name: req.body.name,
-        password: req.body.password,
-        role: req.body.role
-    }).then(result => {
-        res.status(201).json({
-            message: "User created  successfully",
-            user: result
+    const employeeId = req.params.id;
+
+    employees.update({
+
+        Name: req.body.name,
+        Email: req.body.email,
+        Phone: req.body.phone,
+        employeeId: req.body.UserID,
+        Position: req.body.position,
+        department: req.body.department,
+        updatedAt: new Date()
+    
+    }, { where: { Id: employeeId } }).then(result => {
+        res.status(200).json({
+            message: "Employee updated successfully",
+            employee: result
         });
     }
     ).catch(error => {
         res.status(500).json({
-            message: "Failed to create user",
+            message: "Failed to update employee",
             error: error.message
         });
     });
-}
-);
+
+});
+
+// to edit an item
+app.post('/editItem/:id', (req, res, next) => {
+
+    const itemId = req.params.id;
+
+    items.update({
+
+        Name: req.body.Name,
+        Description: req.body.Description,
+        Category: req.body.Category,
+        model: req.body.model,
+        tagId: req.body.tagId,
+        company: req.body.company,
+        subLocation: req.body.subLocation,
+        updatedAt: new Date(),
+        reserved: req.body.reserved
+    }, { where: { Id: itemId } }).then(result => {
+
+        res.status(200).json({
+            message: "Item updated successfully",
+            item: result
+        });
+    }
+    ).catch(error => {
+        res.status(500).json({
+            message: "Failed to update item",
+            error: error.message
+        });
+    }
+    );
+
+});
+
+
+// to delete an item
+app.delete('/deleteItem/:id', (req, res, next) => {
+
+    const itemId = req.params.id;
+
+    items.destroy({
+        where: { Id: itemId }
+    }).then(() => {
+        res.status(200).json({
+            message: "Item deleted successfully"
+        });
+    }).catch(error => {
+        res.status(500).json({
+            message: "Failed to delete item",
+            error: error.message
+        });
+    });
+
+});
 
 
 
 
+app.post('/addEmployeeItem', (req, res, next) => {
+
+    const employeeId = req.body.employeeId;
+    const itemId = req.body.itemId;
+
+    EmployeeItem.create({
+
+        employeeId: employeeId,
+        itemId: itemId
+
+    }).then(result => {
+        res.status(201).json({
+            message: "Employee item created successfully",
+            employeeItem: result
+        });
+    }
+    ).catch(error => {
+        res.status(500).json({
+            message: "Failed to create employee item",
+            error: error.message
+        });
+    }
+    );
+
+});
 
 
 // TO ADD AN ITEM TO AN EMPLOYEE :
 //write it here redyar dont forget .
 
+
+// to show the items that an employee is using 
+app.get('/employeeItems', (req, res) => {
+    EmployeeItem.findAll({
+        include: [
+            {
+                model: employees,
+                attributes: ['name', 'email', 'phone'], // Specify the employee attributes you want
+            },
+            {
+                model: items,
+                attributes: ['name', 'description'], // Specify the item attributes you want
+            }
+        ]
+    }).then(employeeItems => {
+        res.status(200).json(employeeItems);
+    }).catch(error => {
+        res.status(500).json({
+            message: "Failed to retrieve data",
+            error: error.message
+        });
+    });
+});
 
 
 
