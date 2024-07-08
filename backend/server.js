@@ -50,11 +50,19 @@ async function ensureAdminUser() {
 
 
 app.post('/additems', (req, res, next) => {
+items.findOne({where:{tagId:req.body.tagId}}).then(item=>{
+
+    if(item){
+        res.status(409).json({
+            message: "Item already exists"
+        });
+    }
+
     items.create({
         Name: req.body.Name || "lenovo monitor ",
         Description: req.body.Description || "has windows 10 installed",
         Category: req.body.Category || "monitor",
-        model: req.body.model || "alsard-it-0000725",
+        model: req.body.model || "alsard-it-defaultValue!",
         tagId: req.body.tagId || "ALSARD",
         company: req.body.company || "IT",
         subLocation: req.body.subLocation || "IT-Department",
@@ -75,7 +83,7 @@ app.post('/additems', (req, res, next) => {
 
 
 });
-
+});
 
 app.get('/items', (req, res, next) => {
 
@@ -117,14 +125,23 @@ app.delete('/deleteItem/:id', (req, res) => {
 
 
 app.post('/addEmployee', (req, res, next) => {
-    console.log("entered it ")
+    
+    employees.findOne({where:{employeeId:req.body.UserID}}).then(employee=>{
+        if(employee){
+            res.status(409).json({
+                message: "Employee already exists"
+            });
+        }
+    
+
+
     employees.create({
-        Name: req.body.name || "nmuna ",
+        Name: req.body.name,
         Email: req.body.email,
-        Phone: req.body.phone || "1234567890",
-        employeeId: req.body.UserID || "alsard-it-0000725",
-        Position: req.body.position || "employee",
-        department: req.body.department || "IT"
+        Phone: req.body.phone  ,
+        employeeId: req.body.UserID ,
+        Position: req.body.position ,
+        department: req.body.department
     }).then(result => {
         res.status(201).json({
             message: "Employee created successfully",
@@ -142,6 +159,7 @@ app.post('/addEmployee', (req, res, next) => {
 
 });
 
+});
 
 
 app.delete('/deleteEmployee/:id', (req, res, next) => {
@@ -218,9 +236,9 @@ app.get('/employees', (req, res, next) => {
 
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
-    console.log("username", username);
 
-    // Dummy authentication logic (replace with database query)
+
+    // Dummy authentication logic 
     const user = users.findOne({ where: { name: username, password: password } });
     if (!user) {
         return res.status(401).json({ error: 'Invalid credentials' });
