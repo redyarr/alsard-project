@@ -39,7 +39,7 @@ async function fetching(event) {
   if (responseData.status == 'ok') {
     console.log('Data added successfully');
   } else {
-    console.log(responseData.error);
+    console.log("couldnt create the item for some reason bro :        "+responseData.error);
   }
 
   setData({

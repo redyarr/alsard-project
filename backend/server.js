@@ -53,12 +53,12 @@ app.post('/additems', (req, res, next) => {
 items.findOne({where:{tagId:req.body.tagId}}).then(item=>{
 
     if(item){
-        res.status(409).json({
+    return     res.status(409).json({
             message: "Item already exists"
         });
     }
 
-    items.create({
+ return    items.create({
         Name: req.body.Name || "lenovo monitor ",
         Description: req.body.Description || "has windows 10 installed",
         Category: req.body.Category || "monitor",
