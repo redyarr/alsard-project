@@ -68,13 +68,13 @@ items.findOne({where:{tagId:req.body.tagId}}).then(item=>{
         subLocation: req.body.subLocation || "IT-Department",
         reserved: req.body.reserved || "no"
     }).then(result => {
-        res.status(201).json({
+       return res.status(201).json({
             message: "Item created successfully",
             item: result
         });
     }
     ).catch(error => {
-        res.status(500).json({
+        return  res.status(500).json({
             message: "Failed to create item",
             error: error.message
         });
