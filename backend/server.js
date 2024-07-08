@@ -89,13 +89,13 @@ app.get('/items', (req, res, next) => {
 
     items.findAll()
         .then(items => {
-            res.status(200).json({
+            return res.status(200).json({
                 message: "Items fetched successfully",
                 items: items
             });
         })
         .catch(error => {
-            res.status(500).json({
+            return res.status(500).json({
                 message: "Failed to fetch items",
                 error: error.message
             });
@@ -110,11 +110,11 @@ app.delete('/deleteItem/:id', (req, res) => {
     items.destroy({
         where: { Id: itemId }
     }).then(() => {
-        res.status(200).json({
+        return res.status(200).json({
             message: "Item deleted successfully"
         });
     }).catch(error => {
-        res.status(500).json({
+        return res.status(500).json({
             message: "Failed to delete item",
             error: error.message
         });
@@ -128,7 +128,7 @@ app.post('/addEmployee', (req, res, next) => {
     
     employees.findOne({where:{employeeId:req.body.UserID}}).then(employee=>{
         if(employee){
-            res.status(409).json({
+            return res.status(409).json({
                 message: "Employee already exists"
             });
         }
@@ -143,13 +143,13 @@ app.post('/addEmployee', (req, res, next) => {
         Position: req.body.position ,
         department: req.body.department
     }).then(result => {
-        res.status(201).json({
+        return   res.status(201).json({
             message: "Employee created successfully",
             employee: result
         });
     }
     ).catch(error => {
-        res.status(500).json({
+        return   res.status(500).json({
             message: "Failed to create employee",
             error: error.message
         });
@@ -168,11 +168,11 @@ app.delete('/deleteEmployee/:id', (req, res, next) => {
     employees.destroy({
         where: { Id: employeeId } 
     }).then(() => {
-        res.status(200).json({
+        return res.status(200).json({
             message: "Employee deleted successfully"
         });
     }).catch(error => {
-        res.status(500).json({
+        return res.status(500).json({
             message: "Failed to delete employee",
             error: error.message
         });
@@ -192,12 +192,12 @@ app.get('/employees', (req, res, next) => {
 
     employees.findAll().then(employees => {
         console.log(employees);
-        res.status(200).json({
+        return res.status(200).json({
             message: "Employees fetched successfully",
             employees: employees
         });
     }).catch(error => {
-        res.status(500).json({
+        return res.status(500).json({
             message: "Failed to fetch employees",
             error: error.message
         });
@@ -247,7 +247,7 @@ app.post('/login', (req, res) => {
     // Generate JWT token
     const token = jwt.sign({ username: user.username }, 'your_secret_key', { expiresIn: '1h' });
 
-    res.json({ username: user.username, token });
+    return res.json({ username: user.username, token });
 
 });
 
@@ -270,7 +270,7 @@ app.post('editEmployee/:id', (req, res, next) => {
         updatedAt: new Date()
     
     }, { where: { Id: employeeId } }).then(result => {
-        res.status(200).json({
+        return  res.status(200).json({
             message: "Employee updated successfully",
             employee: result
         });
@@ -302,13 +302,13 @@ app.post('/editItem/:id', (req, res, next) => {
         reserved: req.body.reserved
     }, { where: { Id: itemId } }).then(result => {
 
-        res.status(200).json({
+        return   res.status(200).json({
             message: "Item updated successfully",
             item: result
         });
     }
     ).catch(error => {
-        res.status(500).json({
+        return res.status(500).json({
             message: "Failed to update item",
             error: error.message
         });
@@ -326,11 +326,11 @@ app.delete('/deleteItem/:id', (req, res, next) => {
     items.destroy({
         where: { Id: itemId }
     }).then(() => {
-        res.status(200).json({
+        return res.status(200).json({
             message: "Item deleted successfully"
         });
     }).catch(error => {
-        res.status(500).json({
+        return res.status(500).json({
             message: "Failed to delete item",
             error: error.message
         });
@@ -352,13 +352,13 @@ app.post('/addEmployeeItem', (req, res, next) => {
         itemId: itemId
 
     }).then(result => {
-        res.status(201).json({
+        return   res.status(201).json({
             message: "Employee item created successfully",
             employeeItem: result
         });
     }
     ).catch(error => {
-        res.status(500).json({
+        return  res.status(500).json({
             message: "Failed to create employee item",
             error: error.message
         });
@@ -386,9 +386,9 @@ app.get('/employeeItems', (req, res) => {
             }
         ]
     }).then(employeeItems => {
-        res.status(200).json(employeeItems);
+        return res.status(200).json(employeeItems);
     }).catch(error => {
-        res.status(500).json({
+        return  res.status(500).json({
             message: "Failed to retrieve data",
             error: error.message
         });
