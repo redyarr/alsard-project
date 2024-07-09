@@ -88,7 +88,7 @@ items.findOne({where:{tagId:req.body.tagId}}).then(item=>{
 app.get('/items', (req, res, next) => {
 
     items.findAll()
-        .then(items => {
+        .then(items => {            
             return res.status(200).json({
                 message: "Items fetched successfully",
                 items: items
@@ -340,8 +340,9 @@ app.delete('/deleteItem/:id', (req, res, next) => {
 
 
 
+// RESERVING AN ITEM FOR AN EMPLOYEE : 
 
-app.post('/addEmployeeItem', (req, res, next) => {
+app.post('/ReserveItem', (req, res, next) => {
 
     const employeeId = req.body.employeeId;
     const itemId = req.body.itemId;
@@ -352,6 +353,10 @@ app.post('/addEmployeeItem', (req, res, next) => {
         itemId: itemId
 
     }).then(result => {
+        items.update({
+            reserved:"yes"
+        },{where:{Id:itemId}}).then(results=>{
+
         return   res.status(201).json({
             message: "Employee item created successfully",
             employeeItem: result
@@ -367,9 +372,9 @@ app.post('/addEmployeeItem', (req, res, next) => {
 
 });
 
+});
 
-// TO ADD AN ITEM TO AN EMPLOYEE :
-//write it here redyar dont forget .
+
 
 
 // to show the items that an employee is using 
@@ -423,3 +428,15 @@ db.sync().then(() => { ensureAdminUser() }).then(() => {
 }).catch((err) => {
     console.log("the server could not start!");
 })
+
+
+
+
+
+
+// Authors: Redyar Hawzhin rauf ,  Rekar Jamal Najm.
+// Date: 2024-7-7
+// Description: This is a simple inventory management system that allows you to add employees, items, and reserve items for employees.
+//              It also allows you to view all employees and items, and view the items that an employee is using.
+//              It also allows you to delete items and employees, and update items and employees.
+//              It also allows you to search for an employee and view all the items that he is using.
