@@ -16,7 +16,7 @@ const Items = (props) => {
 <>
 <div className='mt-5 text-black mx-auto max-w-8xl   xl:px-6 2xl:px-20 flex'>
 
-<div className='w-[300px] h-[250px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
+<div className='w-[300px] h-[270px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
     <div className='flex gap-2'>
         <h1 className='font-bold'>{props.name}</h1>
     </div>
