@@ -28,6 +28,7 @@ const Items = (props) => {
         <p className='font-medium'>{props.tagID}</p>
         <p className='font-medium'>{props.company}</p>
         <p className='font-medium'>{props.subLocation}</p>
+        <p className='font-medium'>{props.reserved}</p>
     </div>
     {authState.isAuthenticated  && <button className='w-[100px] h-[30px] bg-blue-600  text-white rounded' onClick={DeleteButton}>delete</button> }
 </div>

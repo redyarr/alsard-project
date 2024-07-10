@@ -11,7 +11,7 @@ function AddItems() {
     tagId: "",
     company: "",
     subLocation: "",
-    reserved: null
+    reserved: ""
   });
 
 
@@ -147,8 +147,7 @@ function AddItems() {
                     />
                   </div>
                 </div>
-              </div>
-              <div className="flex flex-row gap-5">
+
                 <div className="sm:col-span-4">
                   <label htmlFor="model" className="block text-sm font-medium leading-6 text-gray-900">
                     Model
@@ -166,8 +165,8 @@ function AddItems() {
                     />
                   </div>
                 </div>
-
-
+              </div>
+              <div className="flex flex-row gap-5">
                 <div className="col-span-full">
                   <label htmlFor="tagId" className="block text-sm font-medium leading-6 text-gray-900">
                     Tag ID
@@ -217,6 +216,23 @@ function AddItems() {
                       name="subLocation"
                       id="subLocation"
                       autoComplete="a subLocation"
+                      className="block w-[300px] p-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+                <div className="sm:col-span-2 sm:col-start-1">
+                  <label htmlFor="reserved" className="block text-sm font-medium leading-6 text-gray-900">
+                  Reserved
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      required
+                      value={data.reserved}
+                      onChange={handlechange}
+                      type="text"
+                      name="reserved"
+                      id="reserved"
+                      autoComplete="no"
                       className="block w-[300px] p-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>

@@ -58,40 +58,40 @@ export default function App() {
 
 
 
-  // useEffect(() => {
-  //   const fetchItem = async () => {
-  //     try {
-  //       const response = await fetch('http://localhost:3000/items');
-  //       if (!response.ok) {
-  //         throw new Error('Failed to fetch users');
-  //       }
-  //       const data = await response.json();
-  //       setItems(data.Items);
-  //     } catch (error) {
-  //       console.error('Error fetching users:', error.message);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchItem = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/items');
+        if (!response.ok) {
+          throw new Error('Failed to fetch users');
+        }
+        const data = await response.json();
+        setItems(data.items);
+      } catch (error) {
+        console.error('Error fetching users:', error.message);
+      }
+    };
 
-  //   fetchItem();
-  // }, [items]);
+    fetchItem();
+  }, [items]);
   
 
       
-  // async function deleteItems(id) {
-  //   try {
-  //     const response = await fetch(`http://localhost:3000/deleteItem/${id}`, {
-  //       method: 'DELETE',
-  //     });
+  async function deleteItems(id) {
+    try {
+      const response = await fetch(`http://localhost:3000/deleteItem/${id}`, {
+        method: 'DELETE',
+      });
 
-  //     if (!response.ok) {
-  //       throw new Error('Failed to delete item');
-  //     }
+      if (!response.ok) {
+        throw new Error('Failed to delete item');
+      }
 
-  //     setItems((prevItems) => prevItems.filter((item) => item.Id !== id));
-  //   } catch (error) {
-  //     console.error('Error deleting item:', error.message);
-  //   }
-  // }
+      setItems((prevItems) => prevItems.filter((item) => item.Id !== id));
+    } catch (error) {
+      console.error('Error deleting item:', error.message);
+    }
+  }
   
 
 
@@ -106,7 +106,7 @@ export default function App() {
       <Route path="/" element={<Home />} />
       <Route path='/employees' element={<FetchingEmployees users={users} deleteData={deleteData} />} />
       <Route path='/addemployees' element={<AddEmployees />} />
-      {/* <Route path='items' element={<FetchingItems items={items} deleteItems={deleteItems} />} /> */}
+      <Route path='items' element={<FetchingItems items={items} deleteItems={deleteItems} />} />
       <Route path='/additems' element={<AddItems />} />
       <Route path='/reserved' element={<RecervedItems />} />
       <Route path='/login' element={<Login />} />

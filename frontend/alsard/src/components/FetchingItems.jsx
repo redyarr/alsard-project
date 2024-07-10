@@ -16,6 +16,7 @@ const FetchingItems = ({ items, deleteItems }) => {
             tagID={item.tagId}
             company={item.company}
             subLocation={item.subLocation}
+            reserved={item.reserved}
             delete={deleteItems}
           />
         </section>
