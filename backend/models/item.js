@@ -19,9 +19,9 @@ const items = db.define('item', {
         type: Sequllize.STRING,
         allowNull: false
     },
-    model:{
-type:Sequllize.STRING,
-allowNull:false
+    model: {
+        type: Sequllize.STRING,
+        allowNull: false
     }
     ,
 
@@ -29,25 +29,30 @@ allowNull:false
         type: Sequllize.STRING,
         allowNull: false
     },
-   
+
     tagId: {
         type: Sequllize.STRING,
         allowNull: false
     },
-    company : {
+    company: {
         type: Sequllize.STRING,
         allowNull: false
     },
 
-    subLocation:{
-        type: Sequllize.STRING,  
+    subLocation: {
+        type: Sequllize.STRING,
         allowNull: false
     },
-    reserved:{
-        type: Sequllize.STRING,  
+    reserved: {
+        type: Sequllize.STRING,
+        allowNull: false
+    },
+    status: {
+        type: Sequllize.STRING,
         allowNull: false
     }
-    
+
+
 });
 
 module.exports = items;

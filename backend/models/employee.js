@@ -37,7 +37,7 @@ const employees = db.define('employee', {
         type: Sequllize.STRING,
         allowNull: false
     }
-   
+
 
 });
 
