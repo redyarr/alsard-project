@@ -18,7 +18,7 @@ const Employees = (props) => {
 
 <div className='w-[300px] h-[250px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
     <div className='flex gap-2'>
-        <h1 className='font-bold'>{props.name}</h1>
+        <h1 className='text-xl font-bold'>{props.name}</h1>
     </div>
 
     <div>

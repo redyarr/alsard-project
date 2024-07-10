@@ -256,6 +256,26 @@ app.post('/login', (req, res) => {
 });
 
 
+app.get('/reservedItems', (req, res, next) => {
+    items.findAll({
+        where: { reserved: 'yes' }
+    })
+    .then(items => {
+        return res.status(200).json({
+            message: "Reserved items fetched successfully",
+            items: items
+        });
+    })
+    .catch(error => {
+        return res.status(500).json({
+            message: "Failed to fetch reserved items",
+            error: error.message
+        });
+    });
+});
+
+
+
 
 
 // to edit an employee

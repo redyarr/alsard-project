@@ -1,18 +1,9 @@
-import { useAuth } from './AuthContext';
-
-const Items = (props) => {
-    const { authState } = useAuth();
 
 
 
+const ReservedItems = (props) => {
 
-
-    function DeleteButton(){
-        props.delete(props.id);
-     }
-
-
-  return (
+return (
 <>
 <div className='mt-5 text-black mx-auto max-w-8xl   xl:px-6 2xl:px-20 flex'>
 
@@ -30,11 +21,10 @@ const Items = (props) => {
         <p className='font-medium'>{props.subLocation}</p>
         <p className='font-medium'>{props.reserved}</p>
     </div>
-    {authState.isAuthenticated  && <button className='w-[100px] h-[30px] bg-blue-600  text-white rounded' onClick={DeleteButton}>delete</button> }
 </div>
 </div>
 </>
   )
 }
 
-export default Items
+export default ReservedItems
