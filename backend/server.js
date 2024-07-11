@@ -52,13 +52,13 @@ async function ensureAdminUser() {
 app.post('/additems', (req, res, next) => {
 
     items.findOne({ where: { tagId: req.body.tagId } }).then(item => {
-        console.log("my maaaaaaaaaan 1");
+       
         if (item) {
             return res.status(409).json({
                 message: "Item already exists"
             });
         }
-        console.log("my maaaaaaaaaan 2");
+       
         return items.create({
             Name: req.body.Name,
             Description: req.body.Description,
@@ -67,8 +67,7 @@ app.post('/additems', (req, res, next) => {
             tagId: req.body.tagId,
             company: req.body.company,
             subLocation: req.body.subLocation,
-            reserved: req.body.reserved || "no",
-            status: req.body.status || "default"
+            reserved: req.body.reserved || "no"
 
         }).then(result => {
             return res.status(200).json({

@@ -46,10 +46,6 @@ const items = db.define('item', {
     reserved: {
         type: Sequllize.STRING,
         allowNull: false
-    },
-    status: {
-        type: Sequllize.STRING,
-        allowNull: false
     }
 
 
