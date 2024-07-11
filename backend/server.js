@@ -256,19 +256,23 @@ app.post('/login', (req, res) => {
 });
 
 
-app.get('/reservedItems', (req, res, next) => {
-    items.findAll({
-        where: { reserved: 'yes' }
-    })
-    .then(items => {
-        return res.status(200).json({
-            message: "Reserved items fetched successfully",
-            items: items
-        });
-    })
-    .catch(error => {
+app.get('/employeeItems', (req, res) => {
+    EmployeeItem.findAll({
+        include: [
+            {
+                model: employees,
+                attributes: ['name', 'email', 'phone'], // Specify the employee attributes you want
+            },
+            {
+                model: items,
+                attributes: ['name', 'description'], // Specify the item attributes you want
+            }
+        ]
+    }).then(employeeItems => {
+        return res.status(200).json(employeeItems);
+    }).catch(error => {
         return res.status(500).json({
-            message: "Failed to fetch reserved items",
+            message: "Failed to retrieve data",
             error: error.message
         });
     });

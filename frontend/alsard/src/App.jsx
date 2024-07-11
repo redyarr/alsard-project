@@ -98,12 +98,12 @@ export default function App() {
   useEffect(() => {
     const fetchItem = async () => {
       try {
-        const response = await fetch('http://localhost:3000/reservedItems');
+        const response = await fetch('http://localhost:3000/employeeItems');
         if (!response.ok) {
           throw new Error('Failed to fetch users');
         }
         const data = await response.json();
-        setReserved(data.items);
+        setReserved(data.employeeItems);
       } catch (error) {
         console.error('Error fetching users:', error.message);
       }
