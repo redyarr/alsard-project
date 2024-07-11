@@ -67,8 +67,7 @@ app.post('/additems', (req, res, next) => {
             tagId: req.body.tagId,
             company: req.body.company,
             subLocation: req.body.subLocation,
-            reserved: req.body.reserved || "no",
-            status: req.body.status || "default"
+            reserved: req.body.reserved || "no"
 
         }).then(result => {
             return res.status(200).json({
