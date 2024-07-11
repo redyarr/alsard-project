@@ -385,7 +385,7 @@ app.post('/ReserveItem', (req, res, next) => {
             reserved:"yes"
         },{where:{Id:itemId}}).then(results=>{
 
-        return   res.status(201).json({
+        
         return res.status(201).json({
             message: "Employee item created successfully",
             employeeItem: result
@@ -402,6 +402,7 @@ app.post('/ReserveItem', (req, res, next) => {
 });
 
 });
+
 
 
 
