@@ -45,7 +45,11 @@ const items = db.define('item', {
     },
     reserved: {
         type: Sequllize.STRING,
-        allowNull: false
+        allowNull: false,
+        defaultValue: 'no',
+        validate: {
+            isIn: [['yes', 'no']]
+        }
     }
 
 
