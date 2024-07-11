@@ -50,39 +50,43 @@ async function ensureAdminUser() {
 
 
 app.post('/additems', (req, res, next) => {
-items.findOne({where:{tagId:req.body.tagId}}).then(item=>{
 
-    if(item){
-    return     res.status(409).json({
-            message: "Item already exists"
-        });
-    }
+    items.findOne({ where: { tagId: req.body.tagId } }).then(item => {
+        console.log("my maaaaaaaaaan 1");
+        if (item) {
+            return res.status(409).json({
+                message: "Item already exists"
+            });
+        }
+        console.log("my maaaaaaaaaan 2");
+        return items.create({
+            Name: req.body.Name,
+            Description: req.body.Description,
+            Category: req.body.Category,
+            model: req.body.model,
+            tagId: req.body.tagId,
+            company: req.body.company,
+            subLocation: req.body.subLocation,
+            reserved: req.body.reserved || "no",
+            status: req.body.status || "default"
 
- return    items.create({
-        Name: req.body.Name || "lenovo monitor ",
-        Description: req.body.Description || "has windows 10 installed",
-        Category: req.body.Category || "monitor",
-        model: req.body.model || "alsard-it-defaultValue!",
-        tagId: req.body.tagId || "ALSARD",
-        company: req.body.company || "IT",
-        subLocation: req.body.subLocation || "IT-Department",
-        reserved: req.body.reserved || "no"
-    }).then(result => {
-       return res.status(201).json({
-            message: "Item created successfully",
-            item: result
+        }).then(result => {
+            return res.status(200).json({
+
+                message: "Item created successfully",
+                item: result
+            });
+        }
+        ).catch(error => {
+            return res.status(500).json({
+                message: "Failed to create item",
+                error: error.message
+            });
         });
-    }
-    ).catch(error => {
-        return  res.status(500).json({
-            message: "Failed to create item",
-            error: error.message
-        });
+
+
+
     });
-
-
-
-});
 });
 
 app.get('/items', (req, res, next) => {
@@ -125,39 +129,39 @@ app.delete('/deleteItem/:id', (req, res) => {
 
 
 app.post('/addEmployee', (req, res, next) => {
-    
-    employees.findOne({where:{employeeId:req.body.UserID}}).then(employee=>{
-        if(employee){
+
+    employees.findOne({ where: { employeeId: req.body.UserID } }).then(employee => {
+        if (employee) {
             return res.status(409).json({
                 message: "Employee already exists"
             });
         }
-    
 
 
-    employees.create({
-        Name: req.body.name,
-        Email: req.body.email,
-        Phone: req.body.phone  ,
-        employeeId: req.body.UserID ,
-        Position: req.body.position ,
-        department: req.body.department
-    }).then(result => {
-        return   res.status(201).json({
-            message: "Employee created successfully",
-            employee: result
+
+        employees.create({
+            Name: req.body.name,
+            Email: req.body.email,
+            Phone: req.body.phone,
+            employeeId: req.body.UserID,
+            Position: req.body.position,
+            department: req.body.department
+        }).then(result => {
+            return res.status(201).json({
+                message: "Employee created successfully",
+                employee: result
+            });
+        }
+        ).catch(error => {
+            return res.status(500).json({
+                message: "Failed to create employee",
+                error: error.message
+            });
         });
-    }
-    ).catch(error => {
-        return   res.status(500).json({
-            message: "Failed to create employee",
-            error: error.message
-        });
+
+
+
     });
-
-
-
-});
 
 });
 
@@ -166,7 +170,7 @@ app.delete('/deleteEmployee/:id', (req, res, next) => {
     const employeeId = req.params.id;
 
     employees.destroy({
-        where: { Id: employeeId } 
+        where: { Id: employeeId }
     }).then(() => {
         return res.status(200).json({
             message: "Employee deleted successfully"
@@ -252,6 +256,30 @@ app.post('/login', (req, res) => {
 });
 
 
+app.get('/employeeItems', (req, res) => {
+    EmployeeItem.findAll({
+        include: [
+            {
+                model: employees,
+                attributes: ['name', 'email', 'phone'], // Specify the employee attributes you want
+            },
+            {
+                model: items,
+                attributes: ['name', 'description'], // Specify the item attributes you want
+            }
+        ]
+    }).then(employeeItems => {
+        return res.status(200).json(employeeItems);
+    }).catch(error => {
+        return res.status(500).json({
+            message: "Failed to retrieve data",
+            error: error.message
+        });
+    });
+});
+
+
+
 
 
 // to edit an employee
@@ -268,9 +296,9 @@ app.post('editEmployee/:id', (req, res, next) => {
         Position: req.body.position,
         department: req.body.department,
         updatedAt: new Date()
-    
+
     }, { where: { Id: employeeId } }).then(result => {
-        return  res.status(200).json({
+        return res.status(200).json({
             message: "Employee updated successfully",
             employee: result
         });
@@ -302,7 +330,7 @@ app.post('/editItem/:id', (req, res, next) => {
         reserved: req.body.reserved
     }, { where: { Id: itemId } }).then(result => {
 
-        return   res.status(200).json({
+        return res.status(200).json({
             message: "Item updated successfully",
             item: result
         });
@@ -358,12 +386,13 @@ app.post('/ReserveItem', (req, res, next) => {
         },{where:{Id:itemId}}).then(results=>{
 
         return   res.status(201).json({
+        return res.status(201).json({
             message: "Employee item created successfully",
             employeeItem: result
         });
     }
     ).catch(error => {
-        return  res.status(500).json({
+        return res.status(500).json({
             message: "Failed to create employee item",
             error: error.message
         });
@@ -393,7 +422,7 @@ app.get('/employeeItems', (req, res) => {
     }).then(employeeItems => {
         return res.status(200).json(employeeItems);
     }).catch(error => {
-        return  res.status(500).json({
+        return res.status(500).json({
             message: "Failed to retrieve data",
             error: error.message
         });

@@ -1,11 +1,10 @@
-import Items from './Items';
-
+import RecervedItems from "./ReservedItems";
 const FetchingItems = ({ items, deleteItems }) => {
   return (
     <div >
       {items.map((item) => (
         <section key={item.Id} className='inline-block mr-5 mb-5'>
-          <Items
+          <RecervedItems
             key={item.Id}
             id={item.Id}
             name={item.Name}
