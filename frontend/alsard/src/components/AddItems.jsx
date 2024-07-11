@@ -49,7 +49,8 @@ function AddItems() {
       company: "",
       model: "",
       tagId: "",
-      subLocation: ""
+      subLocation: "",
+      reserved: ""
     })
   }
 
