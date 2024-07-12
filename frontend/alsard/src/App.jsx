@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import {Route, Routes} from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import Home from './components/Home'
 import AddEmployees from './components/AddEmployees'
 import Nav from './components/Nav'
@@ -17,10 +17,10 @@ import AddReservedItems from './components/AddReservedItems';
 
 
 export default function App() {
-  const [users, setUsers]=useState([])
-  const [items, setItems]=useState([])
-  const [reserved, setReserved]=useState([])
-  
+  const [users, setUsers] = useState([])
+  const [items, setItems] = useState([])
+  const [reserved, setReserved] = useState([])
+
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -40,8 +40,8 @@ export default function App() {
   }, [users]);
 
 
-  
-  async function deleteData(id){
+
+  async function deleteData(id) {
     try {
       const response = await fetch(`http://localhost:3000/deleteEmployee/${id}`, {
         method: 'DELETE'
@@ -55,7 +55,7 @@ export default function App() {
     } catch (error) {
       console.error('Error deleting user:', error.message);
     }
-    }
+  }
 
 
 
@@ -76,9 +76,9 @@ export default function App() {
 
     fetchItem();
   }, [items]);
-  
 
-      
+
+
   async function deleteItems(id) {
     try {
       const response = await fetch(`http://localhost:3000/deleteItem/${id}`, {
@@ -109,32 +109,32 @@ export default function App() {
         console.error('Error fetching employeeItems:', error.message);
       }
     };
-  
+
     fetchItem();
   }, []);
-  
-  
+
+
 
 
 
 
   return (
 
-<AuthProvider>
-    <Nav />
+    <AuthProvider>
+      <Nav />
 
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path='/employees' element={<FetchingEmployees users={users} deleteData={deleteData} />} />
-      <Route path='/addemployees' element={<AddEmployees />} />
-      <Route path='items' element={<FetchingItems items={items} deleteItems={deleteItems} />} />
-      <Route path='/additems' element={<AddItems />} />
-      <Route path='/reserved' element={<FetchingReserved items={reserved} />} />
-      <Route path='/addreserved' element={<AddReservedItems />} />
-      <Route path='/login' element={<Login />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-</AuthProvider>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path='/employees' element={<FetchingEmployees users={users} deleteData={deleteData} />} />
+        <Route path='/addemployees' element={<AddEmployees />} />
+        <Route path='items' element={<FetchingItems items={items} deleteItems={deleteItems} />} />
+        <Route path='/additems' element={<AddItems />} />
+        <Route path='/reserved' element={<FetchingReserved items={reserved} />} />
+        <Route path='/addreserved' element={<AddReservedItems />} />
+        <Route path='/login' element={<Login />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </AuthProvider>
   )
 
 

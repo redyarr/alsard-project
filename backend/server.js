@@ -47,6 +47,31 @@ async function ensureAdminUser() {
 
 };
 
+// it reaches inside the api .
+app.get('/employeeItems', (req, res) => {
+
+    EmployeeItem.findAll({
+        include: [
+            {
+                model: employees,
+                attributes: ['Name', 'Email', 'Phone'] // Specify the employee attributes you want
+            },
+            {
+                model: items,
+                attributes: ['Name', 'Description'] // Specify the item attributes you want
+            }
+        ]
+    }).then(employeeItems => {
+        return res.status(200).json(employeeItems);
+    }).catch(error => {
+        return res.status(500).json({
+            message: "Failed to retrieve data",
+            error: error.message
+        });
+    });
+});
+
+
 
 
 app.post('/additems', (req, res, next) => {
@@ -278,29 +303,7 @@ app.post('/login', (req, res) => {
 });
 
 
-app.get('/employeeItems', async (req, res) => {
-    try {
-        const employeeItems = await EmployeeItem.findAll({
-            include: [
-                {
-                    model: employees,
-                    attributes: ['name', 'email', 'phone'], // Specify the employee attributes you want
-                },
-                {
-                    model: items,
-                    attributes: ['name', 'description'], // Specify the item attributes you want
-                }
-            ]
-        });
-        res.status(200).json(employeeItems);
-    } catch (error) {
-        console.error('Error retrieving data:', error.message);
-        res.status(500).json({
-            message: "Failed to retrieve data",
-            error: error.message
-        });
-    }
-});
+
 
 
 
@@ -432,27 +435,7 @@ app.post('/ReserveItem', (req, res, next) => {
 
 
 // to show the items that an employee is using 
-app.get('/employeeItems', (req, res) => {
-    EmployeeItem.findAll({
-        include: [
-            {
-                model: employees,
-                attributes: ['name', 'email', 'phone'], // Specify the employee attributes you want
-            },
-            {
-                model: items,
-                attributes: ['name', 'description'], // Specify the item attributes you want
-            }
-        ]
-    }).then(employeeItems => {
-        return res.status(200).json(employeeItems);
-    }).catch(error => {
-        return res.status(500).json({
-            message: "Failed to retrieve data",
-            error: error.message
-        });
-    });
-});
+
 
 
 
