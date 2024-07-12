@@ -52,13 +52,13 @@ async function ensureAdminUser() {
 app.post('/additems', (req, res, next) => {
 
     items.findOne({ where: { tagId: req.body.tagId } }).then(item => {
-       
+
         if (item) {
             return res.status(409).json({
                 message: "Item already exists"
             });
         }
-       
+
         return items.create({
             Name: req.body.Name,
             Description: req.body.Description,
@@ -91,7 +91,7 @@ app.post('/additems', (req, res, next) => {
 app.get('/items', (req, res, next) => {
 
     items.findAll()
-        .then(items => {            
+        .then(items => {
             return res.status(200).json({
                 message: "Items fetched successfully",
                 items: items
@@ -106,6 +106,29 @@ app.get('/items', (req, res, next) => {
 
 
 });
+
+// to get the items that are  NOT reserved
+
+
+app.get('/unreservedItems', (req, res, next) => {
+
+    items.findAll({ where: { reserved: "no" } })
+        .then(items => {
+            return res.status(200).json({
+                message: "Items that are not reserved fetched successfully",
+                items: items
+            });
+        })
+        .catch(error => {
+            return res.status(500).json({
+                message: "Failed to unreserved fetch items",
+                error: error.message
+            });
+        });
+
+
+});
+
 
 
 app.delete('/deleteItem/:id', (req, res) => {
@@ -256,27 +279,27 @@ app.post('/login', (req, res) => {
 
 
 app.get('/employeeItems', async (req, res) => {
-  try {
-    const employeeItems = await EmployeeItem.findAll({
-      include: [
-        {
-          model: employees,
-          attributes: ['name', 'email', 'phone'], // Specify the employee attributes you want
-        },
-        {
-          model: items,
-          attributes: ['name', 'description'], // Specify the item attributes you want
-        }
-      ]
-    });
-    res.status(200).json(employeeItems);
-  } catch (error) {
-    console.error('Error retrieving data:', error.message);
-    res.status(500).json({
-      message: "Failed to retrieve data",
-      error: error.message
-    });
-  }
+    try {
+        const employeeItems = await EmployeeItem.findAll({
+            include: [
+                {
+                    model: employees,
+                    attributes: ['name', 'email', 'phone'], // Specify the employee attributes you want
+                },
+                {
+                    model: items,
+                    attributes: ['name', 'description'], // Specify the item attributes you want
+                }
+            ]
+        });
+        res.status(200).json(employeeItems);
+    } catch (error) {
+        console.error('Error retrieving data:', error.message);
+        res.status(500).json({
+            message: "Failed to retrieve data",
+            error: error.message
+        });
+    }
 });
 
 
@@ -382,26 +405,26 @@ app.post('/ReserveItem', (req, res, next) => {
         employeeId: employeeId,
         itemId: itemId
     })
-    .then(result => {
-        return items.update({
-            reserved: "yes"
-        }, {
-            where: { Id: itemId }
+        .then(result => {
+            return items.update({
+                reserved: "yes"
+            }, {
+                where: { Id: itemId }
+            });
+        })
+        .then(updateResult => {
+            console.log(`Item with id=${itemId} successfully updated to reserved`);
+            return res.status(201).json({
+                message: "Employee item created successfully"
+            });
+        })
+        .catch(error => {
+            console.error('Error creating employee item:', error.message);
+            return res.status(500).json({
+                message: "Failed to create employee item",
+                error: error.message
+            });
         });
-    })
-    .then(updateResult => {
-        console.log(`Item with id=${itemId} successfully updated to reserved`);
-        return res.status(201).json({
-            message: "Employee item created successfully"
-        });
-    })
-    .catch(error => {
-        console.error('Error creating employee item:', error.message);
-        return res.status(500).json({
-            message: "Failed to create employee item",
-            error: error.message
-        });
-    });
 });
 
 

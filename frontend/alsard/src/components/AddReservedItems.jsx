@@ -23,7 +23,7 @@ function AddReservedItems() {
 
     const fetchItems = async () => {
       try {
-        const response = await fetch('http://localhost:3000/items');
+        const response = await fetch('http://localhost:3000/unreservedItems');
         if (!response.ok) {
           throw new Error('Failed to fetch items');
         }
