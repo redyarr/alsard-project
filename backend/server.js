@@ -370,36 +370,35 @@ app.delete('/deleteItem/:id', (req, res, next) => {
 // RESERVING AN ITEM FOR AN EMPLOYEE : 
 
 app.post('/ReserveItem', (req, res, next) => {
-
     const employeeId = req.body.employeeId;
     const itemId = req.body.itemId;
 
-    EmployeeItem.create({
+    console.log(`Received request to reserve item: employeeId=${employeeId}, itemId=${itemId}`);
 
+    EmployeeItem.create({
         employeeId: employeeId,
         itemId: itemId
-
-    }).then(result => {
-        items.update({
-            reserved:"yes"
-        },{where:{Id:itemId}}).then(results=>{
-
-        
-        return res.status(201).json({
-            message: "Employee item created successfully",
-            employeeItem: result
+    })
+    .then(result => {
+        return items.update({
+            reserved: "yes"
+        }, {
+            where: { Id: itemId }
         });
-    }
-    ).catch(error => {
+    })
+    .then(updateResult => {
+        console.log(`Item with id=${itemId} successfully updated to reserved`);
+        return res.status(201).json({
+            message: "Employee item created successfully"
+        });
+    })
+    .catch(error => {
+        console.error('Error creating employee item:', error.message);
         return res.status(500).json({
             message: "Failed to create employee item",
             error: error.message
         });
-    }
-    );
-
-});
-
+    });
 });
 
 

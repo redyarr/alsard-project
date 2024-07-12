@@ -17,6 +17,7 @@ const Nav = () => {
     { link: 'Items', path: '/items' },
     { link: 'Add Items', path: '/additems' },
     { link: 'Recerved Items', path: '/reserved' },
+    { link: 'Add Recerved Items', path: '/addreserved' },
   ];
 
   useEffect(() => {

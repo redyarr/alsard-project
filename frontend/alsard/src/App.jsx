@@ -11,6 +11,7 @@ import Login from './components/Login'
 import FetchingEmployees from './components/FetchingEmployees';
 import FetchingItems from './components/FetchingItems';
 import FetchingReserved from './components/FetchingReserved';
+import AddReservedItems from './components/AddReservedItems';
 
 
 
@@ -95,22 +96,22 @@ export default function App() {
   }
 
 
-  // useEffect(() => {
-  //   const fetchItem = async () => {
-  //     try {
-  //       const response = await fetch('http://localhost:3000/employeeItems');
-  //       if (!response.ok) {
-  //         throw new Error('Failed to fetch users');
-  //       }
-  //       const data = await response.json();
-  //       setReserved(data.employeeItems);
-  //     } catch (error) {
-  //       console.error('Error fetching users:', error.message);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchItem = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/employeeItems');
+        if (!response.ok) {
+          throw new Error('Failed to fetch EmployeeItems');
+        }
+        const data = await response.json();
+        setReserved(data);
+      } catch (error) {
+        console.error('Error fetching employeeItems:', error.message);
+      }
+    };
 
-  //   fetchItem();
-  // }, [reserved]);
+    fetchItem();
+  }, [reserved]);
   
 
 
@@ -128,6 +129,7 @@ export default function App() {
       <Route path='items' element={<FetchingItems items={items} deleteItems={deleteItems} />} />
       <Route path='/additems' element={<AddItems />} />
       <Route path='/reserved' element={<FetchingReserved items={reserved} />} />
+      <Route path='/addreserved' element={<AddReservedItems />} />
       <Route path='/login' element={<Login />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
