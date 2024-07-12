@@ -222,10 +222,10 @@ function AddItems() {
                 </div>
                 <div className="sm:col-span-2 sm:col-start-1">
                   <label htmlFor="reserved" className="block text-sm font-medium leading-6 text-gray-900">
-                  Reserved
+                    Reserved
                   </label>
                   <div className="mt-2">
-                  <select
+                    <select
                       required
                       value={data.reserved}
                       onChange={handlechange}
