@@ -225,16 +225,18 @@ function AddItems() {
                   Reserved
                   </label>
                   <div className="mt-2">
-                    <input
+                  <select
                       required
                       value={data.reserved}
                       onChange={handlechange}
-                      type="text"
                       name="reserved"
                       id="reserved"
-                      autoComplete="no"
-                      className="block w-[300px] p-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
+                      className="block w-[300px] p-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                    >
+                      <option className="text-gray-500" value="" disabled>Select...</option>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
                   </div>
                 </div>
               </div>
