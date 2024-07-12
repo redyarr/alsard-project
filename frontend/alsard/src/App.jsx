@@ -104,14 +104,15 @@ export default function App() {
           throw new Error('Failed to fetch EmployeeItems');
         }
         const data = await response.json();
-        setReserved(data);
+        setReserved(data.employeeItems);
       } catch (error) {
         console.error('Error fetching employeeItems:', error.message);
       }
     };
-
+  
     fetchItem();
-  }, [reserved]);
+  }, []);
+  
   
 
 
