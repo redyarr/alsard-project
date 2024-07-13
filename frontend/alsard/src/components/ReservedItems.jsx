@@ -13,11 +13,12 @@ return (
     </div>
 
     <div>
-        <p className='font-medium'>{props.description}</p>
-        <p className='font-medium'>{props.category}</p>
-        <p className='font-medium'>{props.model}</p>
-        <p className='font-medium'>{props.tagID}</p>
-        <p className='font-medium'>{props.company}</p>
+        <p className='font-medium'>{props.email}</p>
+        <p className='font-medium'>{props.phone}</p>
+        <br />
+        <p>owns:</p>
+        <p className='font-medium'>{props.itemName}</p>
+        <p className='font-medium'>{props.itemDescription}</p>
         <p className='font-medium'>{props.subLocation}</p>
         <p className='font-medium'>{props.reserved}</p>
     </div>

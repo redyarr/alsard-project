@@ -47,28 +47,34 @@ async function ensureAdminUser() {
 
 };
 
-// it reaches inside the api .
-app.get('/employeeItems', (req, res) => {
+EmployeeItem.belongsTo(employees, { foreignKey: 'employeeId' });
+EmployeeItem.belongsTo(items, { foreignKey: 'itemId' });
 
-    EmployeeItem.findAll({
-        include: [
-            {
-                model: employees,
-                attributes: ['Name', 'Email', 'Phone'] // Specify the employee attributes you want
-            },
-            {
-                model: items,
-                attributes: ['Name', 'Description'] // Specify the item attributes you want
-            }
-        ]
-    }).then(employeeItems => {
-        return res.status(200).json(employeeItems);
-    }).catch(error => {
-        return res.status(500).json({
-            message: "Failed to retrieve data",
-            error: error.message
-        });
+
+// Endpoint to fetch all reserved items with employee and item details
+app.get('/employeeItems', (req, res) => {
+  EmployeeItem.findAll({
+    include: [
+      {
+        model: employees,
+        attributes: ['name', 'email', 'phone']
+      },
+      {
+        model: items,
+        attributes: ['name', 'description']
+      }
+    ]
+  })
+  .then(employeeItems => {
+    res.status(200).json(employeeItems);
+  })
+  .catch(error => {
+    console.error('Error fetching employee items:', error.message);
+    res.status(500).json({
+      message: "Failed to retrieve employee items",
+      error: error.message
     });
+  });
 });
 
 

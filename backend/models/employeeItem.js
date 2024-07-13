@@ -1,28 +1,32 @@
-const Sequllize = require('sequelize');
-
+const Sequelize = require('sequelize');
 const db = require('../util/db');
+const Employee = require('./employee');
+const Item = require('./item');
+
 
 const EmployeeItem = db.define('EmployeeItem', {
   id: {
-    type: Sequllize.INTEGER,
+    type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
   employeeId: {
-    type: Sequllize.INTEGER,
+    type: Sequelize.INTEGER,
     references: {
-      model: 'employee',
+      model: 'employee', // Make sure this matches your table name
       key: 'Id',
     },
   },
   itemId: {
-    type: Sequllize.INTEGER,
+    type: Sequelize.INTEGER,
     references: {
-      model: 'item',
+      model: 'item', // Make sure this matches your table name
       key: 'Id',
     },
   },
-
 });
+
+EmployeeItem.belongsTo(Employee, { foreignKey: 'employeeId' });
+EmployeeItem.belongsTo(Item, { foreignKey: 'itemId' });
 
 module.exports = EmployeeItem;

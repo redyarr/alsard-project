@@ -1,26 +1,32 @@
 import RecervedItems from "./ReservedItems";
-const FetchingItems = ({ items, deleteItems }) => {
+const FetchingItems = ({ reserved }) => {
   return (
-    <div >
-      {items.map((item) => (
-        <section key={item.Id} className='inline-block mr-5 mb-5'>
+<div >
+{reserved.length === 0 ? <p className='p-5 text-2xl text-red-600 font-bold'>No Employee Found</p> : 
+
+<div>
+     {reserved.map((res) => (
+        <section key={res.id} className='inline-block mr-5 mb-5'>
           <RecervedItems
-            key={item.Id}
-            id={item.Id}
-            name={item.Name}
-            description={item.Description}
-            category={item.Category}
-            model={item.model}
-            tagID={item.tagId}
-            company={item.company}
-            subLocation={item.subLocation}
-            reserved={item.reserved}
-            delete={deleteItems}
+            key={res.id}
+            id={res.id}
+            name={res.employee.name}
+            email={res.employee.email}
+            phone={res.employee.phone}
+            itemName={res.item.name}
+            itemDescription={res.item.description}
+            // delete={deleteItems}
           />
         </section>
       ))}
-    </div>
+</div>
+}
+
+
+</div>
   );
 };
 
 export default FetchingItems;
+
+

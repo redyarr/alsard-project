@@ -3,8 +3,11 @@ import Items from './Items';
 const FetchingItems = ({ items, deleteItems }) => {
   return (
     <div >
-      {items.map((item) => (
-        <section key={item.Id} className='inline-block mr-5 mb-5'>
+    {items.length === 0 ? <p className='p-5 text-2xl text-red-600 font-bold'>No Item Found</p> : 
+    
+   <div>
+   {items.map((item) => (
+     <section key={item.Id} className='inline-block mr-5 mb-5'>
           <Items
             key={item.Id}
             id={item.Id}
@@ -18,9 +21,13 @@ const FetchingItems = ({ items, deleteItems }) => {
             reserved={item.reserved}
             delete={deleteItems}
           />
-        </section>
-      ))}
-    </div>
+     </section>
+   ))}
+   </div>
+   }
+
+    
+   </div>
   );
 };
 

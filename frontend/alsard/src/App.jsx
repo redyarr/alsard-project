@@ -20,7 +20,8 @@ export default function App() {
   const [users, setUsers] = useState([])
   const [items, setItems] = useState([])
   const [reserved, setReserved] = useState([])
-
+  console.log(reserved);
+  
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -97,21 +98,21 @@ export default function App() {
 
 
   useEffect(() => {
-    const fetchItem = async () => {
+    const fetchReservedItems = async () => {
       try {
         const response = await fetch('http://localhost:3000/employeeItems');
         if (!response.ok) {
-          throw new Error('Failed to fetch EmployeeItems');
+          throw new Error('Failed to fetch employee items');
         }
         const data = await response.json();
-        setReserved(data.employeeItems);
+        setReserved(data);
       } catch (error) {
-        console.error('Error fetching employeeItems:', error.message);
+        console.error('Error fetching employee items:', error.message);
       }
     };
 
-    fetchItem();
-  }, []);
+    fetchReservedItems();
+  }, [reserved]);
 
 
 
@@ -129,7 +130,7 @@ export default function App() {
         <Route path='/addemployees' element={<AddEmployees />} />
         <Route path='items' element={<FetchingItems items={items} deleteItems={deleteItems} />} />
         <Route path='/additems' element={<AddItems />} />
-        <Route path='/reserved' element={<FetchingReserved items={reserved} />} />
+        <Route path='/reserved' element={<FetchingReserved reserved={reserved} />} />
         <Route path='/addreserved' element={<AddReservedItems />} />
         <Route path='/login' element={<Login />} />
         <Route path="*" element={<NotFound />} />
