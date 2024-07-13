@@ -42,7 +42,7 @@ const ReservedItems = () => {
 
 return (
 <>
-<div className='mt-5 text-black inline-block mx-auto max-w-8xl xl:px-6 2xl:px-20 flex'>
+<div className='mt-5 text-black  mx-auto max-w-8xl xl:px-6 2xl:px-20 flex'>
 {reserved.length === 0 ? <p className='text-3xl text-center mt-5 text-red-600 font-bold'>No Reserved Item Found</p> : 
 
 <div>
