@@ -1,9 +1,10 @@
-
+import { useAuth } from './AuthContext';
 import { useState, useEffect } from 'react';
 
 const ReservedItems = () => {
-
-    const [reserved, setReserved] = useState([])
+  const { authState } = useAuth();
+  const [reserved, setReserved] = useState([])
+  console.log(reserved);
 
     useEffect(() => {
         const fetchReservedItems = async () => {
@@ -22,9 +23,26 @@ const ReservedItems = () => {
         fetchReservedItems();
       }, [reserved]);
 
+
+      const deleteReservedItem = async (id) => {
+        try {
+          const response = await fetch(`http://localhost:3000/deleteReservedItem/${id}`, {
+            method: 'DELETE',
+          });
+    
+          if (!response.ok) {
+            throw new Error('Failed to delete reserved item');
+          }
+    
+          setReserved((prevReserved) => prevReserved.filter((item) => item.id !== id));
+        } catch (error) {
+          console.error('Error deleting reserved item:', error.message);
+        }
+      };
+
 return (
 <>
-<div >
+<div className='mt-5 text-black inline-block mx-auto max-w-8xl xl:px-6 2xl:px-20 flex'>
 {reserved.length === 0 ? <p className='text-3xl text-center mt-5 text-red-600 font-bold'>No Reserved Item Found</p> : 
 
 <div>
@@ -43,6 +61,14 @@ return (
         <p className='font-medium'>{res.item.name}</p>
         <p className='font-medium'>{res.item.description}</p>
     </div>
+    {authState.isAuthenticated && (
+                    <button
+                      className='w-[100px] h-[30px] bg-blue-600 text-white rounded'
+                      onClick={() => deleteReservedItem(res.id)}
+                    >
+                      Delete
+                    </button>
+                  )}
 </div>
         </section>
       ))}

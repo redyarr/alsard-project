@@ -218,23 +218,36 @@ app.post('/addEmployee', (req, res, next) => {
 
 });
 
-
-app.delete('/deleteEmployee/:id', (req, res, next) => {
+app.delete('/deleteEmployee/:id', async (req, res, next) => {
     const employeeId = req.params.id;
 
-    employees.destroy({
-        where: { Id: employeeId }
-    }).then(() => {
+    try {
+        // Find all reserved items for the employee
+        const reservedItems = await EmployeeItem.findAll({ where: { employeeId: employeeId } });
+
+        // Get all item IDs from the reserved items
+        const itemIds = reservedItems.map(item => item.itemId);
+
+        // Delete the reserved items
+        await EmployeeItem.destroy({ where: { employeeId: employeeId } });
+
+        // Update the items table to set 'reserved' to 'no' for the corresponding item IDs
+        await items.update({ reserved: 'no' }, { where: { Id: itemIds } });
+
+        // Delete the employee
+        await employees.destroy({ where: { Id: employeeId } });
+
         return res.status(200).json({
-            message: "Employee deleted successfully"
+            message: "Employee and associated reserved items deleted successfully"
         });
-    }).catch(error => {
+    } catch (error) {
         return res.status(500).json({
-            message: "Failed to delete employee",
+            message: "Failed to delete employee and associated reserved items",
             error: error.message
         });
-    });
+    }
 });
+
 
 
 
@@ -435,6 +448,34 @@ app.post('/ReserveItem', (req, res, next) => {
             });
         });
 });
+
+app.delete('/deleteReservedItem/:id', async (req, res, next) => {
+    const id = req.params.id;
+  
+    try {
+      // Find the reserved item to get the itemId
+      const reservedItem = await EmployeeItem.findOne({ where: { id: id } });
+      if (!reservedItem) {
+        return res.status(404).json({ message: 'Reserved item not found' });
+      }
+  
+      // Delete the reserved item
+      await EmployeeItem.destroy({ where: { id: id } });
+  
+      // Update the corresponding item to set 'reserved' to 'no'
+      await items.update(
+        { reserved: 'no' },
+        { where: { Id: reservedItem.itemId } }
+      );
+  
+      res.status(200).json({ message: 'Reserved item deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting reserved item:', error.message);
+      res.status(500).json({ message: 'Failed to delete reserved item', error: error.message });
+    }
+  });
+  
+  
 
 
 

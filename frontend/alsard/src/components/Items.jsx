@@ -49,14 +49,14 @@ const Items = () => {
 
   return (
 <>
-<div >
+<div className='mt-5 text-black inline-block mx-auto max-w-8xl xl:px-6 2xl:px-20 flex'>
         {items.length === 0 ? (
           <h1 className='text-3xl text-center mt-5 text-red-600 font-bold'>No Employees Found</h1>
         ) : (
           <div>
             {items.map((item) => (
             <section  key={item.Id} className='inline-block mr-5 mb-5'>   
-              <div className='mt-5 text-black inline-block mx-auto max-w-8xl xl:px-6 2xl:px-20 flex'>
+              <div>
                 <div className='w-[300px] h-[280px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
                   <div className='flex gap-2'>
                     <h1 className='text-xl font-bold'>{item.Name}</h1>
@@ -73,7 +73,7 @@ const Items = () => {
                   {authState.isAuthenticated && (
                     <button
                       className='w-[100px] h-[30px] bg-blue-600 text-white rounded'
-                      onClick={() => deleteUser(user.Id)}
+                      onClick={() => deleteItems(item.Id)}
                     >
                       Delete
                     </button>

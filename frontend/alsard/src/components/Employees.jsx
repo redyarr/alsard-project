@@ -40,14 +40,14 @@ const Employees = () => {
 
   return (
     <>
-      <div >
+      <div className='mt-5 text-black inline-block mx-auto max-w-8xl xl:px-6 2xl:px-20 flex'>
         {users.length === 0 ? (
           <h1 className='text-3xl text-center mt-5 text-red-600 font-bold'>No Employees Found</h1>
         ) : (
           <div>
             {users.map((user) => (
             <section  key={user.Id} className='inline-block mr-5 mb-5'>   
-              <div className='mt-5 text-black inline-block mx-auto max-w-8xl xl:px-6 2xl:px-20 flex'>
+              <div>
                 <div className='w-[300px] h-[250px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
                   <div className='flex gap-2'>
                     <h1 className='text-xl font-bold'>{user.Name}</h1>
