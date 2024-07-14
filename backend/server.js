@@ -285,7 +285,7 @@ app.post("/login", (req, res) => {
 });
 
 // to edit an employee
-app.post("editEmployee/:id", (req, res, next) => {
+app.put('/editEmployee/:id', (req, res) => {
   const employeeId = req.params.id;
 
   employees
@@ -294,7 +294,6 @@ app.post("editEmployee/:id", (req, res, next) => {
         Name: req.body.name,
         Email: req.body.email,
         Phone: req.body.phone,
-        employeeId: req.body.UserID,
         Position: req.body.position,
         department: req.body.department,
         updatedAt: new Date(),
@@ -302,10 +301,13 @@ app.post("editEmployee/:id", (req, res, next) => {
       { where: { Id: employeeId } }
     )
     .then((result) => {
-      return res.status(200).json({
-        message: "Employee updated successfully",
-        employee: result,
-      });
+      if (result[0] === 0) {
+        return res.status(404).json({ message: "Employee not found" });
+      }
+      return employees.findByPk(employeeId);
+    })
+    .then((updatedEmployee) => {
+      res.status(200).json(updatedEmployee);
     })
     .catch((error) => {
       res.status(500).json({
@@ -314,6 +316,9 @@ app.post("editEmployee/:id", (req, res, next) => {
       });
     });
 });
+
+
+
 
 // to edit an item
 app.post("/editItem/:id", (req, res, next) => {
