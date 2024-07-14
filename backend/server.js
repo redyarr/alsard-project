@@ -62,32 +62,6 @@ EmployeeItem.belongsTo(employees, { foreignKey: 'employeeId' });
 EmployeeItem.belongsTo(items, { foreignKey: 'itemId' });
 
 
-<<<<<<< Updated upstream
-
-
-function backupDatabase() {
-  // Define the filename for the backup
-  const fileName = `backup-${new Date().toISOString().split('T')[0]}.sql`;
-  const filePath = path.join(__dirname, 'backups', fileName);
-
-  // MySQL dump command
-  const command = `mysqldump -u root -p'12123' alsard-ims > ${filePath}`;
-
-  exec(command, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Backup error: ${error}`);
-      return;
-    }
-    console.log(`Backup created: ${fileName}`);
-  });
-}
-
-
-cron.schedule('0 17 * * *', () => {
-    console.log('Running a daily backup of the database...');
-    backupDatabase();
-  });
-=======
 // database backup function created by redyar 
 function backupDatabase() {
     // Define the filename for the backup
@@ -116,7 +90,6 @@ cron.schedule('0 15 * * *', () => {
   console.log('Running a daily backup of the database...');
   backupDatabase();
 });
->>>>>>> Stashed changes
 
 
 // Endpoint to fetch all reserved items with employee and item details
