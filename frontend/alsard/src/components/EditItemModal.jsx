@@ -51,7 +51,7 @@ const EditItemModal = ({ item, onClose, setItems }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-6 rounded-lg shadow-lg w-[56rem] h-[27rem]">
-        <h2 className="text-2xl font-bold mb-4">Edit {item.Name}</h2>
+        <h2 className="text-2xl font-bold mb-4">Edit <span className='text-blue-600'>{item.Name}</span></h2>
         <br />
         <form>
           <div className="mb-4 flex justify-evenly items-center">
@@ -146,14 +146,14 @@ const EditItemModal = ({ item, onClose, setItems }) => {
           <div className="flex justify-center items-center mt-10">
             <button
               type="button"
-              className="mr-2 bg-red-500 text-white px-4 py-2 rounded"
+              className="mr-2 bg-red-600 text-white font-medium px-4 py-2 rounded"
               onClick={onClose}
             >
               Cancel
             </button>
             <button
               type="button"
-              className="bg-green-500 text-white px-4 py-2 rounded"
+              className="bg-green-500 font-medium text-white px-4 py-2 rounded"
               onClick={handleSave}
             >
               Save

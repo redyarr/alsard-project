@@ -46,7 +46,7 @@ const EditEmployeeModal = ({ employee, onClose, setUsers }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-        <h2 className="text-2xl font-bold mb-4">Edit {employee.Name}</h2>
+        <h2 className="text-2xl font-bold mb-4">Edit <span className='text-blue-600'>{employee.Name}</span></h2>
         <form>
           <div className="mb-4">
             <label className="block text-gray-700">Name</label>
@@ -98,17 +98,17 @@ const EditEmployeeModal = ({ employee, onClose, setUsers }) => {
               onChange={handleInputChange}
             />
           </div>
-          <div className="flex justify-end">
+          <div className="flex justify-center ">
             <button
               type="button"
-              className="mr-2 bg-red-500 text-white px-4 py-2 rounded"
+              className="mr-2 bg-red-600 font-medium text-white px-4 py-2 rounded"
               onClick={onClose}
             >
               Cancel
             </button>
             <button
               type="button"
-              className="bg-green-600 text-white px-4 py-2 rounded"
+              className="bg-green-600 font-medium text-white px-4 py-2 rounded"
               onClick={handleSave}
             >
               Save
