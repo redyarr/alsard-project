@@ -13,8 +13,8 @@ const users = require("./models/users");
 const jwt = require("jsonwebtoken");
 
 employees.belongsToMany(items, {
-  through: EmployeeItem,
-  foreignKey: "employeeId",
+    through: EmployeeItem,
+    foreignKey: "employeeId",
 });
 items.belongsToMany(employees, { through: EmployeeItem, foreignKey: "itemId" });
 
@@ -23,22 +23,22 @@ app.use(cors());
 app.use(bodyParser.json());
 
 async function ensureAdminUser() {
-  users.findOne({ where: { name: "admin", password: "123" } }).then((user) => {
-    if (!user) {
-      users
-        .create({
-          name: "admin",
-          password: "123",
-          role: "admin",
-        })
-        .then((result) => {
-          console.log("admin created");
-        })
-        .catch((error) => {
-          console.log("admin not created");
-        });
-    }
-  });
+    users.findOne({ where: { name: "admin", password: "123" } }).then((user) => {
+        if (!user) {
+            users
+                .create({
+                    name: "admin",
+                    password: "123",
+                    role: "admin",
+                })
+                .then((result) => {
+                    console.log("admin created");
+                })
+                .catch((error) => {
+                    console.log("admin not created");
+                });
+        }
+    });
 }
 
 EmployeeItem.belongsTo(employees, { foreignKey: "employeeId" });
@@ -46,201 +46,201 @@ EmployeeItem.belongsTo(items, { foreignKey: "itemId" });
 
 // Endpoint to fetch all reserved items with employee and item details
 app.get("/employeeItems", (req, res) => {
-  EmployeeItem.findAll({
-    include: [
-      {
-        model: employees,
-        attributes: ["name", "email", "phone"],
-      },
-      {
-        model: items,
-        attributes: ["name", "description"],
-      },
-    ],
-  })
-    .then((employeeItems) => {
-      res.status(200).json(employeeItems);
+    EmployeeItem.findAll({
+        include: [
+            {
+                model: employees,
+                attributes: ["name", "email", "phone"],
+            },
+            {
+                model: items,
+                attributes: ["name", "description"],
+            },
+        ],
     })
-    .catch((error) => {
-      console.error("Error fetching employee items:", error.message);
-      res.status(500).json({
-        message: "Failed to retrieve employee items",
-        error: error.message,
-      });
-    });
+        .then((employeeItems) => {
+            res.status(200).json(employeeItems);
+        })
+        .catch((error) => {
+            console.error("Error fetching employee items:", error.message);
+            res.status(500).json({
+                message: "Failed to retrieve employee items",
+                error: error.message,
+            });
+        });
 });
 
 app.post("/additems", (req, res, next) => {
-  items.findOne({ where: { tagId: req.body.tagId } }).then((item) => {
-    if (item) {
-      return res.status(409).json({
-        message: "Item already exists",
-      });
-    }
+    items.findOne({ where: { tagId: req.body.tagId } }).then((item) => {
+        if (item) {
+            return res.status(409).json({
+                message: "Item already exists",
+            });
+        }
 
-    return items
-      .create({
-        Name: req.body.Name,
-        Description: req.body.Description,
-        Category: req.body.Category,
-        model: req.body.model,
-        tagId: req.body.tagId,
-        company: req.body.company,
-        subLocation: req.body.subLocation,
-        reserved: req.body.reserved,
-      })
-      .then((result) => {
-        return res.status(200).json({
-          message: "Item created successfully",
-          item: result,
-        });
-      })
-      .catch((error) => {
-        return res.status(500).json({
-          message: "Failed to create item",
-          error: error.message,
-        });
-      });
-  });
+        return items
+            .create({
+                Name: req.body.Name,
+                Description: req.body.Description,
+                Category: req.body.Category,
+                model: req.body.model,
+                tagId: req.body.tagId,
+                company: req.body.company,
+                subLocation: req.body.subLocation,
+                reserved: req.body.reserved,
+            })
+            .then((result) => {
+                return res.status(200).json({
+                    message: "Item created successfully",
+                    item: result,
+                });
+            })
+            .catch((error) => {
+                return res.status(500).json({
+                    message: "Failed to create item",
+                    error: error.message,
+                });
+            });
+    });
 });
 
 app.get("/items", (req, res, next) => {
-  items
-    .findAll()
-    .then((items) => {
-      return res.status(200).json({
-        message: "Items fetched successfully",
-        items: items,
-      });
-    })
-    .catch((error) => {
-      return res.status(500).json({
-        message: "Failed to fetch items",
-        error: error.message,
-      });
-    });
+    items
+        .findAll()
+        .then((items) => {
+            return res.status(200).json({
+                message: "Items fetched successfully",
+                items: items,
+            });
+        })
+        .catch((error) => {
+            return res.status(500).json({
+                message: "Failed to fetch items",
+                error: error.message,
+            });
+        });
 });
 
 // to get the items that are  NOT reserved
 
 app.get("/unreservedItems", (req, res, next) => {
-  items
-    .findAll({ where: { reserved: "no" } })
-    .then((items) => {
-      return res.status(200).json({
-        message: "Items that are not reserved fetched successfully",
-        items: items,
-      });
-    })
-    .catch((error) => {
-      return res.status(500).json({
-        message: "Failed to unreserved fetch items",
-        error: error.message,
-      });
-    });
+    items
+        .findAll({ where: { reserved: "no" } })
+        .then((items) => {
+            return res.status(200).json({
+                message: "Items that are not reserved fetched successfully",
+                items: items,
+            });
+        })
+        .catch((error) => {
+            return res.status(500).json({
+                message: "Failed to unreserved fetch items",
+                error: error.message,
+            });
+        });
 });
 
 app.delete("/deleteItem/:id", (req, res) => {
-  const itemId = req.params.id;
-  items
-    .destroy({
-      where: { Id: itemId },
-    })
-    .then(() => {
-      return res.status(200).json({
-        message: "Item deleted successfully",
-      });
-    })
-    .catch((error) => {
-      return res.status(500).json({
-        message: "Failed to delete item",
-        error: error.message,
-      });
-    });
+    const itemId = req.params.id;
+    items
+        .destroy({
+            where: { Id: itemId },
+        })
+        .then(() => {
+            return res.status(200).json({
+                message: "Item deleted successfully",
+            });
+        })
+        .catch((error) => {
+            return res.status(500).json({
+                message: "Failed to delete item",
+                error: error.message,
+            });
+        });
 });
 
 app.post("/addEmployee", (req, res, next) => {
-  employees
-    .findOne({ where: { employeeId: req.body.UserID } })
-    .then((employee) => {
-      if (employee) {
-        return res.status(409).json({
-          message: "Employee already exists",
-        });
-      }
+    employees
+        .findOne({ where: { employeeId: req.body.UserID } })
+        .then((employee) => {
+            if (employee) {
+                return res.status(409).json({
+                    message: "Employee already exists",
+                });
+            }
 
-      employees
-        .create({
-          Name: req.body.name,
-          Email: req.body.email,
-          Phone: req.body.phone,
-          employeeId: req.body.UserID,
-          Position: req.body.position,
-          department: req.body.department,
-        })
-        .then((result) => {
-          return res.status(201).json({
-            message: "Employee created successfully",
-            employee: result,
-          });
-        })
-        .catch((error) => {
-          return res.status(500).json({
-            message: "Failed to create employee",
-            error: error.message,
-          });
+            employees
+                .create({
+                    Name: req.body.name,
+                    Email: req.body.email,
+                    Phone: req.body.phone,
+                    employeeId: req.body.UserID,
+                    Position: req.body.position,
+                    department: req.body.department,
+                })
+                .then((result) => {
+                    return res.status(201).json({
+                        message: "Employee created successfully",
+                        employee: result,
+                    });
+                })
+                .catch((error) => {
+                    return res.status(500).json({
+                        message: "Failed to create employee",
+                        error: error.message,
+                    });
+                });
         });
-    });
 });
 
 app.delete("/deleteEmployee/:id", async (req, res, next) => {
-  const employeeId = req.params.id;
+    const employeeId = req.params.id;
 
-  try {
-    // Find all reserved items for the employee
-    const reservedItems = await EmployeeItem.findAll({
-      where: { employeeId: employeeId },
-    });
+    try {
+        // Find all reserved items for the employee
+        const reservedItems = await EmployeeItem.findAll({
+            where: { employeeId: employeeId },
+        });
 
-    // Get all item IDs from the reserved items
-    const itemIds = reservedItems.map((item) => item.itemId);
+        // Get all item IDs from the reserved items
+        const itemIds = reservedItems.map((item) => item.itemId);
 
-    // Delete the reserved items
-    await EmployeeItem.destroy({ where: { employeeId: employeeId } });
+        // Delete the reserved items
+        await EmployeeItem.destroy({ where: { employeeId: employeeId } });
 
-    // Update the items table to set 'reserved' to 'no' for the corresponding item IDs
-    await items.update({ reserved: "no" }, { where: { Id: itemIds } });
+        // Update the items table to set 'reserved' to 'no' for the corresponding item IDs
+        await items.update({ reserved: "no" }, { where: { Id: itemIds } });
 
-    // Delete the employee
-    await employees.destroy({ where: { Id: employeeId } });
+        // Delete the employee
+        await employees.destroy({ where: { Id: employeeId } });
 
-    return res.status(200).json({
-      message: "Employee and associated reserved items deleted successfully",
-    });
-  } catch (error) {
-    return res.status(500).json({
-      message: "Failed to delete employee and associated reserved items",
-      error: error.message,
-    });
-  }
+        return res.status(200).json({
+            message: "Employee and associated reserved items deleted successfully",
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Failed to delete employee and associated reserved items",
+            error: error.message,
+        });
+    }
 });
 
 app.get("/employees", (req, res, next) => {
-  employees
-    .findAll()
-    .then((employees) => {
-      console.log(employees);
-      return res.status(200).json({
-        message: "Employees fetched successfully",
-        employees: employees,
-      });
-    })
-    .catch((error) => {
-      return res.status(500).json({
-        message: "Failed to fetch employees",
-        error: error.message,
-      });
-    });
+    employees
+        .findAll()
+        .then((employees) => {
+            console.log(employees);
+            return res.status(200).json({
+                message: "Employees fetched successfully",
+                employees: employees,
+            });
+        })
+        .catch((error) => {
+            return res.status(500).json({
+                message: "Failed to fetch employees",
+                error: error.message,
+            });
+        });
 });
 
 // app.post('/addUser', (req, res, next) => {
@@ -268,53 +268,53 @@ app.get("/employees", (req, res, next) => {
 //dway 1 sa3at basarache
 
 app.post("/login", (req, res) => {
-  const { username, password } = req.body;
+    const { username, password } = req.body;
 
-  // Dummy authentication logic
-  const user = users.findOne({ where: { name: username, password: password } });
-  if (!user) {
-    return res.status(401).json({ error: "Invalid credentials" });
-  }
+    // Dummy authentication logic
+    const user = users.findOne({ where: { name: username, password: password } });
+    if (!user) {
+        return res.status(401).json({ error: "Invalid credentials" });
+    }
 
-  // Generate JWT token
-  const token = jwt.sign({ username: user.username }, "your_secret_key", {
-    expiresIn: "1h",
-  });
+    // Generate JWT token
+    const token = jwt.sign({ username: user.username }, "your_secret_key", {
+        expiresIn: "1h",
+    });
 
-  return res.json({ username: user.username, token });
+    return res.json({ username: user.username, token });
 });
 
 // to edit an employee
 app.put('/editEmployee/:id', (req, res) => {
-  const employeeId = req.params.id;
+    const employeeId = req.params.id;
 
-  employees
-    .update(
-      {
-        Name: req.body.name,
-        Email: req.body.email,
-        Phone: req.body.phone,
-        Position: req.body.position,
-        department: req.body.department,
-        updatedAt: new Date(),
-      },
-      { where: { Id: employeeId } }
-    )
-    .then((result) => {
-      if (result[0] === 0) {
-        return res.status(404).json({ message: "Employee not found" });
-      }
-      return employees.findByPk(employeeId);
-    })
-    .then((updatedEmployee) => {
-      res.status(200).json(updatedEmployee);
-    })
-    .catch((error) => {
-      res.status(500).json({
-        message: "Failed to update employee",
-        error: error.message,
-      });
-    });
+    employees
+        .update(
+            {
+                Name: req.body.name,
+                Email: req.body.email,
+                Phone: req.body.phone,
+                Position: req.body.position,
+                department: req.body.department,
+                updatedAt: new Date(),
+            },
+            { where: { Id: employeeId } }
+        )
+        .then((result) => {
+            if (result[0] === 0) {
+                return res.status(404).json({ message: "Employee not found" });
+            }
+            return employees.findByPk(employeeId);
+        })
+        .then((updatedEmployee) => {
+            res.status(200).json(updatedEmployee);
+        })
+        .catch((error) => {
+            res.status(500).json({
+                message: "Failed to update employee",
+                error: error.message,
+            });
+        });
 });
 
 
@@ -323,35 +323,35 @@ app.put('/editEmployee/:id', (req, res) => {
 // to edit an item
 // Example using Sequelize for database operations
 app.put("/editItem/:id", async (req, res, next) => {
-  const itemId = req.params.id;
+    const itemId = req.params.id;
 
-  try {
-    const updatedItem = await items.update(
-      {
-        Name: req.body.name,
-        Description: req.body.description,
-        Category: req.body.category,
-        model: req.body.model,
-        tagId: req.body.tagId,
-        company: req.body.company,
-        subLocation: req.body.subLocation,
-        reserved: req.body.reserved,
-        updatedAt: new Date(),
-      },
-      { where: { Id: itemId } }
-    );
+    try {
+        const updatedItem = await items.update(
+            {
+                Name: req.body.name,
+                Description: req.body.description,
+                Category: req.body.category,
+                model: req.body.model,
+                tagId: req.body.tagId,
+                company: req.body.company,
+                subLocation: req.body.subLocation,
+                reserved: req.body.reserved,
+                updatedAt: new Date(),
+            },
+            { where: { Id: itemId } }
+        );
 
-    if (updatedItem[0] === 0) {
-      return res.status(404).json({ message: "Item not found" });
+        if (updatedItem[0] === 0) {
+            return res.status(404).json({ message: "Item not found" });
+        }
+
+        const updatedRecord = await items.findByPk(itemId);
+
+        res.status(200).json(updatedRecord);
+    } catch (error) {
+        console.error('Error updating item:', error.message);
+        res.status(500).json({ message: "Failed to update item", error: error.message });
     }
-
-    const updatedRecord = await items.findByPk(itemId);
-
-    res.status(200).json(updatedRecord);
-  } catch (error) {
-    console.error('Error updating item:', error.message);
-    res.status(500).json({ message: "Failed to update item", error: error.message });
-  }
 });
 
 
@@ -359,93 +359,93 @@ app.put("/editItem/:id", async (req, res, next) => {
 
 // to delete an item
 app.delete("/deleteItem/:id", (req, res, next) => {
-  const itemId = req.params.id;
+    const itemId = req.params.id;
 
-  items
-    .destroy({
-      where: { Id: itemId },
-    })
-    .then(() => {
-      return res.status(200).json({
-        message: "Item deleted successfully",
-      });
-    })
-    .catch((error) => {
-      return res.status(500).json({
-        message: "Failed to delete item",
-        error: error.message,
-      });
-    });
+    items
+        .destroy({
+            where: { Id: itemId },
+        })
+        .then(() => {
+            return res.status(200).json({
+                message: "Item deleted successfully",
+            });
+        })
+        .catch((error) => {
+            return res.status(500).json({
+                message: "Failed to delete item",
+                error: error.message,
+            });
+        });
 });
 
 // RESERVING AN ITEM FOR AN EMPLOYEE :
 
 app.post("/ReserveItem", (req, res, next) => {
-  const employeeId = req.body.employeeId;
-  const itemId = req.body.itemId;
+    const employeeId = req.body.employeeId;
+    const itemId = req.body.itemId;
 
-  console.log(
-    `Received request to reserve item: employeeId=${employeeId}, itemId=${itemId}`
-  );
+    console.log(
+        `Received request to reserve item: employeeId=${employeeId}, itemId=${itemId}`
+    );
 
-  EmployeeItem.create({
-    employeeId: employeeId,
-    itemId: itemId,
-  })
-    .then((result) => {
-      return items.update(
-        {
-          reserved: "yes",
-        },
-        {
-          where: { Id: itemId },
-        }
-      );
+    EmployeeItem.create({
+        employeeId: employeeId,
+        itemId: itemId,
     })
-    .then((updateResult) => {
-      console.log(`Item with id=${itemId} successfully updated to reserved`);
-      return res.status(201).json({
-        message: "Employee item created successfully",
-      });
-    })
-    .catch((error) => {
-      console.error("Error creating employee item:", error.message);
-      return res.status(500).json({
-        message: "Failed to create employee item",
-        error: error.message,
-      });
-    });
+        .then((result) => {
+            return items.update(
+                {
+                    reserved: "yes",
+                },
+                {
+                    where: { Id: itemId },
+                }
+            );
+        })
+        .then((updateResult) => {
+            console.log(`Item with id=${itemId} successfully updated to reserved`);
+            return res.status(201).json({
+                message: "Employee item created successfully",
+            });
+        })
+        .catch((error) => {
+            console.error("Error creating employee item:", error.message);
+            return res.status(500).json({
+                message: "Failed to create employee item",
+                error: error.message,
+            });
+        });
 });
 
 app.delete("/deleteReservedItem/:id", async (req, res, next) => {
-  const id = req.params.id;
+    const id = req.params.id;
 
-  try {
-    // Find the reserved item to get the itemId
-    const reservedItem = await EmployeeItem.findOne({ where: { id: id } });
-    if (!reservedItem) {
-      return res.status(404).json({ message: "Reserved item not found" });
+    try {
+        // Find the reserved item to get the itemId
+        const reservedItem = await EmployeeItem.findOne({ where: { id: id } });
+        if (!reservedItem) {
+            return res.status(404).json({ message: "Reserved item not found" });
+        }
+
+        // Delete the reserved item
+        await EmployeeItem.destroy({ where: { id: id } });
+
+        // Update the corresponding item to set 'reserved' to 'no'
+        await items.update(
+            { reserved: "no" },
+            { where: { Id: reservedItem.itemId } }
+        );
+
+        res.status(200).json({ message: "Reserved item deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting reserved item:", error.message);
+        res
+            .status(500)
+            .json({
+                message: "Failed to delete reserved item",
+                error: error.message,
+            });
     }
-
-    // Delete the reserved item
-    await EmployeeItem.destroy({ where: { id: id } });
-
-    // Update the corresponding item to set 'reserved' to 'no'
-    await items.update(
-      { reserved: "no" },
-      { where: { Id: reservedItem.itemId } }
-    );
-
-    res.status(200).json({ message: "Reserved item deleted successfully" });
-  } catch (error) {
-    console.error("Error deleting reserved item:", error.message);
-    res
-      .status(500)
-      .json({
-        message: "Failed to delete reserved item",
-        error: error.message,
-      });
-  }
 });
 
 // to show the items that an employee is using
@@ -468,15 +468,15 @@ app.delete("/deleteReservedItem/:id", async (req, res, next) => {
 
 // {force:true}
 db.sync()
-  .then(() => {
-    ensureAdminUser();
-  })
-  .then(() => {
-    app.listen(3000);
-  })
-  .catch((err) => {
-    console.log("the server could not start!");
-  });
+    .then(() => {
+        ensureAdminUser();
+    })
+    .then(() => {
+        app.listen(3000);
+    })
+    .catch((err) => {
+        console.log("the server could not start!");
+    });
 
 // Authors: Redyar Hawzhin rauf ,  Rekar Jamal Najm.
 // Date: 2024-7-7
