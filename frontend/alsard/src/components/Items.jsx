@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 const Items = () => {
     const { authState } = useAuth();
     const [items, setItems] = useState([])
-    console.log(items);
 
 
     useEffect(() => {
@@ -51,7 +50,7 @@ const Items = () => {
 <>
 <div className='mt-5 text-black  mx-auto max-w-8xl xl:px-6 2xl:px-20 flex'>
         {items.length === 0 ? (
-          <h1 className='text-3xl text-center mt-5 text-red-600 font-bold'>No Employees Found</h1>
+          <h1 className='text-3xl text-center mt-5 text-red-600 font-bold'>No Items Found</h1>
         ) : (
           <div>
             {items.map((item) => (
