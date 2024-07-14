@@ -11,18 +11,12 @@ const EmployeeItem = require('./models/employeeItem');
 const users = require('./models/users');
 //relation between employee and item
 const jwt = require('jsonwebtoken');
-<<<<<<< Updated upstream
-const { exec } = require('child_process');
-const path = require('path');
-=======
 const cron = require('node-cron');
 
 const { exec } = require('child_process');
 const path = require('path');
 // Schedule the backup to run every day at midnight
->>>>>>> Stashed changes
 
-const cron = require('node-cron');
 
 
 employees.belongsToMany(items, { through: EmployeeItem, foreignKey: 'employeeId' });
@@ -67,55 +61,55 @@ function backupDatabase() {
     // Define the filename for the backup
     const fileName = `backup-${new Date().toISOString().split('T')[0]}.sql`;
     const filePath = path.join(__dirname, 'backups', fileName);
-  
+
     // MySQL dump command
     const command = `mysqldump -u root -p'12123' alsard-ims > ${filePath}`;
-  
+
     exec(command, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`Backup error: ${error}`);
-        return;
-      }
-      console.log(`Backup created: ${fileName}`);
+        if (error) {
+            console.error(`Backup error: ${error}`);
+            return;
+        }
+        console.log(`Backup created: ${fileName}`);
     });
-  }
+}
 
 
-  app.get('/test-backup', (req, res) => {
+app.get('/test-backup', (req, res) => {
     backupDatabase();
     res.send('Backup initiated. Check console for details.');
-  });
-  // this is the schedule of the backups.
+});
+// this is the schedule of the backups.
 cron.schedule('0 15 * * *', () => {
-  console.log('Running a daily backup of the database...');
-  backupDatabase();
+    console.log('Running a daily backup of the database...');
+    backupDatabase();
 });
 
 
 // Endpoint to fetch all reserved items with employee and item details
 app.get('/employeeItems', (req, res) => {
-  EmployeeItem.findAll({
-    include: [
-      {
-        model: employees,
-        attributes: ['name', 'email', 'phone']
-      },
-      {
-        model: items,
-        attributes: ['name', 'description']
-      }
-    ]
-  })
-  .then(employeeItems => {
-    res.status(200).json(employeeItems);
-  })
-  .catch(error => {
-    console.error('Error fetching employee items:', error.message);
-    res.status(500).json({
-      message: "Failed to retrieve employee items",
-      error: error.message
-    });
-  });
+    EmployeeItem.findAll({
+        include: [
+            {
+                model: employees,
+                attributes: ['name', 'email', 'phone']
+            },
+            {
+                model: items,
+                attributes: ['name', 'description']
+            }
+        ]
+    })
+        .then(employeeItems => {
+            res.status(200).json(employeeItems);
+        })
+        .catch(error => {
+            console.error('Error fetching employee items:', error.message);
+            res.status(500).json({
+                message: "Failed to retrieve employee items",
+                error: error.message
+            });
+        });
 });
 
 
@@ -492,31 +486,31 @@ app.post('/ReserveItem', (req, res, next) => {
 
 app.delete('/deleteReservedItem/:id', async (req, res, next) => {
     const id = req.params.id;
-  
+
     try {
-      // Find the reserved item to get the itemId
-      const reservedItem = await EmployeeItem.findOne({ where: { id: id } });
-      if (!reservedItem) {
-        return res.status(404).json({ message: 'Reserved item not found' });
-      }
-  
-      // Delete the reserved item
-      await EmployeeItem.destroy({ where: { id: id } });
-  
-      // Update the corresponding item to set 'reserved' to 'no'
-      await items.update(
-        { reserved: 'no' },
-        { where: { Id: reservedItem.itemId } }
-      );
-  
-      res.status(200).json({ message: 'Reserved item deleted successfully' });
+        // Find the reserved item to get the itemId
+        const reservedItem = await EmployeeItem.findOne({ where: { id: id } });
+        if (!reservedItem) {
+            return res.status(404).json({ message: 'Reserved item not found' });
+        }
+
+        // Delete the reserved item
+        await EmployeeItem.destroy({ where: { id: id } });
+
+        // Update the corresponding item to set 'reserved' to 'no'
+        await items.update(
+            { reserved: 'no' },
+            { where: { Id: reservedItem.itemId } }
+        );
+
+        res.status(200).json({ message: 'Reserved item deleted successfully' });
     } catch (error) {
-      console.error('Error deleting reserved item:', error.message);
-      res.status(500).json({ message: 'Failed to delete reserved item', error: error.message });
+        console.error('Error deleting reserved item:', error.message);
+        res.status(500).json({ message: 'Failed to delete reserved item', error: error.message });
     }
-  });
-  
-  
+});
+
+
 
 
 
