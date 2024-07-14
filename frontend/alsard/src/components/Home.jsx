@@ -43,7 +43,7 @@ const Home = () => {
 
   
   return (
-    <div className='mt-5 text-black mx-auto max-w-8xl   xl:px-6 2xl:px-20 flex  flex-col' >
+    <div className='left-0 ml-48 mt-5 text-black  w-[80rem] max-w-8xl xl:pl-0 2xl:px-10 flex  flex-col' >
 
       <h1 className='text-2xl  font-bold '>Employees</h1>
       <br />
