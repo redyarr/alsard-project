@@ -78,25 +78,25 @@ const Items = () => {
                     </div>
                     <div id='buttons' className='flex gap-2'>
                       <div>
-                          {authState.isAuthenticated && (
-                            <>
-                              <button
-                                className='w-10 h-10 bg-blue-600 text-white rounded-full items-center flex justify-center'
-                                onClick={() => deleteItems(item.Id)}
-                              >
-                                <MdDelete className='text-[1.6rem]' />
-                              </button>
-                            </>
-                          )}
+                        {authState.isAuthenticated && (
+                          <>
+                            <button
+                              className='w-10 h-10 bg-blue-600 text-white rounded-full items-center flex justify-center'
+                              onClick={() => deleteItems(item.Id)}
+                            >
+                              <MdDelete className='text-[1.6rem]' />
+                            </button>
+                          </>
+                        )}
                       </div>
 
                       <div>
-                          <button className='w-10 h-10 bg-blue-600 text-white rounded-full items-center flex justify-center' onClick={() => openEditModal(item)}>
-                          <MdEdit className='text-[1.6rem]'/>
-                            </button>
-                      </div>      
-                          
+                        <button className='w-10 h-10 bg-blue-600 text-white rounded-full items-center flex justify-center' onClick={() => openEditModal(item)}>
+                          <MdEdit className='text-[1.6rem]' />
+                        </button>
                       </div>
+
+                    </div>
                   </div>
                 </div>
               </section>
