@@ -56,7 +56,7 @@ const Employees = () => {
 
   return (
     <>
-      <div className={`mt-5 text-black mx-auto max-w-8xl xl:px-6 2xl:px-20 flex ${isModalOpen ? 'blur-background' : ''}`}>
+      <div className={`left-0 ml-48 mt-5 text-black  w-[80rem] max-w-8xl xl:pl-0 2xl:px-10 flex ${isModalOpen ? 'blur-background' : ''}`}>
         {users.length === 0 ? (
           <h1 className='text-3xl text-center mt-5 text-red-600 font-bold'>No Employees Found</h1>
         ) : (
