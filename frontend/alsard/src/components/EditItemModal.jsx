@@ -50,7 +50,7 @@ const EditItemModal = ({ item, onClose, setItems }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-[55rem] h-[27rem]">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-[56rem] h-[27rem]">
         <h2 className="text-2xl font-bold mb-4">Edit {item.Name}</h2>
         <br />
         <form>
@@ -130,7 +130,7 @@ const EditItemModal = ({ item, onClose, setItems }) => {
           </div>
 
           <div className="mb-4 gap-3 flex items-center ">
-            <div className='flex gap-3 items-center'>
+            <div className='flex gap-3 items-center relative right-4'>
                   <label className="block text-gray-700">Sub Location</label>
                   <input
                     type="text"
