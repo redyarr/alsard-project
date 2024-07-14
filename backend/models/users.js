@@ -7,7 +7,6 @@ const db = require('../util/db');
 const users = db.define('user', {
 
     id: {
-
         type: Sequllize.INTEGER,
         autoIncrement: true,
         allowNull: false,
