@@ -76,7 +76,7 @@ const Employees = () => {
                       <p className='font-medium'>{user.Position}</p>
                     </div>
 
-                    <div id='buttons' className='flex gap-5 mt-4'>
+                    <div id='buttons' className='flex gap-2 mt-4'>
                       <div>
                           {authState.isAuthenticated && (
                             <>

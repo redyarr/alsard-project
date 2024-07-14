@@ -321,37 +321,41 @@ app.put('/editEmployee/:id', (req, res) => {
 
 
 // to edit an item
-app.post("/editItem/:id", (req, res, next) => {
+// Example using Sequelize for database operations
+app.put("/editItem/:id", async (req, res, next) => {
   const itemId = req.params.id;
 
-  items
-    .update(
+  try {
+    const updatedItem = await items.update(
       {
-        Name: req.body.Name,
-        Description: req.body.Description,
-        Category: req.body.Category,
+        Name: req.body.name,
+        Description: req.body.description,
+        Category: req.body.category,
         model: req.body.model,
         tagId: req.body.tagId,
         company: req.body.company,
         subLocation: req.body.subLocation,
-        updatedAt: new Date(),
         reserved: req.body.reserved,
+        updatedAt: new Date(),
       },
       { where: { Id: itemId } }
-    )
-    .then((result) => {
-      return res.status(200).json({
-        message: "Item updated successfully",
-        item: result,
-      });
-    })
-    .catch((error) => {
-      return res.status(500).json({
-        message: "Failed to update item",
-        error: error.message,
-      });
-    });
+    );
+
+    if (updatedItem[0] === 0) {
+      return res.status(404).json({ message: "Item not found" });
+    }
+
+    const updatedRecord = await items.findByPk(itemId);
+
+    res.status(200).json(updatedRecord);
+  } catch (error) {
+    console.error('Error updating item:', error.message);
+    res.status(500).json({ message: "Failed to update item", error: error.message });
+  }
 });
+
+
+
 
 // to delete an item
 app.delete("/deleteItem/:id", (req, res, next) => {

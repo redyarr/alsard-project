@@ -1,5 +1,7 @@
 import { useAuth } from './AuthContext';
 import { useState, useEffect } from 'react';
+import { MdDelete } from "react-icons/md";
+
 
 const ReservedItems = () => {
   const { authState } = useAuth();
@@ -62,13 +64,15 @@ return (
         <p className='font-medium'>{res.item.description}</p>
     </div>
     {authState.isAuthenticated && (
-                    <button
-                      className='w-[100px] h-[30px] bg-blue-600 text-white rounded'
-                      onClick={() => deleteReservedItem(res.id)}
-                    >
-                      Delete
-                    </button>
-                  )}
+                            <>
+                              <button
+                                className='w-10 h-10 bg-blue-600 text-white rounded-full items-center flex justify-center'
+                                onClick={() => deleteItems(item.Id)}
+                              >
+                                <MdDelete className='text-[1.6rem]' />
+                              </button>
+                            </>
+                          )}
 </div>
         </section>
       ))}
