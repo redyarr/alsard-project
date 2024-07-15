@@ -9,6 +9,7 @@ const Employees = () => {
   const [users, setUsers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -53,14 +54,34 @@ const Employees = () => {
     setIsModalOpen(false);
   };
 
+
+  const filteredUsers = users.filter(user =>
+    user.Name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <>
+               <input
+                required
+                value={searchQuery}
+                onChange={(e)=>{setSearchQuery(e.target.value)}}
+                  id="search"
+                  name="search"
+                  type="text"
+                  placeholder='search by name...'
+                  className="p-2 block w-[300px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"
+                />
+
+
+
+
+
       <div className={`left-0 ml-48 mt-5 text-black  w-[80rem] max-w-8xl xl:pl-0 2xl:px-10 flex ${isModalOpen ? 'blur-background' : ''}`}>
         {users.length === 0 ? (
           <h1 className='text-3xl text-center mt-5 text-red-600 font-bold'>No Employees Found</h1>
         ) : (
           <div>
-            {users.map((user) => (
+            {filteredUsers.map((user) => (
               <section key={user.Id} className='inline-block mr-5 mb-5'>
                 <div>
                   <div className='w-[300px] h-[250px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
