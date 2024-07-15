@@ -8,6 +8,8 @@ const Items = () => {
   const [items, setItems] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+
 
   useEffect(() => {
     const fetchItem = async () => {
@@ -52,14 +54,31 @@ const Items = () => {
     setIsModalOpen(false);
   };
 
+  const filteredUsers = items.filter(user =>
+    user.Name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <>
+            <div className='left-0 ml-48 mt-5 text-black  w-[80rem] max-w-8xl xl:pl-0 2xl:px-10 flex'>
+                  <input
+                      required
+                      value={searchQuery}
+                      onChange={(e)=>{setSearchQuery(e.target.value)}}
+                      id="search"
+                      name="search"
+                      type="text"
+                      placeholder='search by name...'
+                      className="p-2 block w-[300px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"
+                  />
+            </div>
+<br />
       <div className={`left-0 ml-48 mt-5 text-black  w-[80rem] max-w-8xl xl:pl-0 2xl:px-10 flex ${isModalOpen ? 'blur-background' : ''}`}>
-        {items.length === 0 ? (
+        {items.length === 0  || filteredUsers.length === 0 ? (
           <h1 className='text-3xl text-center mt-5 text-red-600 font-bold'>No Items Found</h1>
         ) : (
           <div>
-            {items.map((item) => (
+            {filteredUsers.map((item) => (
               <section key={item.Id} className='inline-block mr-5 mb-5'>
                 <div>
                   <div className='w-[300px] h-[280px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
