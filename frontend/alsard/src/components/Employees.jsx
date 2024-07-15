@@ -61,23 +61,22 @@ const Employees = () => {
 
   return (
     <>
-               <input
-                required
-                value={searchQuery}
-                onChange={(e)=>{setSearchQuery(e.target.value)}}
-                  id="search"
-                  name="search"
-                  type="text"
-                  placeholder='search by name...'
-                  className="p-2 block w-[300px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"
-                />
 
-
-
-
+            <div className='left-0 ml-48 mt-5 text-black  w-[80rem] max-w-8xl xl:pl-0 2xl:px-10 flex'>
+                      <input
+                        required
+                        value={searchQuery}
+                        onChange={(e)=>{setSearchQuery(e.target.value)}}
+                          id="search"
+                          name="search"
+                          type="text"
+                          placeholder='search by name...'
+                          className="p-2 block w-[300px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"
+                        />
+            </div>
 
       <div className={`left-0 ml-48 mt-5 text-black  w-[80rem] max-w-8xl xl:pl-0 2xl:px-10 flex ${isModalOpen ? 'blur-background' : ''}`}>
-        {users.length === 0 ? (
+        {users.length === 0 || filteredUsers.length===0 ? (
           <h1 className='text-3xl text-center mt-5 text-red-600 font-bold'>No Employees Found</h1>
         ) : (
           <div>
