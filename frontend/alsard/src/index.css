@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+  scroll-behavior: smooth;
+  
+}
+
+::-webkit-scrollbar{
+  display: none;
+}
+
 .cancel::-webkit-search-cancel-button {
   display: none;
 }
