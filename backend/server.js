@@ -76,29 +76,31 @@ EmployeeItem.belongsTo(employees, { foreignKey: "employeeId" });
 EmployeeItem.belongsTo(items, { foreignKey: "itemId" });
 
 
-// function bo away edit krdnaka bgoret 
-async function updateIsEditable(model) {
-  const sixHoursAgo = new Date(new Date() - 12 * 60 * 60 * 1000);// 12 sa3at farq inja 
-    // const sixHoursAgo = new Date(new Date() - 20 *1000); test krdny , 20 sanya farqy habe itr edit nakre
-  await model.update({ isEditable: false }, {
-      where: {
-          createdAt: {
-              [Op.lte]: sixHoursAgo
-          },
-          isEditable: true 
-      }
-  });
-};
+// // function bo away edit krdnaka bgoret 
+
+
+// async function updateIsEditable(model) {
+//   // const sixHoursAgo = new Date(new Date() - 12 * 60 * 60 * 1000);// 12 sa3at farq inja 
+//     const sixHoursAgo = new Date(new Date() - 20 *1000); //test krdny , 20 sanya farqy habe itr edit nakre
+//   await model.update({ isEditable: false }, {
+//       where: {
+//           createdAt: {
+//               [Op.lte]: sixHoursAgo
+//           },
+//           isEditable: true 
+//       }
+//   });
+// };
 
 
 
 
-// run krdny updateIsEditable function
-cron.schedule('0 * * * *', async () => {
-  await updateIsEditable(employees);
-  await updateIsEditable(items);
-  console.log('Updated isEditable for Employee and Item models');
-});
+// // run krdny updateIsEditable function
+// cron.schedule('0 * * * *', async () => {
+//   await updateIsEditable(employees);
+//   await updateIsEditable(items);
+//   console.log('Updated isEditable for Employee and Item models');
+// });
 
 
 app.get("/backup", (req, res) => {

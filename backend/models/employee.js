@@ -1,51 +1,51 @@
-const Sequllize = require('sequelize');
-
+const Sequelize = require('sequelize');
 const db = require('../util/db');
-const e = require('express');
-
 
 const employees = db.define('employee', {
-
     Id: {
-        type: Sequllize.INTEGER,
+        type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
     Name: {
-        type: Sequllize.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
     Email: {
-        type: Sequllize.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
     Phone: {
-        type: Sequllize.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
-
     employeeId: {
-        type: Sequllize.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
     department: {
-        type: Sequllize.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
     Position: {
-        type: Sequllize.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
     isEditable: {
-        type: Sequllize.STRING,
+        type: Sequelize.BOOLEAN,
         allowNull: false,
-           defaultValue: 'yes'
+        defaultValue: true
     },
-
-
+}, {
+    hooks: {
+        afterCreate: (employee, options) => {
+            setTimeout(async () => {
+                await employee.update({ isEditable: false });
+                console.log(`Employee ${employee.Id} is now not editable`);
+            }, 12 * 60 * 60 * 1000); // Use 12 * 60 * 60 * 1000 for 12 hours
+        }
+    }
 });
 
-
 module.exports = employees;
-

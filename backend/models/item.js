@@ -1,50 +1,43 @@
-const sequelize = require('sequelize');
-
+const Sequelize = require('sequelize');
 const db = require('../util/db');
 
-
 const items = db.define('item', {
-
     Id: {
-        type: sequelize.INTEGER,
+        type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
     Name: {
-        type: sequelize.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
     Description: {
-        type: sequelize.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
     model: {
-        type: sequelize.STRING,
-        allowNull: false
-    }
-    ,
-
-    Category: {
-        type: sequelize.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
-
+    Category: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     tagId: {
-        type: sequelize.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
     company: {
-        type: sequelize.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
-
     subLocation: {
-        type: sequelize.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
     reserved: {
-        type: sequelize.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
         defaultValue: 'no',
         validate: {
@@ -52,12 +45,19 @@ const items = db.define('item', {
         }
     },
     isEditable: {
-        type: sequelize.BOOLEAN,
+        type: Sequelize.BOOLEAN,
         allowNull: false,
-           defaultValue: true
+        defaultValue: true
     }
-
-
+}, {
+    hooks: {
+        afterCreate: (item, options) => {
+            setTimeout(async () => {
+                await item.update({ isEditable: false });
+                console.log(`Item ${item.Id} is now not editable`);
+            }, 12 * 60 * 60 * 1000); // Use 12 * 60 * 60 * 1000 for 12 hours
+        }
+    }
 });
 
 module.exports = items;
