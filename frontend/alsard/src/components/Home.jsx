@@ -153,7 +153,7 @@ const Home = () => {
                   ))}
             </div>
           )}
-          {filteredUsers.length === 0 && filteredItems.length === 0 && <p className='text-2xl text-black font-bold text-red-600'>No results found</p>}
+          {filteredUsers.length === 0 && filteredItems.length === 0 && <p className='text-2xl font-bold text-red-600'>No results found</p>}
         </>
       )}
     </div>
