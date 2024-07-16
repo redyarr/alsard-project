@@ -83,9 +83,12 @@ const Employees = () => {
             {filteredUsers.map((user) => (
               <section key={user.Id} className='inline-block mr-5 mb-5'>
                 <div>
-                  <div className='w-[300px] h-[250px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
-                    <div className='flex gap-2'>
-                      <h1 className='text-xl font-bold'>{user.Name}</h1>
+                  <div className='w-[300px] h-[260px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
+                    <div className='flex items-center gap-2'>
+                      <div className='rounded-full w-10 h-10 flex items-center justify-center bg-blue-600 font-bold text-white'>
+                        {user.Name.trim().charAt(0).toUpperCase()}
+                        </div>
+                      <h1 className='text-xl font-bold'>{user.Name.trim()}</h1>
                     </div>
                     <div>
                       <p className='font-medium'>{user.Email}</p>
