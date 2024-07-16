@@ -1,6 +1,8 @@
 import { useAuth } from './AuthContext';
 import { useEffect, useState } from 'react';
 import EditEmployeeModal from './EditEmployeeModal';
+import { NavLink } from 'react-router-dom';
+import { FaArrowRight } from "react-icons/fa";
 
 
 
@@ -81,7 +83,7 @@ const Employees = () => {
         ) : (
           <div>
             {filteredUsers.map((user) => (
-              <section key={user.Id} className='inline-block mr-5 mb-5'>
+              <section className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>
                 <div>
                   <div className='w-[300px] h-[260px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
                     <div className='flex items-center gap-2'>
@@ -116,9 +118,16 @@ const Employees = () => {
 
                       <div>
                            <button className='w-10 h-10 bg-blue-600 text-white rounded-full items-center flex justify-center' onClick={() => openEditModal(user)}>
-                           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                          </svg>                            </button>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>                            
+                          </button>
+                      </div>      
+
+                      <div>
+                        <NavLink className='w-10 h-10 bg-blue-600 text-white rounded-full items-center flex justify-center' to={`${user.Id}`}>
+                        <FaArrowRight />
+                        </NavLink>
                       </div>      
                           
                     </div>
