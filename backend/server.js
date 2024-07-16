@@ -14,6 +14,34 @@ const jwt = require("jsonwebtoken");
 const cron = require("node-cron");
 const { Op } = require('sequelize');
 
+const { exec } = require('child_process');
+const path = require('path');
+
+const fileName = `backup-${new Date().toISOString().split('T')[0]}.sql`;
+const filePath = path.join(__dirname, 'backups', fileName);
+
+
+
+function backupDatabase() {
+  // Define the filename for the backup
+  const fileName = `backup-${new Date().toISOString().split('T')[0]}.sql`;
+  const filePath = path.join(__dirname, 'backups', fileName);
+
+  // MySQL dump command
+  // const command = `mysqldump -u root -p'12123' alsard-ims > ${filePath}`;
+
+  const mysqldumpPath="C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\MySQL\\MySQL Server 8.0\\bin/mysqldump.exe"
+  const command = `"${mysqldumpPath}" -u root -p"12123Redyar" alsard-ims > "${filePath}"`; 
+  //it was the double quotations of the password that made the errors
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Backup error: ${error}`);
+      return;
+    }
+    console.log(`Backup created: ${fileName}`);
+  });
+}
+
 
 employees.belongsToMany(items, {
   through: EmployeeItem,
@@ -50,7 +78,7 @@ EmployeeItem.belongsTo(items, { foreignKey: "itemId" });
 
 // function bo away edit krdnaka bgoret 
 async function updateIsEditable(model) {
-  const sixHoursAgo = new Date(new Date() - 12 * 60 * 60 * 1000);
+  const sixHoursAgo = new Date(new Date() - 12 * 60 * 60 * 1000);// 12 sa3at farq inja 
     // const sixHoursAgo = new Date(new Date() - 20 *1000); test krdny , 20 sanya farqy habe itr edit nakre
   await model.update({ isEditable: false }, {
       where: {
@@ -70,6 +98,15 @@ cron.schedule('0 * * * *', async () => {
   await updateIsEditable(employees);
   await updateIsEditable(items);
   console.log('Updated isEditable for Employee and Item models');
+});
+
+
+app.get("/backup", (req, res) => {
+  backupDatabase();
+
+  res.send("Backup process started");
+  // res.status(200).json({ message: 'Backup process started' });
+
 });
 
 
