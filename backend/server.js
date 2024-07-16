@@ -137,6 +137,38 @@ app.get("/employeeItems", (req, res) => {
     });
 });
 
+
+// Endpoint to fetch a reserved item (EmployeeItem) by ID for dynamic routing
+app.get("/reservedItems/:id", (req, res) => {
+  const id = req.params.id;
+  EmployeeItem.findByPk(id, {
+    include: [
+      {
+        model: employees,
+        attributes: ["name", "email", "phone"],
+      },
+      {
+        model: items,
+        attributes: ["name", "description"],
+      },
+    ],
+  })
+    .then((reservedItem) => {
+      if (!reservedItem) {
+        return res.status(404).json({ message: 'Reserved item not found' });
+      }
+      res.status(200).json(reservedItem);
+    })
+    .catch((error) => {
+      console.error("Error fetching reserved item:", error.message);
+      res.status(500).json({
+        message: "Failed to retrieve reserved item",
+        error: error.message,
+      });
+    });
+});
+
+
 app.post("/additems", (req, res, next) => {
   items.findOne({ where: { tagId: req.body.tagId } }).then((item) => {
     if (item) {
