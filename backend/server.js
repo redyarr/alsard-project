@@ -50,7 +50,7 @@ EmployeeItem.belongsTo(items, { foreignKey: "itemId" });
 
 // function bo away edit krdnaka bgoret 
 async function updateIsEditable(model) {
-  const sixHoursAgo = new Date(new Date() - 6 * 60 * 60 * 1000);
+  const sixHoursAgo = new Date(new Date() - 12 * 60 * 60 * 1000);
     // const sixHoursAgo = new Date(new Date() - 20 *1000); test krdny , 20 sanya farqy habe itr edit nakre
   await model.update({ isEditable: false }, {
       where: {
@@ -66,7 +66,7 @@ async function updateIsEditable(model) {
 
 
 // run krdny updateIsEditable function
-cron.schedule('* * * * *', async () => {
+cron.schedule('0 * * * *', async () => {
   await updateIsEditable(employees);
   await updateIsEditable(items);
   console.log('Updated isEditable for Employee and Item models');
