@@ -36,7 +36,12 @@ const employees = db.define('employee', {
     Position: {
         type: Sequllize.STRING,
         allowNull: false
-    }
+    },
+    isEditable: {
+        type: Sequllize.STRING,
+        allowNull: false,
+           defaultValue: 'yes'
+    },
 
 
 });

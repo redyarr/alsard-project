@@ -11,6 +11,9 @@ const EmployeeItem = require("./models/employeeItem");
 const users = require("./models/users");
 //relation between employee and item
 const jwt = require("jsonwebtoken");
+const cron = require("node-cron");
+const { Op } = require('sequelize');
+
 
 employees.belongsToMany(items, {
   through: EmployeeItem,
@@ -43,6 +46,33 @@ async function ensureAdminUser() {
 
 EmployeeItem.belongsTo(employees, { foreignKey: "employeeId" });
 EmployeeItem.belongsTo(items, { foreignKey: "itemId" });
+
+
+// function bo away edit krdnaka bgoret 
+async function updateIsEditable(model) {
+  // const sixHoursAgo = new Date(new Date() - 6 * 60 * 60 * 1000);
+    const sixHoursAgo = new Date(new Date() - 20 *1000);
+  await model.update({ isEditable: false }, {
+      where: {
+          createdAt: {
+              [Op.lte]: sixHoursAgo
+          },
+          isEditable: true 
+      }
+  });
+};
+
+
+
+
+
+cron.schedule('* * * * *', async () => {
+  await updateIsEditable(employees);
+  await updateIsEditable(items);
+  console.log('Updated isEditable for Employee and Item models');
+});
+
+
 
 // Endpoint to fetch all reserved items with employee and item details
 app.get("/employeeItems", (req, res) => {
@@ -353,6 +383,10 @@ app.put("/editItem/:id", async (req, res, next) => {
     res.status(500).json({ message: "Failed to update item", error: error.message });
   }
 });
+
+
+
+//run krdny updateIsEditable function
 
 
 
