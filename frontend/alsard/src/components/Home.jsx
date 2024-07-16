@@ -46,6 +46,8 @@ const Home = () => {
       {searchQuery === '' ? (
         <>
           <div>
+         {users.length === 0 ? <p className='text-2xl font-bold text-red-600'>No users found</p> : 
+           <>
           <h1 className='text-2xl text-black font-bold '>Users</h1>
           <br />
           {users.map((user) => (
@@ -66,6 +68,8 @@ const Home = () => {
                     </div>
                   </section>   
                   ))}
+           </>
+         }   
           </div>
           <div>
 
@@ -75,6 +79,8 @@ const Home = () => {
         <br />
         <br />
 
+        {items.length === 0 ? <p className='text-2xl font-bold text-red-600'>No items found</p> :
+        <>
         <h1 className='text-2xl text-black font-bold '>Items</h1>
         <br />
         {items.map((item) => (
@@ -97,6 +103,8 @@ const Home = () => {
                     </div>
                   </section>   
                   ))}
+        </>
+}
           </div>
         </>
       ) : (
