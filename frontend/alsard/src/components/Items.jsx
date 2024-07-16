@@ -1,6 +1,8 @@
 import { useAuth } from './AuthContext';
 import { useEffect, useState } from 'react';
 import EditItemModal from './EditItemModal';
+import { NavLink } from 'react-router-dom';
+import { FaArrowRight } from "react-icons/fa";
 
 
 const Items = () => {
@@ -79,11 +81,14 @@ const Items = () => {
         ) : (
           <div>
             {filteredUsers.map((item) => (
-              <section key={item.Id} className='inline-block mr-5 mb-5'>
+              <section key={item.Id} className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>
                 <div>
-                  <div className='w-[300px] h-[280px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
+                  <div className='w-[300px] h-[295px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
                     <div className='flex gap-2'>
-                      <h1 className='text-xl font-bold'>{item.Name}</h1>
+                       <div className='rounded-full w-10 h-10 flex items-center justify-center bg-blue-600 font-bold text-white'>
+                          {item.Name.trim().charAt(0).toUpperCase()}
+                        </div>
+                      <h1 className='text-xl font-bold'>{item.Name.trim()}</h1>
                     </div>
                     <div>
                       <p className='font-medium'>{item.Description}</p>
@@ -116,6 +121,12 @@ const Items = () => {
                           </svg>
                             </button>
                       </div>      
+
+                      <div>
+                        <NavLink className='w-10 h-10 bg-blue-600 text-white rounded-full items-center flex justify-center' to={`${item.Id}`}>
+                        <FaArrowRight />
+                        </NavLink>
+                      </div>   
                           
                       </div>
                   </div>

@@ -13,6 +13,7 @@ import ReservedItems from './components/ReservedItems';
 import Employees from './components/Employees';
 import Items from './components/Items';
 import EmployeeDetail from './components/EmployeeDetail';
+import ItemDetail from './components/ItemDetail';
 
 
 
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="/employees/:id" element={<EmployeeDetail />} /> 
         <Route path='/addemployees' element={<AddEmployees />} />
         <Route path='items' element={<Items  />} />
+        <Route path='/items/:id' element={<ItemDetail />} />
         <Route path='/additems' element={<AddItems />} />
         <Route path='/reserved' element={<ReservedItems/>} />
         <Route path='/addreserved' element={<AddReservedItems />} />
