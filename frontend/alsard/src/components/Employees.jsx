@@ -12,6 +12,7 @@ const Employees = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -28,7 +29,7 @@ const Employees = () => {
     };
 
     fetchUsers();
-  }, [users]);
+  }, []);
 
   async function deleteUser(id) {
     try {
@@ -83,7 +84,7 @@ const Employees = () => {
         ) : (
           <div>
             {filteredUsers.map((user) => (
-              <section className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>
+              <section key={user.Id} className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>
                 <div>
                   <div className='w-[300px] h-[260px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
                     <div className='flex items-center gap-2'>
@@ -117,7 +118,7 @@ const Employees = () => {
                       </div>
 
                       <div>
-                           <button className='w-10 h-10 bg-blue-600 text-white rounded-full items-center flex justify-center' onClick={() => openEditModal(user)}>
+                           <button disabled={user.isEditable === 'no'}  className={`${user.isEditable === 'no' ? 'bg-gray-5400 text-gray-500' : ' w-10 h-10 bg-blue-600 text-white rounded-full items-center flex justify-center'}`} onClick={() => openEditModal(user)}>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                               <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                             </svg>                            

@@ -82,7 +82,7 @@ const Items = () => {
           <div>
             {filteredUsers.map((item) => (
               <section key={item.Id} className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>
-                <div>
+                <div> 
                   <div className='w-[300px] h-[295px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
                     <div className='flex gap-2'>
                        {/* <div className='rounded-full w-10 h-10 flex items-center justify-center bg-blue-600 font-bold text-white'>
@@ -115,8 +115,8 @@ const Items = () => {
                       </div>
 
                       <div>
-                          <button className='w-10 h-10 bg-blue-600 text-white rounded-full items-center flex justify-center' onClick={() => openEditModal(item)}>
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <button disabled={item.isEditable == false}  className={`${item.isEditable == false ? 'bg-gray-5400 text-gray-500' : ' w-10 h-10 bg-blue-600 text-white rounded-full items-center flex justify-center'}`} onClick={() => openEditModal(user)}>
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                           </svg>
                             </button>
