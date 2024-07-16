@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Home = () => {
   const [users, setUsers] = useState([]);
@@ -51,7 +52,8 @@ const Home = () => {
           <h1 className='text-2xl text-black font-bold '>Users</h1>
           <br />
           {users.map((user) => (
-                  <section  key={user.Id} className='inline-block mr-5 mb-5'>   
+            <NavLink to={`/employees/${user.Id}`} key={user.Id}>
+                  <section   className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>   
                     <div>
                       <div className='w-[300px] h-[190px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
                         <div className='flex gap-2'>
@@ -66,7 +68,8 @@ const Home = () => {
                         </div>
                       </div>
                     </div>
-                  </section>   
+                  </section> 
+            </NavLink>        
                   ))}
            </>
          }   
@@ -84,7 +87,8 @@ const Home = () => {
         <h1 className='text-2xl text-black font-bold '>Items</h1>
         <br />
         {items.map((item) => (
-                  <section  key={item.Id} className='inline-block mr-5 mb-5'>   
+              <NavLink to={`/items/${item.Id}`} key={item.Id}>
+                  <section  key={item.Id} className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>   
                     <div>
                       <div className='w-[300px] h-[240px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
                         <div className='flex gap-2'>
@@ -101,7 +105,8 @@ const Home = () => {
                         </div>
                       </div>
                     </div>
-                  </section>   
+                  </section>  
+              </NavLink>    
                   ))}
         </>
 }
@@ -115,7 +120,8 @@ const Home = () => {
       <h1 className='text-2xl text-black font-bold '>Users</h1>
       <br />
       {filteredUsers.map((user) => (
-                  <section  key={user.Id} className='inline-block mr-5 mb-5'>   
+              <NavLink to={`/employees/${user.Id}`} key={user.Id}>
+                  <section  key={user.Id} className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>   
                     <div>
                       <div className='w-[300px] h-[190px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
                         <div className='flex gap-2'>
@@ -131,6 +137,7 @@ const Home = () => {
                       </div>
                     </div>
                   </section>   
+              </NavLink>
                   ))}
             </div>
           )}
@@ -140,7 +147,8 @@ const Home = () => {
       <h1 className='text-2xl text-black font-bold '>Items</h1>
       <br />
       {filteredItems.map((item) => (
-                  <section  key={item.Id} className='inline-block mr-5 mb-5'>   
+            <NavLink to={`/items/${item.Id}`} key={item.Id}>
+                  <section  key={item.Id} className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>   
                     <div>
                       <div className='w-[300px] h-[240px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
                         <div className='flex gap-2'>
@@ -157,7 +165,8 @@ const Home = () => {
                         </div>
                       </div>
                     </div>
-                  </section>   
+                  </section> 
+              </NavLink>  
                   ))}
             </div>
           )}
