@@ -85,9 +85,9 @@ const Items = () => {
                 <div>
                   <div className='w-[300px] h-[295px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
                     <div className='flex gap-2'>
-                       <div className='rounded-full w-10 h-10 flex items-center justify-center bg-blue-600 font-bold text-white'>
+                       {/* <div className='rounded-full w-10 h-10 flex items-center justify-center bg-blue-600 font-bold text-white'>
                           {item.Name.trim().charAt(0).toUpperCase()}
-                        </div>
+                        </div> */}
                       <h1 className='text-xl font-bold'>{item.Name.trim()}</h1>
                     </div>
                     <div>

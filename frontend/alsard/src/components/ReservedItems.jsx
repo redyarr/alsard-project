@@ -74,9 +74,9 @@ return (
             <section key={res.id} className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>
               <div className='w-[300px] h-[270px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
         <div className='flex gap-2'>
-            <div className='rounded-full w-10 h-10 flex items-center justify-center bg-blue-600 font-bold text-white'>
+            {/* <div className='rounded-full w-10 h-10 flex items-center justify-center bg-blue-600 font-bold text-white'>
                 {res.employee.name.trim().charAt(0).toUpperCase()}
-            </div>
+            </div> */}
             <h1 className='text-xl font-bold'>{res.employee.name.trim()}</h1>
         </div>
 

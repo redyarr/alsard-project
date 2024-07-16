@@ -38,7 +38,7 @@ const Nav = () => {
  <div className='flex gap-20 justify-center items-center'>
 
       <div>
-        <h1 className='font-bold text-3xl text-blue-600'>Logo</h1>
+        <h1 className='font-bold text-3xl text-blue-600'>AlSard</h1>
       </div>
 
       <nav className='mt-3'>
