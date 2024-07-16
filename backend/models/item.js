@@ -1,4 +1,4 @@
-const Sequllize = require('sequelize');
+const sequelize = require('sequelize');
 
 const db = require('../util/db');
 
@@ -6,50 +6,55 @@ const db = require('../util/db');
 const items = db.define('item', {
 
     Id: {
-        type: Sequllize.INTEGER,
+        type: sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
     Name: {
-        type: Sequllize.STRING,
+        type: sequelize.STRING,
         allowNull: false
     },
     Description: {
-        type: Sequllize.STRING,
+        type: sequelize.STRING,
         allowNull: false
     },
     model: {
-        type: Sequllize.STRING,
+        type: sequelize.STRING,
         allowNull: false
     }
     ,
 
     Category: {
-        type: Sequllize.STRING,
+        type: sequelize.STRING,
         allowNull: false
     },
 
     tagId: {
-        type: Sequllize.STRING,
+        type: sequelize.STRING,
         allowNull: false
     },
     company: {
-        type: Sequllize.STRING,
+        type: sequelize.STRING,
         allowNull: false
     },
 
     subLocation: {
-        type: Sequllize.STRING,
+        type: sequelize.STRING,
         allowNull: false
     },
     reserved: {
-        type: Sequllize.STRING,
+        type: sequelize.STRING,
         allowNull: false,
         defaultValue: 'no',
         validate: {
             isIn: [['yes', 'no']]
         }
+    },
+    isEditable: {
+        type: sequelize.BOOLEAN,
+        allowNull: false,
+           defaultValue: true
     }
 
 
