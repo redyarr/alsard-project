@@ -28,6 +28,8 @@ const EmployeeDetail = () => {
   }
 
   return (
+
+    
     <div>
       <h1>{employee.Name}</h1>
       <p>Email: {employee.Email}</p>
