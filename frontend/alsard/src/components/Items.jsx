@@ -57,7 +57,11 @@ const Items = () => {
   };
 
   const filteredUsers = items.filter(user =>
-    user.Name.toLowerCase().includes(searchQuery.toLowerCase())
+    user.Name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    user.Category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    user.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    user.tagId.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    user.subLocation.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (

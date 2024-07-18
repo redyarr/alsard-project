@@ -6,6 +6,7 @@ const EditEmployeeModal = ({ employee, onClose, setUsers }) => {
     email: employee.Email,
     phone: employee.Phone,
     department: employee.department,
+    employeeId: employee.employeeId,
     position: employee.Position,
   });
 
@@ -69,6 +70,16 @@ const EditEmployeeModal = ({ employee, onClose, setUsers }) => {
             />
           </div>
           <div className="mb-4">
+            <label className="block text-gray-700">Department</label>
+            <input
+              type="text"
+              name="department"
+              className="w-full p-2 border rounded"
+              value={formData.department}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="mb-4">
             <label className="block text-gray-700">Phone</label>
             <input
               type="text"
@@ -79,15 +90,16 @@ const EditEmployeeModal = ({ employee, onClose, setUsers }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700">Department</label>
+            <label className="block text-gray-700">Employee ID</label>
             <input
               type="text"
-              name="department"
+              name="employeeId"
               className="w-full p-2 border rounded"
-              value={formData.department}
+              value={formData.employeeId}
               onChange={handleInputChange}
             />
           </div>
+
           <div className="mb-4">
             <label className="block text-gray-700">Position</label>
             <input

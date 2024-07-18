@@ -58,8 +58,9 @@ const Employees = () => {
   };
 
 
-  const filteredUsers = users.filter(user =>
-    user.Name.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredUsers = users.filter((user) =>
+    user.Name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    user.department.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (

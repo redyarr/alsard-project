@@ -8,8 +8,6 @@ const ReservedItems = () => {
   const { authState } = useAuth();
   const [reserved, setReserved] = useState([])
   const [searchTerm, setSearchTerm] = useState('');
-  console.log(reserved);
-
     useEffect(() => {
         const fetchReservedItems = async () => {
           try {
@@ -47,7 +45,7 @@ const ReservedItems = () => {
 
       const filteredReservedItems = reserved.filter((res) =>
         res.employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        res.item.name.toLowerCase().includes(searchTerm.toLowerCase())
+        res.item.name.toLowerCase().includes(searchTerm.toLowerCase()) 
       );
 
 
