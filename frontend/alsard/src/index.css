@@ -67,6 +67,23 @@ background-color: #2563eb;
 }
 
 
+.custom-checkbox {
+   position: relative;
+   display: block;
+}
+
+
+
+.custom-checkbox:checked::after {
+  content: '✔'; 
+  position: absolute;
+  bottom: 0;
+  font-size: 14px;
+  color: white;
+}
+
+
+
 
 
 
