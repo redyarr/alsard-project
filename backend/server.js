@@ -171,6 +171,37 @@ app.get("/reservedItems/:id", (req, res) => {
 });
 
 
+app.get('/employee/:id/details', async (req, res) => {
+  try {
+    const employeeId = req.params.id;
+
+    // Fetch employee details
+    const employee = await employees.findByPk(employeeId);
+
+    if (!employee) {
+      return res.status(404).json({ message: 'Employee not found' });
+    }
+
+    // Fetch reserved items for the employee
+    const reservedItems = await EmployeeItem.findAll({
+      where: { employeeId },
+      include: [items], // Assuming ReservedItem has a relation with Item
+    });
+
+    // Combine employee details and reserved items
+    const employeeDetails = {
+      ...employee.toJSON(),
+      reservedItems: reservedItems.map(r => r.item), // Adjust if necessary
+    };
+
+    res.json(employeeDetails);
+  } catch (error) {
+    console.error('Error fetching employee details:', error.message);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
 app.post("/additems", (req, res, next) => {
   items.findOne({ where: { tagId: req.body.tagId } }).then((item) => {
     if (item) {
