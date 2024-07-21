@@ -51,7 +51,7 @@ const ReservedItems = () => {
 
 return (
 <>
-    <div className='left-0 ml-48 mt-5 text-black  w-[80rem] max-w-8xl xl:pl-0 2xl:px-10 flex'>
+    <div className='p-10 text-black w-[80rem] max-w-8xl 2xl:px-20 flex gap-10 items-center'>
                   <input
                       required
                       value={searchTerm}
@@ -64,7 +64,7 @@ return (
                   />
     </div>
 <br />
-    <div className='left-0 ml-48 mt-5 text-black  w-[80rem] max-w-8xl xl:pl-0 2xl:px-10 flex'>
+    <div className='left-0 pl-10 text-black w-[93rem] max-w-8xl 2xl:px-10 flex'>
     {reserved.length === 0 || filteredReservedItems.length === 0  ? <p className='text-3xl text-center mt-5 text-red-600 font-bold'>No Reserved Item Found</p> : 
 
     <div>

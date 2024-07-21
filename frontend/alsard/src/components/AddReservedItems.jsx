@@ -37,7 +37,7 @@ function AddReservedItems() {
 
     fetchEmployees();
     fetchItems();
-  }, []);
+  }, [items, employees]);
 
   async function handleReserve(event) {
     event.preventDefault();

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { FaPrint } from "react-icons/fa";
+import { useParams, NavLink } from 'react-router-dom';
+import { FaPrint, FaArrowRight } from "react-icons/fa";
 
 const EmployeeDetail = () => {
   const { id } = useParams();
@@ -25,6 +25,10 @@ const EmployeeDetail = () => {
     fetchEmployeeDetails();
   }, [id]);
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   if (error) {
     return <div>{error}</div>;
   }
@@ -34,7 +38,14 @@ const EmployeeDetail = () => {
   }
 
   return (
-    <div className='flex flex-col items-center mt-5 text-black mx-auto max-w-8xl xl:px-6 2xl:px-20'>
+    <div className='flex gap-72 mt-5 pb-5 text-black mx-auto max-w-8xl xl:px-6 2xl:px-20'>
+      
+      <div className='left-0'>
+        <NavLink className='w-10 h-10 bg-blue-600 rounded-full items-center flex justify-center' to='/employees'>
+          <FaArrowRight className='text-white rotate-180' />
+        </NavLink>
+      </div>
+
       <div className='w-full max-w-4xl bg-gray-200 p-6 rounded-lg'>
         <h1 className='text-2xl font-bold mb-4'>{employee.Name}</h1>
         <p className='font-medium mb-2'>Email: {employee.Email}</p>
@@ -72,11 +83,9 @@ const EmployeeDetail = () => {
         )}
 
         <div className='mt-6'>
-          <a href="javascript:if(window.print)window.print()">
-            <button className='w-[100px] h-[40px] bg-blue-600 hover:bg-blue-700 text-white rounded-md font-medium gap-5 p-2 flex items-center'> 
-              Print <FaPrint />
-            </button>
-          </a>
+          <button onClick={handlePrint} className='w-[100px] h-[40px] bg-blue-600 hover:bg-blue-700 text-white rounded-md font-medium gap-5 p-2 flex items-center'> 
+            Print <FaPrint />
+          </button>
         </div>
       </div>
     </div>

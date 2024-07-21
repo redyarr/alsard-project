@@ -83,6 +83,13 @@ background-color: #2563eb;
 }
 
 
+@media print {
+  #navbar{
+    display: none !important;
+  }
+}
+
+
 
 
 
