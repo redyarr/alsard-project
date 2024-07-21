@@ -48,13 +48,10 @@ function backupDatabase() {
 
 
 // a fucntion for restoring the database from a backup file
+
 function restoreDatabase(backupFileName) {
   // Define the path to the backup file
   const filePath = path.join(__dirname, 'backups', backupFileName);
-
-console.log(filePath);
-      // MySQL command to restore the database from a backup file
-
 
     // Check if the backup file exists
     if (!fs.existsSync(filePath)) {
@@ -64,7 +61,6 @@ console.log(filePath);
     }
 
 
-   
       // MySQL command to restore the database from a backup file
       const mysqlPath = "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\MySQL\\MySQL Server 8.0\\bin\\mysql.exe";
       const command = `"${mysqlPath}" -u root -p"12123Redyar" alsard-ims < "${filePath}"`;
