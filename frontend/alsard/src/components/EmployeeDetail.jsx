@@ -6,6 +6,7 @@ const EmployeeDetail = () => {
   const { id } = useParams();
   const [employee, setEmployee] = useState(null);
   const [error, setError] = useState(null);
+console.log(employee);
 
   useEffect(() => {
     const fetchEmployeeDetails = async () => {
@@ -58,24 +59,24 @@ const EmployeeDetail = () => {
         {employee.reservedItems.length === 0 ? (
           <p>No reserved items</p>
         ) : (
-          <table className='min-w-full divide-y divide-gray-200'>
+          <table className='min-w-full divide-y divide-gray-200 border-2 border-black'>
             <thead>
               <tr>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Item Name</th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Category</th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Model</th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Tag ID</th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Company</th>
+                <th className='px-6 py-3 text-xs font-medium text-gray-700 text-center border-2 border-black uppercase tracking-wider'>Item Name</th>
+                <th className='px-6 py-3 text-xs font-medium text-gray-700 text-center border-2 border-black uppercase tracking-wider'>Category</th>
+                <th className='px-6 py-3 text-xs font-medium text-gray-700 text-center border-2 border-black uppercase tracking-wider'>Model</th>
+                <th className='px-6 py-3 text-xs font-medium text-gray-700 text-center border-2 border-black uppercase tracking-wider'>Tag ID</th>
+                <th className='px-6 py-3 text-xs font-medium text-gray-700 text-center border-2 border-black uppercase tracking-wider'>Company</th>
               </tr>
             </thead>
             <tbody className='bg-white divide-y divide-gray-200'>
               {employee.reservedItems.map(item => (
                 <tr key={item.Id}>
-                  <td className='px-6 py-4 whitespace-nowrap'>{item.Name}</td>
-                  <td className='px-6 py-4 whitespace-nowrap'>{item.Category}</td>
-                  <td className='px-6 py-4 whitespace-nowrap'>{item.model}</td>
-                  <td className='px-6 py-4 whitespace-nowrap'>{item.tagId}</td>
-                  <td className='px-6 py-4 whitespace-nowrap'>{item.company}</td>
+                  <td className='px-6 py-4 whitespace-nowrap border-2 border-black text-center font-medium'>{item.Name}</td>
+                  <td className='px-6 py-4 whitespace-nowrap border-2 border-black text-center font-medium'>{item.Category}</td>
+                  <td className='px-6 py-4 whitespace-nowrap border-2 border-black text-center font-medium'>{item.model}</td>
+                  <td className='px-6 py-4 whitespace-nowrap border-2 border-black text-center font-medium'>{item.tagId}</td>
+                  <td className='px-6 py-4 whitespace-nowrap border-2 border-black text-center font-medium'>{item.company}</td>
                 </tr>
               ))}
             </tbody>

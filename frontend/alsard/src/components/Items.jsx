@@ -104,7 +104,7 @@ const Items = () => {
           className="p-2 block w-[300px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
         />
 
-        <div className=' text-black max-w-8xl 2xl:px-10'>
+        <div className='text-black max-w-8xl 2xl:px-10'>
           <FilterComponent filters={filters} handleFilterChange={handleFilterChange} />
         </div>
       </div>
@@ -150,7 +150,7 @@ const Items = () => {
                       {authState.isAuthenticated ?
                       <>
                       <div>
-                           <button className=' w-10 h-10 bg-blue-600 text-white rounded-full items-center flex justify-center' onClick={() => openEditModal(user)}>
+                           <button className=' w-10 h-10 bg-blue-600 text-white rounded-full items-center flex justify-center' onClick={() => openEditModal(item)}>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                               <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                             </svg>                            
@@ -160,7 +160,7 @@ const Items = () => {
                       :
                       <>
                       <div>
-                           <button disabled={item.isEditable === false}  className={`${item.isEditable === false ? 'bg-gray-300 text-gray-500 w-10 h-10 rounded-full items-center flex justify-center' : ' w-10 h-10 bg-blue-600 text-white rounded-full items-center flex justify-center'}`} onClick={() => openEditModal(user)}>
+                           <button disabled={item.isEditable === false}  className={`${item.isEditable === false ? 'bg-gray-300 text-gray-500 w-10 h-10 rounded-full items-center flex justify-center' : ' w-10 h-10 bg-blue-600 text-white rounded-full items-center flex justify-center'}`} onClick={() => openEditModal(item)}>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                               <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                             </svg>                            

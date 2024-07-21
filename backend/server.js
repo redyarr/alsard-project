@@ -308,6 +308,40 @@ app.delete("/deleteItem/:id", (req, res) => {
     });
 });
 
+
+// Endpoint to fetch item details and the employee who reserved it (if applicable)
+app.get('/items/:id/details', async (req, res) => {
+  try {
+    const itemId = req.params.id;
+
+    // Fetch item details
+    const item = await items.findByPk(itemId);
+
+    if (!item) {
+      return res.status(404).json({ message: 'Item not found' });
+    }
+
+    // Fetch the employee details if the item is reserved
+    let reservedBy = null;
+    if (item.reserved === 'yes') {
+      const reservedItem = await EmployeeItem.findOne({ where: { itemId: itemId }, include: [employees] });
+      reservedBy = reservedItem ? reservedItem.employee : null;
+    }
+
+    // Combine item details and reserved employee details
+    const itemDetails = {
+      ...item.toJSON(),
+      reservedBy: reservedBy
+    };
+
+    res.status(200).json(itemDetails);
+  } catch (error) {
+    console.error('Error fetching item details:', error.message);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
 app.post("/addEmployee", (req, res, next) => {
   employees
     .findOne({ where: { employeeId: req.body.UserID } })
@@ -394,24 +428,8 @@ app.get("/employees", (req, res, next) => {
 
 
 
-// Endpoint to fetch an items by ID for dinamic routing
-app.get("/items/:id", (req, res) => {
-  const id = req.params.id;
-  items.findByPk(id)
-    .then((items) => {
-      if (!items) {
-        return res.status(404).json({ message: 'Employee not found' });
-      }
-      res.status(200).json(items);
-    })
-    .catch((error) => {
-      console.error("Error fetching employee:", error.message);
-      res.status(500).json({
-        message: "Failed to retrieve employee",
-        error: error.message,
-      });
-    });
-});
+
+
 
 
 

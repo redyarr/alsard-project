@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import FilterComponent from './FilterComponent';
 
 const Home = () => {
   const [users, setUsers] = useState([]);
   const [items, setItems] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [filters, setFilters] = useState([
+    { name: 'employees', label: 'Employees', checked: false },
+    { name: 'items', label: 'Items', checked: false },
+  ]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,6 +31,12 @@ const Home = () => {
     fetchData();
   }, []);
 
+  const handleFilterChange = (index) => {
+    const newFilters = [...filters];
+    newFilters[index].checked = !newFilters[index].checked;
+    setFilters(newFilters);
+  };
+
   const filteredUsers = users.filter(user =>
     user.Name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -34,27 +45,45 @@ const Home = () => {
     item.Name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const showEmployees = filters.find(filter => filter.name === 'employees')?.checked;
+  const showItems = filters.find(filter => filter.name === 'items')?.checked;
+
+  const displayUsers = !showEmployees && !showItems || showEmployees;
+  const displayItems = !showEmployees && !showItems || showItems;
+
   return (
-    <div className='left-0 ml-48 mt-5 text-black  w-[80rem] max-w-8xl xl:pl-0 2xl:px-10 flex flex-col'>
-      <input
-        type="text"
-        placeholder="Search by Item & Employee name..."
-        value={searchQuery}
-        className="p-2 block w-[300px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"
-        onChange={(e) => setSearchQuery(e.target.value)}
-      />
+    <>
+      <div className='p-10 text-black w-[80rem] max-w-8xl 2xl:px-20 flex gap-10 items-center'>
+        <input
+          required
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          id="search"
+          name="search"
+          type="text"
+          placeholder='Search by name...'
+          className="p-2 block w-[300px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+        />
+
+        <div className='text-black max-w-8xl 2xl:px-10'>
+        <div className='text-black max-w-8xl 2xl:px-10'>
+          <FilterComponent filters={filters} handleFilterChange={handleFilterChange} />
+        </div>
+        </div>
+      </div>
       <br />
-      {searchQuery === '' ? (
-        <>
+      <div className='left-0 pl-10 text-black w-[93rem] max-w-8xl 2xl:px-10 flex flex-col'>
+        {displayUsers && (
           <div>
-         {users.length === 0 ? <p className='text-2xl font-bold text-red-600'>No users found</p> : 
-           <>
-          <h1 className='text-2xl text-black font-bold '>Users</h1>
-          <br />
-          {users.map((user) => (
-            <NavLink to={`/employees/${user.Id}`} key={user.Id}>
-                  <section   className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>   
-                    <div>
+            {filteredUsers.length === 0 ? (
+              <p className='text-2xl font-bold text-red-600'>No users found</p>
+            ) : (
+              <>
+                <h1 className='text-2xl text-black font-bold'>Users</h1>
+                <br />
+                {filteredUsers.map((user) => (
+                  <NavLink to={`/employees/${user.Id}`} key={user.Id}>
+                    <section className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>
                       <div className='w-[300px] h-[190px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
                         <div className='flex gap-2'>
                           <h1 className='text-xl font-bold'>{user.Name}</h1>
@@ -67,29 +96,25 @@ const Home = () => {
                           <p className='font-medium'>{user.Position}</p>
                         </div>
                       </div>
-                    </div>
-                  </section> 
-            </NavLink>        
-                  ))}
-           </>
-         }   
+                    </section>
+                  </NavLink>
+                ))}
+              </>
+            )}
           </div>
+        )}
+
+        {displayItems && (
           <div>
-
-          <br />
-          <br />
-        <hr />
-        <br />
-        <br />
-
-        {items.length === 0 ? <p className='text-2xl font-bold text-red-600'>No items found</p> :
-        <>
-        <h1 className='text-2xl text-black font-bold '>Items</h1>
-        <br />
-        {items.map((item) => (
-              <NavLink to={`/items/${item.Id}`} key={item.Id}>
-                  <section  key={item.Id} className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>   
-                    <div>
+            {filteredItems.length === 0 ? (
+              <p className='text-2xl font-bold text-red-600'>No items found</p>
+            ) : (
+              <>
+                <h1 className='text-2xl text-black font-bold'>Items</h1>
+                <br />
+                {filteredItems.map((item) => (
+                  <NavLink to={`/items/${item.Id}`} key={item.Id}>
+                    <section className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>
                       <div className='w-[300px] h-[240px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
                         <div className='flex gap-2'>
                           <h1 className='text-xl font-bold'>{item.Name}</h1>
@@ -104,76 +129,15 @@ const Home = () => {
                           <p className='font-medium'>{item.reserved}</p>
                         </div>
                       </div>
-                    </div>
-                  </section>  
-              </NavLink>    
-                  ))}
-        </>
-}
+                    </section>
+                  </NavLink>
+                ))}
+              </>
+            )}
           </div>
-        </>
-      ) : (
-        <>
-          {filteredUsers.length > 0 && (
-            <div>
-      <br />
-      <h1 className='text-2xl text-black font-bold '>Users</h1>
-      <br />
-      {filteredUsers.map((user) => (
-              <NavLink to={`/employees/${user.Id}`} key={user.Id}>
-                  <section  key={user.Id} className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>   
-                    <div>
-                      <div className='w-[300px] h-[190px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
-                        <div className='flex gap-2'>
-                          <h1 className='text-xl font-bold'>{user.Name}</h1>
-                        </div>
-                        <div>
-                          <p className='font-medium'>{user.Email}</p>
-                          <p className='font-medium'>{user.department}</p>
-                          <p className='font-medium'>{user.Phone}</p>
-                          <p className='font-medium'>{user.employeeId}</p>
-                          <p className='font-medium'>{user.Position}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </section>   
-              </NavLink>
-                  ))}
-            </div>
-          )}
-          {filteredItems.length > 0 && (
-            <div>
-              <br />
-      <h1 className='text-2xl text-black font-bold '>Items</h1>
-      <br />
-      {filteredItems.map((item) => (
-            <NavLink to={`/items/${item.Id}`} key={item.Id}>
-                  <section  key={item.Id} className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>   
-                    <div>
-                      <div className='w-[300px] h-[240px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
-                        <div className='flex gap-2'>
-                          <h1 className='text-xl font-bold'>{item.Name}</h1>
-                        </div>
-                        <div>
-                          <p className='font-medium'>{item.Description}</p>
-                          <p className='font-medium'>{item.Category}</p>
-                          <p className='font-medium'>{item.model}</p>
-                          <p className='font-medium'>{item.tagId}</p>
-                          <p className='font-medium'>{item.company}</p>
-                          <p className='font-medium'>{item.subLocation}</p>
-                          <p className='font-medium'>{item.reserved}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </section> 
-              </NavLink>  
-                  ))}
-            </div>
-          )}
-          {filteredUsers.length === 0 && filteredItems.length === 0 && <p className='text-2xl font-bold text-red-600'>No results found</p>}
-        </>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 };
 
