@@ -186,35 +186,51 @@ app.get("/employeeItems", (req, res) => {
 });
 
 
-// Endpoint to fetch a reserved item (EmployeeItem) by ID for dynamic routing
-app.get("/reservedItems/:id", (req, res) => {
+app.get('/reservedItems/:id/detail', async (req, res) => {
   const id = req.params.id;
-  EmployeeItem.findByPk(id, {
-    include: [
-      {
-        model: employees,
-        attributes: ["name", "email", "phone"],
-      },
-      {
-        model: items,
-        attributes: ["name", "description"],
-      },
-    ],
-  })
-    .then((reservedItem) => {
-      if (!reservedItem) {
-        return res.status(404).json({ message: 'Reserved item not found' });
-      }
-      res.status(200).json(reservedItem);
-    })
-    .catch((error) => {
-      console.error("Error fetching reserved item:", error.message);
-      res.status(500).json({
-        message: "Failed to retrieve reserved item",
-        error: error.message,
-      });
+  try {
+    // Fetch reserved item details
+    const reservedItem = await EmployeeItem.findByPk(id, {
+      include: [
+        {
+          model: employees,
+          as: 'employee',
+          attributes: ['name', 'email', 'phone', 'department', 'position', 'employeeId']
+        },
+        {
+          model: items,
+          as: 'item',
+          attributes: ['name', 'description', 'category', 'model', 'tagId', 'company', 'subLocation', 'reserved']
+        }
+      ]
     });
+
+    if (!reservedItem) {
+      return res.status(404).json({ error: 'Reserved item not found' });
+    }
+
+    // Fetch other reserved items by the same employee
+    const otherReservedItems = await EmployeeItem.findAll({
+      where: { employeeId: reservedItem.employeeId, id: { [Op.ne]: id } },
+      include: [ 
+        {
+          model: items,
+          as: 'item',
+          attributes: ['name', 'description', 'category', 'model', 'tagId', 'company', 'subLocation']
+        }
+      ]
+    });
+
+    res.json({
+      reservedItem,
+      otherReservedItems
+    });
+  } catch (error) {
+    console.error('Error fetching reserved item details:', error.message);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
+
 
 
 
@@ -308,40 +324,6 @@ app.delete("/deleteItem/:id", (req, res) => {
     });
 });
 
-
-// Endpoint to fetch item details and the employee who reserved it (if applicable)
-app.get('/items/:id/details', async (req, res) => {
-  try {
-    const itemId = req.params.id;
-
-    // Fetch item details
-    const item = await items.findByPk(itemId);
-
-    if (!item) {
-      return res.status(404).json({ message: 'Item not found' });
-    }
-
-    // Fetch the employee details if the item is reserved
-    let reservedBy = null;
-    if (item.reserved === 'yes') {
-      const reservedItem = await EmployeeItem.findOne({ where: { itemId: itemId }, include: [employees] });
-      reservedBy = reservedItem ? reservedItem.employee : null;
-    }
-
-    // Combine item details and reserved employee details
-    const itemDetails = {
-      ...item.toJSON(),
-      reservedBy: reservedBy
-    };
-
-    res.status(200).json(itemDetails);
-  } catch (error) {
-    console.error('Error fetching item details:', error.message);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-});
-
-
 app.post("/addEmployee", (req, res, next) => {
   employees
     .findOne({ where: { employeeId: req.body.UserID } })
@@ -428,7 +410,37 @@ app.get("/employees", (req, res, next) => {
 
 
 
+// Endpoint to fetch an items by ID for dinamic routing// Endpoint to fetch item details and the employee who reserved it (if applicable)
+app.get('/items/:id/details', async (req, res) => {
+  try {
+    const itemId = req.params.id;
 
+    // Fetch item details
+    const item = await items.findByPk(itemId);
+
+    if (!item) {
+      return res.status(404).json({ message: 'Item not found' });
+    }
+
+    // Fetch the employee details if the item is reserved
+    let reservedBy = null;
+    if (item.reserved === 'yes') {
+      const reservedItem = await EmployeeItem.findOne({ where: { itemId: itemId }, include: [employees] });
+      reservedBy = reservedItem ? reservedItem.employee : null;
+    }
+
+    // Combine item details and reserved employee details
+    const itemDetails = {
+      ...item.toJSON(),
+      reservedBy: reservedBy
+    };
+
+    res.status(200).json(itemDetails);
+  } catch (error) {
+    console.error('Error fetching item details:', error.message);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 
 

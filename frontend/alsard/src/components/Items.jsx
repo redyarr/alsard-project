@@ -8,7 +8,6 @@ import FilterComponent from './FilterComponent';
 const Items = () => {
   const { authState } = useAuth();
   const [items, setItems] = useState([]);
-  console.log(items);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
