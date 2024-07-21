@@ -17,9 +17,9 @@ const { Op } = require('sequelize');
 const { exec } = require('child_process');
 const path = require('path');
 
-const fileName = `backup-${new Date().toISOString().split('T')[0]}.sql`;
-const filePath = path.join(__dirname, 'backups', fileName);
-
+// const fileName = `backup-${new Date().toISOString().split('T')[0]}.sql`;
+// const filePath = path.join(__dirname, 'backups', fileName);
+const fs = require('fs');
 
 
 function backupDatabase() {
@@ -41,6 +41,47 @@ function backupDatabase() {
     console.log(`Backup created: ${fileName}`);
   });
 }
+
+
+
+
+
+
+// a fucntion for restoring the database from a backup file
+function restoreDatabase(backupFileName) {
+  // Define the path to the backup file
+  const filePath = path.join(__dirname, 'backups', backupFileName);
+
+console.log(filePath);
+      // MySQL command to restore the database from a backup file
+
+
+    // Check if the backup file exists
+    if (!fs.existsSync(filePath)) {
+      console.error(`Backup file does not exist: ${filePath}`);
+      console.log(`Backup file does not exist: ${filePath}`);
+      return   false;
+    }
+
+
+   
+      // MySQL command to restore the database from a backup file
+      const mysqlPath = "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\MySQL\\MySQL Server 8.0\\bin\\mysql.exe";
+      const command = `"${mysqlPath}" -u root -p"12123Redyar" alsard-ims < "${filePath}"`;
+  
+      exec(command, (error, stdout, stderr) => {
+        if (error) {
+          console.error(`Restore error: ${error}`);
+          return;
+        }
+        console.log(`Database restored from: ${backupFileName}`);
+      });
+      return true;
+  }
+
+
+
+
 
 
 employees.belongsToMany(items, {
@@ -76,7 +117,6 @@ EmployeeItem.belongsTo(employees, { foreignKey: "employeeId" });
 EmployeeItem.belongsTo(items, { foreignKey: "itemId" });
 
 
-// // function bo away edit krdnaka bgoret 
 
 
 // async function updateIsEditable(model) {
@@ -95,12 +135,11 @@ EmployeeItem.belongsTo(items, { foreignKey: "itemId" });
 
 
 
-// // run krdny updateIsEditable function
-// cron.schedule('0 * * * *', async () => {
-//   await updateIsEditable(employees);
-//   await updateIsEditable(items);
-//   console.log('Updated isEditable for Employee and Item models');
-// });
+// // run krdny backup function aka
+ cron.schedule('0 17 * * *', async () => {
+  backupDatabase();
+  console.log('Backup process started');
+});
 
 
 app.get("/backup", (req, res) => {
@@ -110,6 +149,17 @@ app.get("/backup", (req, res) => {
   // res.status(200).json({ message: 'Backup process started' });
 
 });
+
+app.get('/restore/:filename', (req, res) => {
+  const { filename } = req.params;
+  if (restoreDatabase(filename)) {
+    res.send(`Database restoration initiated from backup file: ${filename}`);
+  } else {
+    res.status(404).send(`Backup file not found: ${filename}`);
+  }
+});
+
+
 
 
 
