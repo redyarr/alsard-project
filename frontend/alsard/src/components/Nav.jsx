@@ -10,7 +10,6 @@ const Nav = () => {
   const [isSticky, setIsSticky] = useState(false);
   const { logout, authState } = useAuth();
   const { t, i18n } = useTranslation();
-  
 
   const navLinks = [
     { link: t('navbar.home'), path: '/' },
@@ -24,6 +23,7 @@ const Nav = () => {
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
+    localStorage.setItem('language', lng);
     if (lng === 'ku') {
       document.body.classList.add('rtl');
     } else {
@@ -69,21 +69,22 @@ const Nav = () => {
         </nav>
 
       </div>
-        <div className={`${i18n.language === 'en' ? 'ml-72 mb-2 flex items-center w-9 h-22' : 'mb-2 flex items-center w-9 h-22'}`}>
-          <div className="w-full rounded-lg">
-            <Field>
-              <div className="relative">
-                <Select
-                  className='mt-3 block  appearance-none rounded-md border-none bg-blue-600 text-white py-1.5 px-2 focus:outline-none'
-                  onChange={(e) => changeLanguage(e.target.value)}
-                >
-                  <option value="en">EN</option>
-                  <option value="ku">KU</option>
-                </Select>
-              </div>
-            </Field>
-          </div>
+      <div className={`${i18n.language === 'en' ? 'ml-72 mb-2 flex items-center w-9 h-22' : 'mr-[20rem] mb-2 flex items-center w-9 h-22'}`}>
+        <div className="w-full rounded-lg">
+          <Field>
+            <div className="relative">
+              <Select
+                className='mt-3 block cursor-pointer appearance-none rounded-md border-none bg-blue-600 text-white py-1.5 px-2 focus:outline-none'
+                onChange={(e) => changeLanguage(e.target.value)}
+                value={i18n.language} // Ensure the selected language is reflected in the dropdown
+              >
+                <option value="en">EN</option>
+                <option value="ku">KU</option>
+              </Select>
+            </div>
+          </Field>
         </div>
+      </div>
       <div>
 
         {authState.isAuthenticated ?

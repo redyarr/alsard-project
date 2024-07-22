@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const EditItemModal = ({ item, onClose, setItems }) => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ const EditItemModal = ({ item, onClose, setItems }) => {
     subLocation: item.subLocation,
     reserved: item.reserved,
   });
+  const {t}=useTranslation()
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -49,14 +51,14 @@ const EditItemModal = ({ item, onClose, setItems }) => {
   
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div id='haha' className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-6 rounded-lg shadow-lg w-[56rem] h-[27rem]">
         <h2 className="text-2xl font-bold mb-4">Edit <span className='text-blue-600'>{item.Name}</span></h2>
         <br />
         <form>
           <div className="mb-4 flex justify-evenly items-center">
               <div className='flex gap-3 items-center'>
-                      <label className="block text-gray-700">Name</label>
+                      <label className="block text-gray-700">{t("home.name")}</label>
                       <input
                         type="text"
                         name="name"
@@ -67,7 +69,7 @@ const EditItemModal = ({ item, onClose, setItems }) => {
                 </div> 
 
                 <div className='flex gap-3 items-center'>
-                            <label className="block text-gray-700">Description</label>
+                            <label className="block text-gray-700">{t("home.description")}</label>
                             <input
                               type="text"
                               name="description"
@@ -80,7 +82,7 @@ const EditItemModal = ({ item, onClose, setItems }) => {
 
           <div className="mb-4 flex justify-evenly items-center">
                 <div className='flex gap-3 items-center pr-14'>
-                    <label className="block text-gray-700">Category</label>
+                    <label className="block text-gray-700">{t("home.category")}</label>
                     <input
                       type="text"
                       name="category"
@@ -91,7 +93,7 @@ const EditItemModal = ({ item, onClose, setItems }) => {
                 </div>
 
                 <div className='flex gap-3 items-center pr-[1.3rem]'>
-                    <label className="block text-gray-700">Model</label>
+                    <label className="block text-gray-700">{t("home.model")}</label>
                     <input
                       type="text"
                       name="model"
@@ -107,7 +109,7 @@ const EditItemModal = ({ item, onClose, setItems }) => {
 
           <div className="mb-4 flex justify-evenly items-center">
               <div className='flex gap-3 items-center pr-3'>
-                      <label className="block text-gray-700">Tag ID</label>
+                      <label className="block text-gray-700">{t("home.tagId")}</label>
                     <input
                       type="text"
                       name="tagId"
@@ -118,7 +120,7 @@ const EditItemModal = ({ item, onClose, setItems }) => {
                 </div> 
 
                 <div className='flex gap-3 items-center '>
-                   <label className="block text-gray-700">Company</label>
+                   <label className="block text-gray-700">{t("home.company")}</label>
                     <input
                       type="text"
                       name="company"
@@ -131,7 +133,7 @@ const EditItemModal = ({ item, onClose, setItems }) => {
 
           <div className="mb-4 gap-3 flex items-center ">
             <div className='flex gap-3 items-center relative right-4'>
-                  <label className="block text-gray-700">Sub Location</label>
+                  <label className="block text-gray-700">{t("home.subLocation")}</label>
                   <input
                     type="text"
                     name="subLocation"
@@ -149,14 +151,14 @@ const EditItemModal = ({ item, onClose, setItems }) => {
               className="mr-2 bg-red-600 text-white font-medium px-4 py-2 rounded"
               onClick={onClose}
             >
-              Cancel
+              {t("home.cancel")}
             </button>
             <button
               type="button"
               className="bg-green-500 font-medium text-white px-4 py-2 rounded"
               onClick={handleSave}
             >
-              Save
+              {t("home.save")}
             </button>
           </div>
         </form>

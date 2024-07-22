@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-
+import { useTranslation } from 'react-i18next';
 function AddReservedItems() {
   const [employees, setEmployees] = useState([]);
   const [items, setItems] = useState([]);
   const [selectedEmployeeId, setSelectedEmployeeId] = useState("");
   const [selectedItemId, setSelectedItemId] = useState("");
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -72,12 +73,12 @@ function AddReservedItems() {
     <form onSubmit={handleReserve} className="mt-5 text-black mx-auto max-w-8xl xl:px-6 2xl:px-20 flex flex-col">
       <div className="space-y-12">
         <div className="border-b border-gray-900/10 pb-12">
-          <h2 className="text-base font-semibold leading-7 text-gray-900">Reserve Item</h2>
+          <h2 className="text-base font-semibold leading-7 text-gray-900">{t("home.reserveAnItem")}</h2>
 
           <div className="mt-10 flex flex-col">
             <div className="sm:col-span-4">
               <label htmlFor="employee" className="block text-sm font-medium leading-6 text-gray-900">
-                Employee
+                {t("navbar.employees")}
               </label>
               <div className="mt-2">
                 <select
@@ -88,7 +89,7 @@ function AddReservedItems() {
                   id="employee"
                   className="block w-[300px] p-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                 >
-                  <option className="text-gray-500" value="" disabled>Select an employee...</option>
+                  <option className="text-gray-500" value="" disabled>{t('home.selectEmployee')}</option>
                   {employees.map(employee => (
                     <option key={employee.Id} value={employee.Id}>{employee.Name}</option>
                   ))}
@@ -98,7 +99,7 @@ function AddReservedItems() {
 
             <div className="sm:col-span-4">
               <label htmlFor="item" className="block text-sm font-medium leading-6 text-gray-900">
-                Item
+                {t("navbar.items")}
               </label>
               <div className="mt-2">
                 <select
@@ -109,7 +110,7 @@ function AddReservedItems() {
                   id="item"
                   className="block w-[300px] p-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                 >
-                  <option className="text-gray-500" value="" disabled>Select an item...</option>
+                  <option className="text-gray-500" value="" disabled>{t('home.selectItem')}</option>
                   {items.map(item => (
                     <option key={item.Id} value={item.Id}>{item.Name}</option>
                   ))}
@@ -125,7 +126,7 @@ function AddReservedItems() {
           type="submit"
           className="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
         >
-          Reserve
+          {t('home.ReserveButton')}
         </button>
       </div>
     </form>

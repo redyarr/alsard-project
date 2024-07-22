@@ -7,11 +7,11 @@ const Home = () => {
   const [users, setUsers] = useState([]);
   const [items, setItems] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [filters, setFilters] = useState([
-    { name: 'employees', label: 'Employees', checked: false },
-    { name: 'items', label: 'Items', checked: false },
-  ]);
   const { t } = useTranslation();
+  const [filters, setFilters] = useState([
+    { name: 'employees', label: "Employees", checked: false },
+    { name: 'items', label: "Items", checked: false },
+  ]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,7 +79,7 @@ const Home = () => {
               <p className='text-2xl font-bold text-red-600'>{t('home.noUsers')}</p>
             ) : (
               <>
-                <h1 className='text-2xl text-black font-bold'>{t('home.users')}</h1>
+                <h1 className='text-2xl text-black font-bold'>{t('navbar.employees')}</h1>
                 <br />
                 {filteredUsers.map((user) => (
                   <NavLink to={`/employees/${user.Id}`} key={user.Id}>
@@ -110,12 +110,12 @@ const Home = () => {
               <p className='text-2xl font-bold text-red-600'>{t('home.noItems')}</p>
             ) : (
               <>
-                <h1 className='text-2xl text-black font-bold'>{t('home.items')}</h1>
+                <h1 className='text-2xl text-black font-bold'>{t('navbar.items')}</h1>
                 <br />
                 {filteredItems.map((item) => (
                   <NavLink to={`/items/${item.Id}`} key={item.Id}>
                     <section id='haha' className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>
-                      <div className='w-[300px] h-[240px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
+                      <div className='w-[330px] h-[240px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
                         <div className='flex gap-2'>
                           <h1 className='text-xl font-bold'>{item.Name}</h1>
                         </div>

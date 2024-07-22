@@ -4,6 +4,7 @@ import EditItemModal from './EditItemModal';
 import { NavLink } from 'react-router-dom';
 import { FaArrowRight } from "react-icons/fa";
 import FilterComponent from './FilterComponent';
+import { useTranslation } from 'react-i18next';
 
 const Items = () => {
   const { authState } = useAuth();
@@ -11,6 +12,7 @@ const Items = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const { t } = useTranslation();
   const [filters, setFilters] = useState([
     { name: 'reserved', label: 'Reserved Items', checked: false },
     { name: 'Storage', label: 'Storage Items', checked: false }
@@ -109,26 +111,26 @@ const Items = () => {
       </div>
       <br />
       <br />
-      <div className={`left-0 pl-10 text-black w-[93rem] max-w-8xl 2xl:px-10 flex ${isModalOpen ? 'blur-background' : ''}`}>
+      <div className={`left-0 px-10 text-black w-[93rem] max-w-8xl 2xl:px-10 flex ${isModalOpen ? 'blur-background' : ''}`}>
         {items.length === 0 || filteredItems.length === 0 ? (
-          <h1 className='text-3xl text-center mt-5 text-red-600 font-bold'>No Items Found</h1>
+          <h1 className='text-3xl text-center mt-5 text-red-600 font-bold'>{t('home.noItems')}</h1>
         ) : (
           <div>
             {filteredItems.map((item) => (
-              <section key={item.Id} className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>
+              <section id="haha" key={item.Id} className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>
                 <div>
                   <div className='w-[300px] h-[295px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
                     <div className='flex gap-2'>
                       <h1 className='text-xl font-bold'>{item.Name.trim()}</h1>
                     </div>
                     <div>
-                      <p className='font-medium'>{item.Description}</p>
-                      <p className='font-medium'>{item.Category}</p>
-                      <p className='font-medium'>{item.model}</p>
-                      <p className='font-medium'>{item.tagId}</p>
-                      <p className='font-medium'>{item.company}</p>
-                      <p className='font-medium'>{item.subLocation}</p>
-                      <p className='font-medium'>{item.reserved}</p>
+                      <p className='text-sm'>{t('home.description')}: <span className='font-medium'>{item.Description}</span></p>
+                      <p className='text-sm'>{t('home.category')}: <span className='font-medium'>{item.Category}</span></p>
+                      <p className='text-sm'>{t('home.model')}: <span className='font-medium'>{item.model}</span></p>
+                      <p className='text-sm'>{t("home.tagId")}: <span className='font-medium'>{item.tagId}</span></p>
+                      <p className='text-sm'>{t('home.company')}: <span className='font-medium'>{item.company}</span></p>
+                      <p className='text-sm'>{t('home.subLocation')}: <span className='font-medium'>{item.subLocation}</span></p>
+                      <p className='text-sm'>{t('home.reserved')}: <span className='font-medium'>{item.reserved}</span></p>
                     </div>
                     <div id='buttons' className='flex gap-2'>
                       <div>

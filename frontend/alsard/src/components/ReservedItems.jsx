@@ -2,12 +2,14 @@ import { useAuth } from './AuthContext';
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaArrowRight } from "react-icons/fa";
+import { useTranslation } from 'react-i18next';
 
 
 const ReservedItems = () => {
   const { authState } = useAuth();
   const [reserved, setReserved] = useState([])
   const [searchTerm, setSearchTerm] = useState('');
+  const {t} = useTranslation();
     useEffect(() => {
         const fetchReservedItems = async () => {
           try {
@@ -59,13 +61,13 @@ return (
                       id="search"
                       name="search"
                       type="text"
-                      placeholder='search by name...'
+                      placeholder={t("home.searchPlaceholder")}
                       className="p-2 block w-[300px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"
                   />
     </div>
 <br />
-    <div className='left-0 pl-10 text-black w-[93rem] max-w-8xl 2xl:px-10 flex'>
-    {reserved.length === 0 || filteredReservedItems.length === 0  ? <p className='text-3xl text-center mt-5 text-red-600 font-bold'>No Reserved Item Found</p> : 
+    <div className='left-0 px-10 text-black w-[93rem] max-w-8xl 2xl:px-10 flex'>
+    {reserved.length === 0 || filteredReservedItems.length === 0  ? <p className='text-3xl text-center mt-5 text-red-600 font-bold'>{t("home.noReservedItem")}</p> : 
 
     <div>
         {filteredReservedItems.map((res) => (
@@ -79,14 +81,14 @@ return (
         </div>
 
         <div>
-            <p className='font-medium'>{res.employee.email}</p>
-            <p className='font-medium'>{res.employee.phone}</p>
+            <p className='text-[15px]' >{t("home.email")}: <span className='font-medium'>{res.employee.email}</span></p>
+            <p className='text-[15px]' >{t("home.phone")}: <span className='font-medium'>{res.employee.phone}</span></p>
             <br />
-            <p>owns:</p>
-            <p className='font-medium'>{res.item.name}</p>
-            <p className='font-medium'>{res.item.description}</p>
+            <p className='font-bold mb-2'>{t("home.reserved")}</p>
+            <p className='text-[15px]' >{t("home.name")}: <span className='font-medium'>{res.item.name}</span></p>
+            <p className='text-[15px]' >{t("home.description")}: <span className='font-medium'>{res.item.description}</span></p>
         </div>
-        <div id='buttons' className='flex gap-2'>
+        <div id='buttons' className='flex gap-2 mt-2'>
               {authState.isAuthenticated && (
                   <>
                   <button

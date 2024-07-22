@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const EditEmployeeModal = ({ employee, onClose, setUsers }) => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ const EditEmployeeModal = ({ employee, onClose, setUsers }) => {
     employeeId: employee.employeeId,
     position: employee.Position,
   });
+  const {t} = useTranslation();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -45,12 +47,12 @@ const EditEmployeeModal = ({ employee, onClose, setUsers }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div id='haha' className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-6 rounded-lg shadow-lg w-96">
         <h2 className="text-2xl font-bold mb-4">Edit <span className='text-blue-600'>{employee.Name}</span></h2>
         <form>
           <div className="mb-4">
-            <label className="block text-gray-700">Name</label>
+            <label className="block text-gray-700">{t("home.name")}</label>
             <input
               type="text"
               name="name"
@@ -60,7 +62,7 @@ const EditEmployeeModal = ({ employee, onClose, setUsers }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700">Email</label>
+            <label className="block text-gray-700">{t("home.email")}</label>
             <input
               type="email"
               name="email"
@@ -70,7 +72,7 @@ const EditEmployeeModal = ({ employee, onClose, setUsers }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700">Department</label>
+            <label className="block text-gray-700">{t("home.department")}</label>
             <input
               type="text"
               name="department"
@@ -80,7 +82,7 @@ const EditEmployeeModal = ({ employee, onClose, setUsers }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700">Phone</label>
+            <label className="block text-gray-700">{t("home.phone")}</label>
             <input
               type="text"
               name="phone"
@@ -90,7 +92,7 @@ const EditEmployeeModal = ({ employee, onClose, setUsers }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700">Employee ID</label>
+            <label className="block text-gray-700">{t("home.employeeId")}</label>
             <input
               type="text"
               name="employeeId"
@@ -101,7 +103,7 @@ const EditEmployeeModal = ({ employee, onClose, setUsers }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700">Position</label>
+            <label className="block text-gray-700">{t("home.position")}</label>
             <input
               type="text"
               name="position"
@@ -110,20 +112,20 @@ const EditEmployeeModal = ({ employee, onClose, setUsers }) => {
               onChange={handleInputChange}
             />
           </div>
-          <div className="flex justify-center ">
+          <div className=" gap-4 flex justify-center ">
             <button
               type="button"
               className="mr-2 bg-red-600 font-medium text-white px-4 py-2 rounded"
               onClick={onClose}
             >
-              Cancel
+              {t("home.cancel")}
             </button>
             <button
               type="button"
               className="bg-green-600 font-medium text-white px-4 py-2 rounded"
               onClick={handleSave}
             >
-              Save
+              {t("home.save")}
             </button>
           </div>
         </form>

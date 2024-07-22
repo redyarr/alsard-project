@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useParams,NavLink } from 'react-router-dom';
 import { FaPrint, FaArrowRight } from "react-icons/fa";
+import { useTranslation } from 'react-i18next';
 
 const ReservedDetail = () => {
   const { id } = useParams();
   const [details, setDetails] = useState(null);
-  console.log(details);
-
+  const { t } = useTranslation();
   useEffect(() => {
     const fetchDetails = async () => {
       try {
@@ -43,22 +43,22 @@ const ReservedDetail = () => {
 
       <div className='w-full max-w-4xl bg-gray-200 p-6 rounded-lg'>
       <h1 className='text-2xl font-bold mb-4'>{details.reservedItem.item.name}</h1>
-        <p className='font-medium mb-2'>Description: {details.reservedItem.item.description}</p>
-        <p className='font-medium mb-2'>Category: {details.reservedItem.item.category}</p>
-        <p className='font-medium mb-2'>Model: {details.reservedItem.item.model}</p>
-        <p className='font-medium mb-2'>Tag ID: {details.reservedItem.item.tagId}</p>
-        <p className='font-medium mb-2'>Company: {details.reservedItem.item.company}</p>
-        <p className='font-medium mb-2'>Sub-Location: {details.reservedItem.item.SubLocation}</p>
-        <p className='font-medium mb-2'>Reserved: {details.reservedItem.item.reserved}</p>
+        <p className='text-[16px] mb-2'>{t('home.description')}: <span className='font-medium'>{details.reservedItem.item.description}</span></p>
+        <p className='text-[16px] mb-2'>{t('home.category')}: <span className='font-medium'>{details.reservedItem.item.category}</span></p>
+        <p className='text-[16px] mb-2'>{t('home.model')}: <span className='font-medium'>{details.reservedItem.item.model}</span></p>
+        <p className='text-[16px] mb-2'>{t('home.tagId')}: <span className='font-medium'>{details.reservedItem.item.tagId}</span></p>
+        <p className='text-[16px] mb-2'>{t('home.company')}: <span className='font-medium'>{details.reservedItem.item.company}</span></p>
+        <p className='text-[16px] mb-2'>{t('home.subLocation')}: <span className='font-medium'>{details.reservedItem.item.subLocation}</span></p>
+        <p className='text-[16px] mb-2'>{t('home.reserved')}: <span className='font-medium'>{details.reservedItem.item.reserved}</span></p>
 
         <br />
-        <p className='mb-2'>reserved by:</p>
+        <p className='mb-2'>{t('home.reservedBy')}:</p>
         <h1 className='text-xl font-bold mb-4'>{details.reservedItem.employee.name}</h1>
-        <p className='font-medium mb-2'>Email: {details.reservedItem.employee.email}</p>
-        <p className='font-medium mb-2'>Phone: {details.reservedItem.employee.phone}</p>
-        <p className='font-medium mb-2'>Department: {details.reservedItem.employee.department}</p>
-        <p className='font-medium mb-2'>Position: {details.reservedItem.employee.position}</p>
-        <p className='font-medium mb-2'>employee ID: {details.reservedItem.employee.employeeId}</p>
+        <p className='text-[16px] mb-2'>{t('home.email')}: <span className='font-medium'>{details.reservedItem.employee.email}</span></p>
+        <p className='text-[16px] mb-2'>{t('home.phone')}: <span className='font-medium'>{details.reservedItem.employee.phone}</span></p>
+        <p className='text-[16px] mb-2'>{t('home.department')}: <span className='font-medium'>{details.reservedItem.employee.department}</span></p>
+        <p className='text-[16px] mb-2'>{t('home.position')}: <span className='font-medium'>{details.reservedItem.employee.position}</span></p>
+        <p className='text-[16px] mb-2'>{t('home.employeeId')}: <span className='font-medium'>{details.reservedItem.employee.employeeId}</span></p>
         
 <br />
         <p>Other Items Reserved by <span className='font-bold'> {details.reservedItem.employee.name} </span> </p>
@@ -66,13 +66,13 @@ const ReservedDetail = () => {
           <table className='min-w-full divide-y divide-gray-200 border-2 border-black'>
             <thead>
               <tr className='text-center border-2 border-black'>
-                <th className='px-6 py-3 text-center border-2 border-black text-xs font-medium text-gray-700 uppercase tracking-wider'>Name</th>
-                <th className='px-6 py-3 text-center border-2 border-black text-xs font-medium text-gray-700 uppercase tracking-wider'>Description</th>
-                <th className='px-6 py-3 text-center border-2 border-black text-xs font-medium text-gray-700 uppercase tracking-wider'>Category</th>
-                <th className='px-6 py-3 text-center border-2 border-black text-xs font-medium text-gray-700 uppercase tracking-wider'>Model</th>
-                <th className='px-6 py-3 text-center border-2 border-black text-xs font-medium text-gray-700 uppercase tracking-wider'>Tag Id</th>
-                <th className='px-6 py-3 text-center border-2 border-black text-xs font-medium text-gray-700 uppercase tracking-wider'>Company</th>
-                <th className='px-6 py-3 text-center border-2 border-black text-xs font-medium text-gray-700 uppercase tracking-wider'>Sub Location </th>
+                <th className='px-6 py-3 text-center border-2 border-black text-xs font-medium text-gray-700 uppercase tracking-wider'>{t('home.name')}</th>
+                <th className='px-6 py-3 text-center border-2 border-black text-xs font-medium text-gray-700 uppercase tracking-wider'>{t('home.description')}</th>
+                <th className='px-6 py-3 text-center border-2 border-black text-xs font-medium text-gray-700 uppercase tracking-wider'>{t('home.category')}</th>
+                <th className='px-6 py-3 text-center border-2 border-black text-xs font-medium text-gray-700 uppercase tracking-wider'>{t('home.model')}</th>
+                <th className='px-6 py-3 text-center border-2 border-black text-xs font-medium text-gray-700 uppercase tracking-wider'>{t('home.tagId')}</th>
+                <th className='px-6 py-3 text-center border-2 border-black text-xs font-medium text-gray-700 uppercase tracking-wider'>{t('home.company')}</th>
+                <th className='px-6 py-3 text-center border-2 border-black text-xs font-medium text-gray-700 uppercase tracking-wider'>{t('home.subLocation')} </th>
               </tr>
             </thead>
             <tbody className='bg-white divide-y divide-gray-200'>

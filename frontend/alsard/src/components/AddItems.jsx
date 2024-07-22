@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { useTranslation } from "react-i18next";
 
 
 function AddItems() {
@@ -13,6 +13,7 @@ function AddItems() {
     subLocation: "",
     reserved: "no"
   });
+  const {t} = useTranslation();
 
 
   async function fetching(event) {
@@ -89,14 +90,14 @@ function AddItems() {
 
 
           <div className="border-b border-gray-900/10 pb-12">
-            <h2 className="text-base font-semibold leading-7 text-gray-900">Items Information</h2>
+            <h2 className="text-base font-semibold leading-7 text-gray-900">{t('home.itemsInformation')}</h2>
 
             <div className="mt-10 flex flex-col">
 
               <div className="flex flex-row gap-10">
                 <div className="sm:col-span-3">
                   <label htmlFor="Name" className="block text-sm font-medium leading-6 text-gray-900">
-                    name
+                    {t('home.name')}
                   </label>
                   <div className="mt-2">
                     <input
@@ -114,7 +115,7 @@ function AddItems() {
 
                 <div className="sm:col-span-4">
                   <label htmlFor="Description" className="block text-sm font-medium leading-6 text-gray-900">
-                    Description
+                    {t('home.description')}
                   </label>
                   <div className="mt-2">
                     <input
@@ -131,7 +132,7 @@ function AddItems() {
                 </div>
                 <div className="sm:col-span-4">
                   <label htmlFor="Category" className="block text-sm font-medium leading-6 text-gray-900">
-                    Category
+                    {t('home.category')}
                   </label>
                   <div className="mt-2">
                     <input
@@ -149,7 +150,7 @@ function AddItems() {
 
                 <div className="sm:col-span-4">
                   <label htmlFor="model" className="block text-sm font-medium leading-6 text-gray-900">
-                    Model
+                    {t('home.model')}
                   </label>
                   <div className="mt-2">
                     <input
@@ -168,7 +169,7 @@ function AddItems() {
               <div className="flex flex-row gap-5">
                 <div className="col-span-full">
                   <label htmlFor="tagId" className="block text-sm font-medium leading-6 text-gray-900">
-                    Tag ID
+                    {t('home.tagId')}
                   </label>
                   <div className="mt-2">
                     <input
@@ -186,7 +187,7 @@ function AddItems() {
 
                 <div className="sm:col-span-2 sm:col-start-1">
                   <label htmlFor="company" className="block text-sm font-medium leading-6 text-gray-900">
-                    Company
+                    {t('home.company')}
                   </label>
                   <div className="mt-2">
                     <input
@@ -204,7 +205,7 @@ function AddItems() {
 
                 <div className="sm:col-span-2 sm:col-start-1">
                   <label htmlFor="subLocation" className="block text-sm font-medium leading-6 text-gray-900">
-                    Sub-Location
+                    {t('home.subLocation')}
                   </label>
                   <div className="mt-2">
                     <input
@@ -221,7 +222,7 @@ function AddItems() {
                 </div>
                 <div className="sm:col-span-2 sm:col-start-1">
                   <label htmlFor="reserved" className="block text-sm font-medium leading-6 text-gray-900">
-                    Reserved
+                    {t('home.reserved')}
                   </label>
                   <div className="mt-2">
                     <select
@@ -247,7 +248,7 @@ function AddItems() {
           <button
             type="submit"
             className="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-            Save
+            {t('home.save')}
           </button>
         </div>
       </form>

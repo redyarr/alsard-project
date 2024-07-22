@@ -76,7 +76,7 @@ const Employees = () => {
         />
       </div>
       <br />
-      <div className={`left-0 pl-10 text-black w-[93rem] max-w-8xl 2xl:px-10 flex ${isModalOpen ? 'blur-background' : ''}`}>
+      <div className={`left-0 px-10 text-black w-[93rem] max-w-8xl 2xl:px-10 flex ${isModalOpen ? 'blur-background' : ''}`}>
         {users.length === 0 || filteredUsers.length === 0 ? (
           <h1 className='text-3xl text-center mt-5 text-red-600 font-bold'>{t('home.noUsers')}</h1>
         ) : (
@@ -84,19 +84,19 @@ const Employees = () => {
             {filteredUsers.map((user) => (
               <section key={user.Id} className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>
                 <div>
-                  <div id='haha' className='w-[300px] h-[260px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg '>
+                  <div id='haha' className='w-[340px] h-[260px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg '>
                     <div className='flex items-center gap-2'>
                       <h1 className='text-xl font-bold'>{user.Name.trim()}</h1>
                     </div>
                     <div>
-                      <p className='font-medium'>{user.Email}</p>
-                      <p className='font-medium'>{user.department}</p>
-                      <p className='font-medium'>{user.Phone}</p>
-                      <p className='font-medium'>{user.employeeId}</p>
-                      <p className='font-medium'>{user.Position}</p>
+                      <p className='text-[15px]'>{t('home.email')}: <span className='font-medium'>{user.Email}</span></p>
+                      <p className='text-[15px]'>{t('home.department')}: <span className='font-medium'>{user.department}</span></p>
+                      <p className='text-[15px]'>{t('home.phone')}: <span className='font-medium'>{user.Phone}</span></p>
+                      <p className='text-[15px]'>{t('home.employeeId')}: <span className='font-medium'>{user.employeeId}</span></p>
+                      <p className='text-[15px]'>{t('home.position')}: <span className='font-medium'>{user.Position}</span></p>
                     </div>
 
-                    <div id='buttons' className='flex gap-2 mt-4'>
+                    <div id='buttons' className='flex gap-2 mt-6'>
                       <div>
                         {authState.isAuthenticated && (
                           <>
