@@ -3,6 +3,7 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    'node_modules/flowbite-react/lib/esm/**/*.js'
   ],
   theme: {
     screens: {
@@ -14,5 +15,6 @@ export default {
     },
     extend: {},
   },
-  plugins: [],
+  plugins: [
+  ],
 }

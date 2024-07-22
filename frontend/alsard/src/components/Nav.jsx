@@ -70,7 +70,7 @@ const Nav = () => {
         </nav>
 
       </div>
-      <div className={`${i18n.language === 'en' ? 'ml-72 mb-3 flex items-center w-9 h-22' : 'mr-[20.5rem] mb-2 flex items-center w-9 h-22'}`}>
+      <div className={`${i18n.language === 'en' ? 'text-white ml-72 mb-3 flex items-center w-9 h-22' : 'mr-[20.5rem] mb-2 flex items-center w-9 h-22 text-white'}`}>
         <div className="w-full rounded-lg">
           <Field>
             <div className="relative">
