@@ -1,18 +1,16 @@
-// Nav.js
 import React, { useState, useEffect, Fragment } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Button from './Button';
 import { useAuth } from './AuthContext';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useTranslation } from 'react-i18next';
-import { Field, Select, Popover, Transition } from '@headlessui/react'
-
-
+import { Field, Select, Popover, Transition } from '@headlessui/react';
 
 const Nav = () => {
   const [isSticky, setIsSticky] = useState(false);
   const { logout, authState } = useAuth();
   const { t, i18n } = useTranslation();
+  
 
   const navLinks = [
     { link: t('navbar.home'), path: '/' },
@@ -23,8 +21,6 @@ const Nav = () => {
     { link: t('navbar.reservedItems'), path: '/reserved' },
     { link: t('navbar.addReservedItems'), path: '/addreserved' },
   ];
-
-
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
@@ -72,31 +68,23 @@ const Nav = () => {
           </ul>
         </nav>
 
-        <div className=''>
-        
-        <div className="w-full max-w-md px-4">
-      <Field>
-        <div className="relative">
-          <Select
-            className='mt-3 block w-full appearance-none rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 
-              focus:outline-none'     
-          >
-            <option value="active">EN</option>
-            <option value="paused">KU</option>
-          </Select>
-          <ChevronDownIcon
-            className="group pointer-events-none absolute top-2.5 right-2.5 size-4 fill-white/60"
-            aria-hidden="true"
-          />
-        </div>
-      </Field>
-    </div>
-        </div>
       </div>
-
+        <div className={`${i18n.language === 'en' ? 'ml-72 mb-2 flex items-center w-9 h-22' : 'mb-2 flex items-center w-9 h-22'}`}>
+          <div className="w-full rounded-lg">
+            <Field>
+              <div className="relative">
+                <Select
+                  className='mt-3 block  appearance-none rounded-md border-none bg-blue-600 text-white py-1.5 px-2 focus:outline-none'
+                  onChange={(e) => changeLanguage(e.target.value)}
+                >
+                  <option value="en">EN</option>
+                  <option value="ku">KU</option>
+                </Select>
+              </div>
+            </Field>
+          </div>
+        </div>
       <div>
-        
-
 
         {authState.isAuthenticated ?
           <>
@@ -139,7 +127,6 @@ const Nav = () => {
             </div>
           </>
           :
-
           <Link to='/login'>
             <Button text={t('navbar.login')} />
           </Link>

@@ -6,7 +6,9 @@
   scroll-behavior: smooth;
   
 }
-
+#haha{
+  direction: ltr;
+}
 .rtl {
   direction: rtl;
 }

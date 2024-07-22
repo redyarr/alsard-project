@@ -1,4 +1,3 @@
-// Home.js
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import FilterComponent from './FilterComponent';
@@ -84,17 +83,17 @@ const Home = () => {
                 <br />
                 {filteredUsers.map((user) => (
                   <NavLink to={`/employees/${user.Id}`} key={user.Id}>
-                    <section className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>
-                      <div className='w-[300px] h-[190px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
+                    <section id='haha' className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>
+                      <div className='w-[330px] h-[190px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
                         <div className='flex gap-2'>
                           <h1 className='text-xl font-bold'>{user.Name}</h1>
                         </div>
                         <div>
-                          <p className='font-medium'>{user.Email}</p>
-                          <p className='font-medium'>{user.department}</p>
-                          <p className='font-medium'>{user.Phone}</p>
-                          <p className='font-medium'>{user.employeeId}</p>
-                          <p className='font-medium'>{user.Position}</p>
+                          <p className='text-sm'>{t('home.name')}: <span className='font-medium'>{user.Email}</span></p>
+                          <p className='text-sm'>{t('home.department')}: <span className='font-medium'>{user.department}</span></p>
+                          <p className='text-sm'>{t('home.phone')}: <span className='font-medium'>{user.Phone}</span></p>
+                          <p className='text-sm'>{t('home.employeeId')}: <span className='font-medium'>{user.employeeId}</span></p>
+                          <p className='text-sm'>{t('home.position')}: <span className='font-medium'>{user.Position}</span></p>
                         </div>
                       </div>
                     </section>
@@ -115,19 +114,19 @@ const Home = () => {
                 <br />
                 {filteredItems.map((item) => (
                   <NavLink to={`/items/${item.Id}`} key={item.Id}>
-                    <section className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>
+                    <section id='haha' className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>
                       <div className='w-[300px] h-[240px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
                         <div className='flex gap-2'>
                           <h1 className='text-xl font-bold'>{item.Name}</h1>
                         </div>
                         <div>
-                          <p className='font-medium'>{item.Description}</p>
-                          <p className='font-medium'>{item.Category}</p>
-                          <p className='font-medium'>{item.model}</p>
-                          <p className='font-medium'>{item.tagId}</p>
-                          <p className='font-medium'>{item.company}</p>
-                          <p className='font-medium'>{item.subLocation}</p>
-                          <p className='font-medium'>{item.reserved}</p>
+                          <p className='text-sm'>{t('home.description')}: <span className='font-medium'>{item.Description}</span></p>
+                          <p className='text-sm'>{t('home.category')}: <span className='font-medium'>{item.Category}</span></p>
+                          <p className='text-sm'>{t('home.model')}: <span className='font-medium'>{item.model}</span></p>
+                          <p className='text-sm'>{t('home.tagId')}: <span className='font-medium'>{item.tagId}</span></p>
+                          <p className='text-sm'>{t('home.company')}: <span className='font-medium'>{item.company}</span></p>
+                          <p className='text-sm'>{t('home.subLocation')}: <span className='font-medium'>{item.subLocation}</span></p>
+                          <p className='text-sm'>{t('home.reserved')}: <span className='font-medium'>{item.reserved}</span></p>
                         </div>
                       </div>
                     </section>
