@@ -70,14 +70,14 @@ const Nav = () => {
         </nav>
 
       </div>
-      <div className={`${i18n.language === 'en' ? 'ml-72 mb-2 flex items-center w-9 h-22' : 'mr-[20rem] mb-2 flex items-center w-9 h-22'}`}>
+      <div className={`${i18n.language === 'en' ? 'ml-72 mb-3 flex items-center w-9 h-22' : 'mr-[20.5rem] mb-2 flex items-center w-9 h-22'}`}>
         <div className="w-full rounded-lg">
           <Field>
             <div className="relative">
               <Select
-                className='mt-3 lgn block cursor-pointer appearance-none rounded-md border-none bg-blue-600 text-white py-1.5 px-2 focus:outline-none'
+                className='mt-3 w-10 h-10 text-center lgn block cursor-pointer appearance-none rounded-md border-none bg-blue-600 text-white py-1.5 px-2 focus:outline-none'
                 onChange={(e) => changeLanguage(e.target.value)}
-                value={i18n.language} // Ensure the selected language is reflected in the dropdown
+                value={i18n.language} 
               >
                 <option className='lgn' value="en">EN</option>
                 <option className='lgn' value="ku">KU</option>
