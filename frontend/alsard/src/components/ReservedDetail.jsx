@@ -7,9 +7,12 @@ const ReservedDetail = () => {
   const { id } = useParams();
   const [details, setDetails] = useState(null);
   const { t } = useTranslation();
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const fetchDetails = async () => {
       try {
+        setIsLoading(true);
         const response = await fetch(`http://localhost:3000/reservedItems/${id}/detail`);
         if (!response.ok) {
           throw new Error('Failed to fetch reserved item details');
@@ -18,6 +21,8 @@ const ReservedDetail = () => {
         setDetails(data);
       } catch (error) {
         console.error('Error fetching reserved item details:', error.message);
+      }finally{
+        setIsLoading(false);
       }
     };
 
@@ -28,8 +33,8 @@ const ReservedDetail = () => {
     window.print();
   };
 
-  if (!details) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return <div>{t('home.loading')}</div>; // Show loading message
   }
 
   return (

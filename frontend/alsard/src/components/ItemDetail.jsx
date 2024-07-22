@@ -8,10 +8,13 @@ const ItemDetail = () => {
   const { id } = useParams();
   const [item, setItems] = useState();
   const { t } = useTranslation();
+  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
     const fetchEmployee = async () => {
       try {
+        setIsLoading(true);
         const response = await fetch(`http://localhost:3000/items/${id}/details`);
         if (!response.ok) {
           throw new Error('Failed to fetch employee');
@@ -20,6 +23,8 @@ const ItemDetail = () => {
         setItems(data);
       } catch (error) {
         console.error('Error fetching employee:', error.message);
+      }finally{
+        setIsLoading(false);
       }
     };
 
@@ -31,8 +36,8 @@ const ItemDetail = () => {
     window.print();
   };
 
-  if (!item) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return <div>{t('home.loading')}</div>; // Show loading message
   }
 
   return (

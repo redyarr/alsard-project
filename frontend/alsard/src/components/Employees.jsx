@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 const Employees = () => {
   const { authState } = useAuth();
   const { t } = useTranslation();
+  const [isLoading, setIsLoading] = useState(true);
   const [users, setUsers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
@@ -16,6 +17,7 @@ const Employees = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
+        setIsLoading(true);
         const response = await fetch('http://localhost:3000/employees');
         if (!response.ok) {
           throw new Error('Failed to fetch users');
@@ -24,6 +26,8 @@ const Employees = () => {
         setUsers(data.employees);
       } catch (error) {
         console.error('Error fetching users:', error.message);
+      }finally{
+        setIsLoading(false);
       }
     };
 
@@ -60,6 +64,10 @@ const Employees = () => {
     user.Name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.department.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  if (isLoading) {
+    return <div>{t('home.loading')}</div>; 
+  }
 
   return (
     <>

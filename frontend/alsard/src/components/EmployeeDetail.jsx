@@ -6,11 +6,13 @@ const EmployeeDetail = () => {
   const { id } = useParams();
   const [employee, setEmployee] = useState(null);
   const [error, setError] = useState(null);
+  const[isLoading, setIsLoading] = useState(false);
   const {t} = useTranslation();
 
   useEffect(() => {
     const fetchEmployeeDetails = async () => {
       try {
+        setIsLoading(true);
         const response = await fetch(`http://localhost:3000/employee/${id}/details`);
         if (!response.ok) {
           throw new Error('Failed to fetch employee details');
@@ -20,6 +22,8 @@ const EmployeeDetail = () => {
       } catch (error) {
         console.error('Error fetching employee details:', error.message);
         setError('Error fetching employee details');
+      }finally{
+        setIsLoading(false);
       }
     };
 
@@ -34,10 +38,9 @@ const EmployeeDetail = () => {
     return <div>{error}</div>;
   }
 
-  if (!employee) {
-    return <div>Loading...</div>;
-  }
-
+if(isLoading){
+  return <div>{t('home.loading')}</div>;
+}
   return (
     <div id='haha' className='flex gap-72 mt-5 pb-5 text-black mx-auto max-w-8xl xl:px-6 2xl:px-20'>
       

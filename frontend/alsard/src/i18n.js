@@ -48,7 +48,8 @@ const resources = {
         login:"Log in",
         notFound:"Page Not Found",
         notFoundMessage:"Sorry, we couldn’t find the page you’re looking for.",
-        backToHome:"Go back Home"
+        backToHome:"Go back Home",
+        loading:"Loading..."
       }
     }
   },
@@ -97,7 +98,8 @@ const resources = {
         login:"جونە ژورەوە",
         notFound:"نەدۆزرایەوە",
         notFoundMessage:'ببورە، نەمانتوانی ئەو پەیجە بدۆزینەوە کە بۆی دەگەڕییت',
-        backToHome:"بگەڕێرەوە بۆ سەرەتا"
+        backToHome:"بگەڕێرەوە بۆ سەرەتا",
+        loading:"چاوەڕوانبە..."
       }
     }
   }

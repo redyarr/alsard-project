@@ -10,9 +10,12 @@ const ReservedItems = () => {
   const [reserved, setReserved] = useState([])
   const [searchTerm, setSearchTerm] = useState('');
   const {t} = useTranslation();
+  const [isLoading, setIsLoading] = useState(true);
+
     useEffect(() => {
         const fetchReservedItems = async () => {
           try {
+            setIsLoading(true);
             const response = await fetch('http://localhost:3000/employeeItems');
             if (!response.ok) {
               throw new Error('Failed to fetch employee items');
@@ -21,11 +24,13 @@ const ReservedItems = () => {
             setReserved(data);
           } catch (error) {
             console.error('Error fetching employee items:', error.message);
+          }finally{
+            setIsLoading(false);
           }
         };
     
         fetchReservedItems();
-      }, [reserved]);
+      }, []);
 
 
       const deleteReservedItem = async (id) => {
@@ -50,6 +55,10 @@ const ReservedItems = () => {
         res.item.name.toLowerCase().includes(searchTerm.toLowerCase()) 
       );
 
+      if (isLoading) {
+        return <div>{t('home.loading')}</div>; // Show loading message
+      }
+    
 
 return (
 <>

@@ -8,7 +8,8 @@ const Home = () => {
   const [items, setItems] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const { t } = useTranslation();
-  const [filters, setFilters] = useState([
+  const [isLoading, setIsLoading] = useState(false);
+   const [filters, setFilters] = useState([
     { name: 'employees', label: "Employees", checked: false },
     { name: 'items', label: "Items", checked: false },
   ]);
@@ -16,6 +17,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true);
         const usersResponse = await fetch('http://localhost:3000/employees');
         const itemsResponse = await fetch('http://localhost:3000/items');
         if (!usersResponse.ok || !itemsResponse.ok) {
@@ -27,6 +29,8 @@ const Home = () => {
         setItems(itemsData.items);
       } catch (error) {
         console.error('Error fetching data:', error.message);
+      }finally {
+        setIsLoading(false); 
       }
     };
 
@@ -52,6 +56,11 @@ const Home = () => {
 
   const displayUsers = !showEmployees && !showItems || showEmployees;
   const displayItems = !showEmployees && !showItems || showItems;
+
+
+  if (isLoading) {
+    return <div>{t('home.loading')}</div>; 
+  }
 
   return (
     <>

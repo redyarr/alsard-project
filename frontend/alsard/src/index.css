@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'NRT';
+  font-weight: normal;
+  src: url('/NRT-Reg.ttf') format('truetype');
+}
+
+.font-medium{
+  font-weight: 600;
+}
+
+.lgn{
+  font-family: sans-serif !important;
+}
+
+.font-kurdish {
+  font-family: 'NRT', sans-serif;
+  direction: rtl;
+}
+
+
 *{
   scroll-behavior: smooth;
   
@@ -9,9 +29,7 @@
 #haha{
   direction: ltr;
 }
-.rtl {
-  direction: rtl;
-}
+
 
 ::-webkit-scrollbar{
   display: none;
@@ -94,14 +112,3 @@ background-color: #2563eb;
     display: none !important;
   }
 }
-
-
-
-
-
-
-
-
-
-
-

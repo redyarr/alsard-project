@@ -4,7 +4,23 @@ import App from './App.jsx'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './components/AuthContext.jsx'
-import './i18n';
+import i18n from './i18n';
+
+
+const storedLanguage = localStorage.getItem('language') || 'en';
+if (storedLanguage === 'ku') {
+  document.body.classList.add('font-kurdish');
+} else {
+  document.body.classList.remove('font-kurdish');
+}
+
+i18n.on('languageChanged', (lng) => {
+  if (lng === 'ku') {
+    document.body.classList.add('font-kurdish');
+  } else {
+    document.body.classList.remove('font-kurdish');
+  }
+});
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>

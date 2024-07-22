@@ -21,13 +21,14 @@ const Nav = () => {
     { link: t('navbar.addReservedItems'), path: '/addreserved' },
   ];
 
+  
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
     localStorage.setItem('language', lng);
     if (lng === 'ku') {
-      document.body.classList.add('rtl');
+      document.body.classList.add('font-kurdish');
     } else {
-      document.body.classList.remove('rtl');
+      document.body.classList.remove('font-kurdish');
     }
   };
 
@@ -74,12 +75,12 @@ const Nav = () => {
           <Field>
             <div className="relative">
               <Select
-                className='mt-3 block cursor-pointer appearance-none rounded-md border-none bg-blue-600 text-white py-1.5 px-2 focus:outline-none'
+                className='mt-3 lgn block cursor-pointer appearance-none rounded-md border-none bg-blue-600 text-white py-1.5 px-2 focus:outline-none'
                 onChange={(e) => changeLanguage(e.target.value)}
                 value={i18n.language} // Ensure the selected language is reflected in the dropdown
               >
-                <option value="en">EN</option>
-                <option value="ku">KU</option>
+                <option className='lgn' value="en">EN</option>
+                <option className='lgn' value="ku">KU</option>
               </Select>
             </div>
           </Field>

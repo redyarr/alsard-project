@@ -12,6 +12,7 @@ const Items = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation();
   const [filters, setFilters] = useState([
     { name: 'reserved', label: 'Reserved Items', checked: false },
@@ -21,6 +22,7 @@ const Items = () => {
   useEffect(() => {
     const fetchItem = async () => {
       try {
+        setIsLoading(true);
         const response = await fetch('http://localhost:3000/items');
         if (!response.ok) {
           throw new Error('Failed to fetch items');
@@ -29,6 +31,8 @@ const Items = () => {
         setItems(data.items);
       } catch (error) {
         console.error('Error fetching items:', error.message);
+      }finally{
+        setIsLoading(false);
       }
     };
 
@@ -90,6 +94,11 @@ const Items = () => {
       }
       return true;
     });
+
+    if (isLoading) {
+      return <div>{t('home.loading')}</div>; // Show loading message
+    }
+  
 
   return (
     <>
