@@ -1,12 +1,11 @@
 
-import { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom'
 import Home from './components/Home'
 import AddEmployees from './components/AddEmployees'
 import Nav from './components/Nav'
 import NotFound from './components/NotFound'
 import AddItems from './components/AddItems'
-import { AuthProvider } from './components/AuthContext';
+import { AuthProvider, useAuth } from './components/AuthContext';
 import Login from './components/Login'
 import AddReservedItems from './components/AddReservedItems';
 import ReservedItems from './components/ReservedItems';
@@ -16,11 +15,8 @@ import EmployeeDetail from './components/EmployeeDetail';
 import ItemDetail from './components/ItemDetail';
 import ReservedDetail from './components/ReservedDetail';
 
-
-
 export default function App() {
-  
-
+const {authState}=useAuth();
   return (
 
     <AuthProvider>
@@ -37,7 +33,7 @@ export default function App() {
         <Route path='/reserved' element={<ReservedItems/>} />
         <Route path='/reserved/:id' element={<ReservedDetail />} />
         <Route path='/addreserved' element={<AddReservedItems />} />
-        <Route path='/login' element={<Login />} />
+        {authState.isAuthenticated ? null :<Route path='/login' element={<Login />} />}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AuthProvider>

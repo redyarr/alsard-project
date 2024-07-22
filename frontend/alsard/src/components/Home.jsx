@@ -1,6 +1,8 @@
+// Home.js
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import FilterComponent from './FilterComponent';
+import { useTranslation } from 'react-i18next';
 
 const Home = () => {
   const [users, setUsers] = useState([]);
@@ -10,6 +12,7 @@ const Home = () => {
     { name: 'employees', label: 'Employees', checked: false },
     { name: 'items', label: 'Items', checked: false },
   ]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,25 +64,23 @@ const Home = () => {
           id="search"
           name="search"
           type="text"
-          placeholder='Search by name...'
+          placeholder={t('home.searchPlaceholder')}
           className="p-2 block w-[300px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
         />
 
         <div className='text-black max-w-8xl 2xl:px-10'>
-        <div className='text-black max-w-8xl 2xl:px-10'>
           <FilterComponent filters={filters} handleFilterChange={handleFilterChange} />
-        </div>
         </div>
       </div>
       <br />
-      <div className='left-0 pl-10 text-black w-[93rem] max-w-8xl 2xl:px-10 flex flex-col'>
+      <div className='left-0 px-10 text-black w-[93rem] max-w-8xl 2xl:px-20 flex flex-col'>
         {displayUsers && (
           <div>
             {filteredUsers.length === 0 ? (
-              <p className='text-2xl font-bold text-red-600'>No users found</p>
+              <p className='text-2xl font-bold text-red-600'>{t('home.noUsers')}</p>
             ) : (
               <>
-                <h1 className='text-2xl text-black font-bold'>Users</h1>
+                <h1 className='text-2xl text-black font-bold'>{t('home.users')}</h1>
                 <br />
                 {filteredUsers.map((user) => (
                   <NavLink to={`/employees/${user.Id}`} key={user.Id}>
@@ -107,10 +108,10 @@ const Home = () => {
         {displayItems && (
           <div>
             {filteredItems.length === 0 ? (
-              <p className='text-2xl font-bold text-red-600'>No items found</p>
+              <p className='text-2xl font-bold text-red-600'>{t('home.noItems')}</p>
             ) : (
               <>
-                <h1 className='text-2xl text-black font-bold'>Items</h1>
+                <h1 className='text-2xl text-black font-bold'>{t('home.items')}</h1>
                 <br />
                 {filteredItems.map((item) => (
                   <NavLink to={`/items/${item.Id}`} key={item.Id}>
