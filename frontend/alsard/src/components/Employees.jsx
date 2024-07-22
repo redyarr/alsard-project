@@ -103,7 +103,7 @@ const Employees = () => {
             {filteredUsers.map((user) => (
               <section key={user.Id} className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>
                 <div>
-                  <div id='haha' className='w-[340px] h-[260px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg '>
+                  <div id='haha' className='w-[330px] h-[260px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg '>
                     <div className='flex items-center gap-2'>
                       <h1 className='text-xl font-bold'>{user.Name.trim()}</h1>
                     </div>

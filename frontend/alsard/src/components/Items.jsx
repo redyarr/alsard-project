@@ -138,7 +138,7 @@ const Items = () => {
             {filteredItems.map((item) => (
               <section id="haha" key={item.Id} className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>
                 <div>
-                  <div className='w-[300px] h-[295px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
+                  <div className='w-[330px] h-[295px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg'>
                     <div className='flex gap-2'>
                       <h1 className='text-xl font-bold'>{item.Name.trim()}</h1>
                     </div>
