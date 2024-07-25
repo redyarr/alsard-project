@@ -317,6 +317,7 @@ app.delete("/deleteItem/:id", (req, res) => {
       });
     })
     .catch((error) => {
+      console.error('Error deleting item:', error.message); 
       return res.status(500).json({
         message: "Failed to delete item",
         error: error.message,

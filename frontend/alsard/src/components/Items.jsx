@@ -39,21 +39,27 @@ const Items = () => {
     fetchItem();
   }, []);
 
+
   async function deleteItems(id) {
     try {
       const response = await fetch(`http://localhost:3000/deleteItem/${id}`, {
         method: 'DELETE',
       });
-
+  
       if (!response.ok) {
-        throw new Error('Failed to delete item');
+        throw new Error('Failed to delete Item');
       }
-
+  
+      window.location.reload();
       setItems((prevItems) => prevItems.filter((item) => item.Id !== id));
     } catch (error) {
       console.error('Error deleting item:', error.message);
+      alert(`Error deleting item: ${error.message}`);
     }
   }
+  
+    
+
 
   const openEditModal = (item) => {
     setSelectedItem(item);

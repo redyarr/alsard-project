@@ -5,7 +5,7 @@ import AddEmployees from './components/AddEmployees'
 import Nav from './components/Nav'
 import NotFound from './components/NotFound'
 import AddItems from './components/AddItems'
-import { AuthProvider, useAuth } from './components/AuthContext';
+import { AuthProvider } from './components/AuthContext';
 import Login from './components/Login'
 import AddReservedItems from './components/AddReservedItems';
 import ReservedItems from './components/ReservedItems';
@@ -16,7 +16,6 @@ import ItemDetail from './components/ItemDetail';
 import ReservedDetail from './components/ReservedDetail';
 
 export default function App() {
-const {authState}=useAuth();
   return (
 
     <AuthProvider>
@@ -33,7 +32,7 @@ const {authState}=useAuth();
         <Route path='/reserved' element={<ReservedItems/>} />
         <Route path='/reserved/:id' element={<ReservedDetail />} />
         <Route path='/addreserved' element={<AddReservedItems />} />
-        {authState.isAuthenticated ? null :<Route path='/login' element={<Login />} />}
+        <Route path='/login' element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AuthProvider>
