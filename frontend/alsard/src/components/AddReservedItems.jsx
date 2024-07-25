@@ -38,10 +38,9 @@ function AddReservedItems() {
 
     fetchEmployees();
     fetchItems();
-  }, [items, employees]);
+  }, []);
 
-  async function handleReserve(event) {
-    event.preventDefault();
+  async function handleReserve() {
     try {
       const res = await fetch("http://localhost:3000/ReserveItem", {
         method: "POST",
