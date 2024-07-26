@@ -72,9 +72,12 @@ const Items = () => {
   };
 
   const handleFilterChange = (index) => {
-    const newFilters = [...filters];
-    newFilters[index].checked = !newFilters[index].checked;
-    setFilters(newFilters);
+    setFilters((prevFilters) => {
+      return prevFilters.map((filter, i) => ({
+        ...filter,
+        checked: i === index ? !filter.checked : false,
+      }));
+    });
   };
 
   const filteredItems = items
