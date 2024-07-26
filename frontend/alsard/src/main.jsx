@@ -26,6 +26,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <React.StrictMode>
       <AuthProvider>
+      <div className='main'>
+                <div className='gradient'/>
+      </div>
         <App />
       </AuthProvider>
     </React.StrictMode>
