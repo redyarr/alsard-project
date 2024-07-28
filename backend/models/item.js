@@ -49,15 +49,6 @@ const items = db.define('item', {
         allowNull: false,
         defaultValue: true
     }
-}, {
-    hooks: {
-        afterCreate: (item, options) => {
-            setTimeout(async () => {
-                await item.update({ isEditable: false });
-                console.log(`Item ${item.Id} is now not editable`);
-            }, 6 * 60 * 60 * 1000 ); // Use 12 * 60 * 60 * 1000 for 12 hours
-        }
-    }
 });
 
 module.exports = items;
