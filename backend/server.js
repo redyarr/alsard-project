@@ -30,6 +30,11 @@ function backupDatabase() {
   // MySQL dump command
   // const command = `mysqldump -u root -p'12123' alsard-ims > ${filePath}`;
 
+
+  //backup to an external drive here if tou want to :
+//  const externalFilePath = path.join('E:', 'backups', fileName); // Assuming 'E:' is the external drive
+
+
   const mysqldumpPath="C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\MySQL\\MySQL Server 8.0\\bin/mysqldump.exe"
   const command = `"${mysqldumpPath}" -u root -p"Alsard12123" alsard-ims > "${filePath}"`; 
   //it was the double quotations of the password that made the errors
