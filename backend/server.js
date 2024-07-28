@@ -31,7 +31,7 @@ function backupDatabase() {
   // const command = `mysqldump -u root -p'12123' alsard-ims > ${filePath}`;
 
   const mysqldumpPath="C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\MySQL\\MySQL Server 8.0\\bin/mysqldump.exe"
-  const command = `"${mysqldumpPath}" -u root -p"12123Redyar" alsard-ims > "${filePath}"`; 
+  const command = `"${mysqldumpPath}" -u root -p"Alsard12123" alsard-ims > "${filePath}"`; 
   //it was the double quotations of the password that made the errors
   exec(command, (error, stdout, stderr) => {
     if (error) {
@@ -63,7 +63,7 @@ function restoreDatabase(backupFileName) {
 
       // MySQL command to restore the database from a backup file
       const mysqlPath = "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\MySQL\\MySQL Server 8.0\\bin\\mysql.exe";
-      const command = `"${mysqlPath}" -u root -p"12123Redyar" alsard-ims < "${filePath}"`;
+      const command = `"${mysqlPath}" -u root -p"Alsard12123" alsard-ims < "${filePath}"`;
   
       exec(command, (error, stdout, stderr) => {
         if (error) {
@@ -532,6 +532,7 @@ app.put('/editEmployee/:id', (req, res) => {
         Phone: req.body.phone,
         Position: req.body.position,
         department: req.body.department,
+        employeeId: req.body.employeeId,
         updatedAt: new Date(),
       },
       { where: { Id: employeeId } }
