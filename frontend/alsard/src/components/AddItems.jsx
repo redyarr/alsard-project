@@ -220,24 +220,6 @@ function AddItems() {
                     />
                   </div>
                 </div>
-                <div className="sm:col-span-2 sm:col-start-1">
-                  <label htmlFor="reserved" className="block text-sm font-medium leading-6 text-gray-900">
-                    {t('home.reserved')}
-                  </label>
-                  <div className="mt-2">
-                    <select
-                      required
-                      value={data.reserved}
-                      onChange={handlechange}
-                      name="reserved"
-                      id="reserved"
-                      className="block w-[300px] p-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                    >
-                      <option className="text-gray-500" value="" disabled>Select...</option>
-                      <option value="no" disabled>No</option>
-                    </select>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

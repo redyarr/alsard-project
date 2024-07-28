@@ -73,7 +73,7 @@ const EmployeeDetail = () => {
 
         <h2 className='text-xl font-bold mt-6 mb-2'>{t("navbar.reservedItems")}</h2>
         {employee.reservedItems.length === 0 ? (
-          <p>{t("home.noReservedItem")}</p>
+          <p className='font-medium text-red-600'>{t("home.noReservedItem")}</p>
         ) : (
           <table className='min-w-full divide-y divide-gray-200 border-2 border-black'>
             <thead>

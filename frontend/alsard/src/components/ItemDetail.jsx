@@ -73,7 +73,7 @@ const ItemDetail = () => {
 
         <h2 className='text-xl font-bold mt-6 mb-2'>{t('home.reservedBy')}</h2>
         {item.reservedBy === null ? (
-          <p>This Item is Not Reserved</p>
+          <p className='font-medium text-red-600' >{t('home.thisItemsIsNotReserved')}</p>
         ) : (
           <table className='min-w-full divide-y divide-gray-200 border-2 border-black'>
             <thead>
