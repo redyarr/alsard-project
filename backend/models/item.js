@@ -55,7 +55,7 @@ const items = db.define('item', {
             setTimeout(async () => {
                 await item.update({ isEditable: false });
                 console.log(`Item ${item.Id} is now not editable`);
-            }, 12 * 60 * 60 * 1000); // Use 12 * 60 * 60 * 1000 for 12 hours
+            }, 6 * 60 * 60 * 1000 ); // Use 12 * 60 * 60 * 1000 for 12 hours
         }
     }
 });

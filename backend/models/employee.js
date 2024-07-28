@@ -43,7 +43,7 @@ const employees = db.define('employee', {
             setTimeout(async () => {
                 await employee.update({ isEditable: false });
                 console.log(`Employee ${employee.Id} is now not editable`);
-            }, 12 * 60 * 60 * 1000); // Use 12 * 60 * 60 * 1000 for 12 hours
+            }, 6 * 60 * 60 * 1000); // Use 12 * 60 * 60 * 1000 for 12 hours
         }
     }
 });
