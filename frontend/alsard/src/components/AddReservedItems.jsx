@@ -111,7 +111,7 @@ function AddReservedItems() {
                 >
                   <option className="text-gray-500" value="" disabled>{t('home.selectItem')}</option>
                   {items.map(item => (
-                    <option key={item.Id} value={item.Id}> {`${item.Name} - ${item.tagId} - ${item.model}`}</option>
+                    <option key={item.Id} value={item.Id}> {`${item.Name} - ${item.tagId} - ${item.Category}  - ${item.model}`}</option>
                   ))}
                 </select>
               </div>
