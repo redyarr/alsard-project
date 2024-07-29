@@ -135,7 +135,9 @@ async function updateIsEditable(model) {
 
 // Schedule the cron job to run every 30 minutes
 cron.schedule('*/30 * * * *', async () => {
-  await updateIsEditable(EmployeeItem);
+
+  await updateIsEditable(items);
+  await updateIsEditable(employees);
   console.log('updateIsEditable function executed');
 });
 
