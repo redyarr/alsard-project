@@ -57,7 +57,7 @@ const ReservedDetail = () => {
         </NavLink>
       </div>
 
-      <div className='w-full max-w-4xl bg-gray-200 p-6 rounded-lg'>
+      <div className='flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full max-w-4xl h-fit'>
       <h1 className='text-2xl font-bold mb-4'>{details.reservedItem.item.name}</h1>
         <p className='text-[16px] mb-2'>{t('home.description')}: <span className='font-medium'>{details.reservedItem.item.description}</span></p>
         <p className='text-[16px] mb-2'>{t('home.category')}: <span className='font-medium'>{details.reservedItem.item.category}</span></p>

@@ -104,12 +104,12 @@ const Employees = () => {
             {filteredUsers.map((user) => (
               <section key={user.Id} className='hover:scale-105 transition duration-300 inline-block mr-5 mb-5'>
                 <div>
-                  <div id='haha' className='w-[330px] h-[260px] flex flex-col gap-3 p-3 bg-gray-200 rounded-lg '>
-                    <div className='flex items-center gap-2'>
-                      <h1 className='text-xl font-bold'>{user.Name.trim()}</h1>
+                  <div id='haha' className='flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit'>
+                    <div className='flex items-center gap-2 '>
+                      <h1 className='text-xl font-bold break-all'>{user.Name.trim()}</h1>
                     </div>
                     <div>
-                      <p className='text-[15px]'>{t('home.email')}: <span className='font-medium'>{user.Email}</span></p>
+                      <p className='text-[15px]'>{t('home.email')}: <span className='font-medium break-all'>{user.Email}</span></p>
                       <p className='text-[15px]'>{t('home.department')}: <span className='font-medium'>{user.department}</span></p>
                       <p className='text-[15px]'>{t('home.phone')}: <span className='font-medium'>{user.Phone}</span></p>
                       <p className='text-[15px]'>{t('home.employeeId')}: <span className='font-medium'>{user.employeeId}</span></p>

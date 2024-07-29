@@ -63,7 +63,7 @@ const EmployeeDetail = () => {
         </NavLink>
       </div>
 
-      <div className='w-full max-w-4xl bg-gray-200 p-6 rounded-lg'>
+      <div className='flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full max-w-4xl h-fit'>
         <h1 className='text-2xl font-bold mb-4'>{employee.Name}</h1>
         <p className='font-medium mb-2'>{t("home.email")}: {employee.Email}</p>
         <p className='font-medium mb-2'>{t("home.department")}: {employee.department}</p>
