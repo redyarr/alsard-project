@@ -49,7 +49,12 @@ const resources = {
         notFound:"Page Not Found",
         notFoundMessage:"Sorry, we couldn’t find the page you’re looking for.",
         backToHome:"Go back Home",
-        loading:"Loading..."
+        loading:"Loading...",
+        signInToYourAccount: "Sign in to your account",
+        userName: "User Name",
+        password: "Password",
+        note:"This Username and Password is belong to the Manager",
+        thisItemsIsNotReserved:"This Item is not Reserved"
       }
     }
   },
@@ -99,7 +104,12 @@ const resources = {
         notFound:"نەدۆزرایەوە",
         notFoundMessage:'ببورە، نەمانتوانی ئەو پەیجە بدۆزینەوە کە بۆی دەگەڕییت',
         backToHome:"بگەڕێرەوە بۆ سەرەتا",
-        loading:"چاوەڕوانبە..."
+        loading:"چاوەڕوانبە...",
+        signInToYourAccount:"چوونە ژوورەوە بۆ ئەکاونتەکەت",
+        userName:"ناوی بەکارهێنەر",
+        password:"وشەی نهێنی",
+        note:"ئەم ناوی بەکارهێنەر و وشەی نهێنییە سەر بە بەڕێوەبەرە",
+        thisItemsIsNotReserved:"ئەم کاڵایەک حیجز نەکراوە"
       }
     }
   }

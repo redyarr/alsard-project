@@ -53,7 +53,7 @@ const Nav = () => {
         </div>
 
         <nav className='mt-3'>
-          <ul className='flex gap-10'>
+          <ul className='flex gap-10 lg:min-w-[53rem]'>
             {navLinks.map((items, index) => (
               <li key={index} className='relative'>
                 <NavLink
@@ -70,69 +70,74 @@ const Nav = () => {
         </nav>
 
       </div>
-      <div className={`${i18n.language === 'en' ? 'text-white ml-72 mb-3 flex items-center w-9 h-22' : 'mr-[20.5rem] mb-2 flex items-center w-9 h-22 text-white'}`}>
-        <div className="w-full rounded-lg">
-          <Field>
-            <div className="relative">
-              <Select
-                className='mt-3 w-10 h-10 text-center lgn block cursor-pointer appearance-none rounded-md border-none bg-blue-600 text-white py-1.5 px-2 focus:outline-none'
-                onChange={(e) => changeLanguage(e.target.value)}
-                value={i18n.language} 
-              >
-                <option className='lgn' value="en">EN</option>
-                <option className='lgn' value="ku">KU</option>
-              </Select>
-            </div>
-          </Field>
-        </div>
-      </div>
-      <div>
 
-        {authState.isAuthenticated ?
-          <>
-            <div>
-              <Popover className="relative">
-                {({ open }) => (
-                  <>
-                    <Popover.Button
-                      className={`
-                      ${open ? 'text-white' : 'text-white/90'}
-                      group inline-flex items-center rounded-md bg-blue-600 hover:bg-blue-700 px-1 py-2 text-base font-medium hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75`}
-                    >
-                      <span>{t('navbar.admin')}</span>
-                      <ChevronDownIcon
-                        className={`${open ? 'rotate-180 transition' : ''}
-                        mx-1 h-5 w-5 transition duration-150 ease-in-out`}
-                        aria-hidden="true"
-                      />
-                    </Popover.Button>
-                    <Transition
-                      as={Fragment}
-                      enter="transition ease-out duration-200"
-                      enterFrom="opacity-0 translate-y-1"
-                      enterTo="opacity-100 translate-y-0"
-                      leave="transition ease-in duration-150"
-                      leaveFrom="opacity-100 translate-y-0"
-                      leaveTo="opacity-0 translate-y-1"
-                    >
-                      <Popover.Panel className="absolute right-[-16px] z-10 mt-3 px-4 w-[160px]">
-                        <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black/5">
-                          <div className="relative grid gap-8 bg-white p-7 lg:grid-cols-2">
-                            <button className='absolute top-2 right-2 w-[100px] h-[35px] bg-red-600 hover:bg-red-700 text-white rounded-md font-medium' onClick={logout}>{t('navbar.logout')}</button>
-                          </div>
-                        </div>
-                      </Popover.Panel>
-                    </Transition>
-                  </>
-                )}
-              </Popover>
-            </div>
-          </>
-          :
-          <Link to='/login'>
-            <Button text={t('navbar.login')} />
-          </Link>
-        }
+      <div className='flex items-center justify-center gap-5'>
+        <div id='language-button'>
+           <div className={`${i18n.language === 'en' ? 'text-white ml-72 mb-3 flex items-center w-9 h-22' : 'mr-[20.5rem] mb-2 flex items-center w-9 h-22 text-white'}`}>
+             <div className="w-full rounded-lg">
+              <Field>
+                <div className="relative">
+                  <Select
+                    className='mt-3 w-10 h-10 text-center lgn block cursor-pointer appearance-none rounded-md border-none bg-blue-600 text-white py-1.5 px-2 focus:outline-none'
+                    onChange={(e) => changeLanguage(e.target.value)}
+                    value={i18n.language} 
+                  >
+                    <option className='lgn' value="en">EN</option>
+                    <option className='lgn' value="ku">KU</option>
+                  </Select>
+                </div>
+              </Field>
+             </div>
+           </div>
+        </div>
+
+         <div id='buttons'>
+           {authState.isAuthenticated ?
+              <>
+                <div>
+                  <Popover className="relative">
+                    {({ open }) => (
+                      <>
+                        <Popover.Button
+                          className={`
+                          ${open ? 'text-white' : 'text-white/90'}
+                          group inline-flex items-center rounded-md bg-blue-600 hover:bg-blue-700 px-1 py-2 text-base font-medium hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75`}
+                        >
+                          <span>{t('navbar.admin')}</span>
+                          <ChevronDownIcon
+                            className={`${open ? 'rotate-180 transition' : ''}
+                            mx-1 h-5 w-5 transition duration-150 ease-in-out`}
+                            aria-hidden="true"
+                          />
+                        </Popover.Button>
+                        <Transition
+                          as={Fragment}
+                          enter="transition ease-out duration-200"
+                          enterFrom="opacity-0 translate-y-1"
+                          enterTo="opacity-100 translate-y-0"
+                          leave="transition ease-in duration-150"
+                          leaveFrom="opacity-100 translate-y-0"
+                          leaveTo="opacity-0 translate-y-1"
+                        >
+                          <Popover.Panel className="absolute right-[-16px] z-10 mt-3 px-4 w-[160px]">
+                            <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black/5">
+                              <div className="relative grid gap-8 bg-white p-7 lg:grid-cols-2">
+                                <button className='absolute top-2 right-2 w-[100px] h-[35px] bg-red-600 hover:bg-red-700 text-white rounded-md font-medium' onClick={logout}>{t('navbar.logout')}</button>
+                              </div>
+                            </div>
+                          </Popover.Panel>
+                        </Transition>
+                      </>
+                    )}
+                  </Popover>
+                </div>
+              </>
+              :
+              <Link to='/login'>
+                <Button text={t('navbar.login')} />
+              </Link>
+            }
+         </div>
       </div>
     </header>
   );

@@ -37,15 +37,6 @@ const employees = db.define('employee', {
         allowNull: false,
         defaultValue: true
     },
-}, {
-    hooks: {
-        afterCreate: (employee, options) => {
-            setTimeout(async () => {
-                await employee.update({ isEditable: false });
-                console.log(`Employee ${employee.Id} is now not editable`);
-            }, 12 * 60 * 60 * 1000); // Use 12 * 60 * 60 * 1000 for 12 hours
-        }
-    }
 });
 
 module.exports = employees;

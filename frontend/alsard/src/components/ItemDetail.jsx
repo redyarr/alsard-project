@@ -56,7 +56,7 @@ const ItemDetail = () => {
 <>
     <div id='haha' className='flex gap-72 mt-5 pb-5 text-black mx-auto max-w-8xl xl:px-6 2xl:px-15'>
       <div className='left-0'>
-        <NavLink className='w-10 h-10 bg-blue-600 rounded-full items-center flex justify-center' to='/items'>
+        <NavLink className='w-10 h-10 bg-blue-600 rounded-full items-center flex justify-center'  to={-1}>
           <FaArrowRight className='text-white rotate-180' />
         </NavLink>
       </div>
@@ -73,7 +73,7 @@ const ItemDetail = () => {
 
         <h2 className='text-xl font-bold mt-6 mb-2'>{t('home.reservedBy')}</h2>
         {item.reservedBy === null ? (
-          <p>This Item is Not Reserved</p>
+          <p className='font-medium text-red-600' >{t('home.thisItemsIsNotReserved')}</p>
         ) : (
           <table className='min-w-full divide-y divide-gray-200 border-2 border-black'>
             <thead>

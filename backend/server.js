@@ -120,18 +120,24 @@ EmployeeItem.belongsTo(items, { foreignKey: "itemId" });
 
 
 
-// async function updateIsEditable(model) {
-//   // const sixHoursAgo = new Date(new Date() - 12 * 60 * 60 * 1000);// 12 sa3at farq inja 
-//     const sixHoursAgo = new Date(new Date() - 20 *1000); //test krdny , 20 sanya farqy habe itr edit nakre
-//   await model.update({ isEditable: false }, {
-//       where: {
-//           createdAt: {
-//               [Op.lte]: sixHoursAgo
-//           },
-//           isEditable: true 
-//       }
-//   });
-// };
+//Schedule the cron job to change the isEditable field to false every 6 hours
+async function updateIsEditable(model) {
+  const sixHoursAgo = new Date(new Date() - 6 * 60 * 60 * 1000);
+  await model.update({ isEditable: false }, {
+    where: {
+      createdAt: {
+        [Op.lte]: sixHoursAgo
+      },
+      isEditable: true 
+    }
+  });
+}
+
+// Schedule the cron job to run every 30 minutes
+cron.schedule('*/30 * * * *', async () => {
+  await updateIsEditable(EmployeeItem);
+  console.log('updateIsEditable function executed');
+});
 
 
 
@@ -484,29 +490,9 @@ app.get('/employee/:id/details', async (req, res) => {
 
 
 
-// app.post('/addUser', (req, res, next) => {
 
-//     users.create({
-//         name: req.body.name,
-//         password: req.body.password,
-//         role: req.body.role
-//     }).then(result => {
-//         res.status(201).json({
-//             message: "User created successfully",
-//             user: result
-//         });
-//     }
-//     ).catch(error => {
-//         res.status(500).json({
-//             message: "Failed to create user",
-//             error: error.message
-//         });
-//     });
-// });
 
-//am API'y login'a mn updatem krdwa la jpt henawma abe token drwskay lerawa boway mn ba post tokenaka benm
-// w lawla la local storage aka bakary benm boway kabra login bmenetawa ka refreshy krd bas am token a bo layani securety'ya
-//dway 1 sa3at basarache
+
 
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
@@ -694,23 +680,6 @@ app.delete("/deleteReservedItem/:id", async (req, res, next) => {
   }
 });
 
-// to show the items that an employee is using
-
-// TO SEARCH FOR A EMPLOYEES NAME AND GET ALL THE ITEMS HE IS USING :
-
-// app.get('/employee-items/:employeeName', async (req, res) => {
-//     try {
-//       const employeeName = req.params.employeeName;
-//       const employee = await employees.findOne({ where: { name: employeeName } });
-//       if (!employee) {
-//         return res.status(404).json({ message: 'Employee not found.' });
-//       }
-//       const items = await employee.getItems(); // Using the getItems method provided by Sequelize for many-to-many relations
-//       res.status(200).json(items);
-//     } catch (error) {
-//       res.status(500).json({ error: error.message });
-//     }
-//   });
 
 // {force:true}
 db.sync()

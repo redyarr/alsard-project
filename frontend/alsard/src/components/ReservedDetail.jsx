@@ -52,7 +52,7 @@ const ReservedDetail = () => {
 <>
     <div id='haha' className=' flex gap-72 mt-5 pb-5 text-black mx-auto max-w-8xl xl:px-6 2xl:px-20'>
       <div className='left-0'>
-        <NavLink className='w-10 h-10 bg-blue-600 rounded-full items-center flex justify-center' to='/reserved'>
+        <NavLink className='w-10 h-10 bg-blue-600 rounded-full items-center flex justify-center'  to={-1}>
           <FaArrowRight className='text-white rotate-180' />
         </NavLink>
       </div>
@@ -79,7 +79,9 @@ const ReservedDetail = () => {
 <br />
         <p>Other Items Reserved by <span className='font-bold'> {details.reservedItem.employee.name} </span> </p>
         <br />
-          <table className='min-w-full divide-y divide-gray-200 border-2 border-black'>
+       {details.otherReservedItems.length ===0 ? <p className='text-left text-red-600 font-medium'>No other items reserved by this employee</p> :
+       <>
+                 <table className='min-w-full divide-y divide-gray-200 border-2 border-black'>
             <thead>
               <tr className='text-center border-2 border-black'>
                 <th className='px-6 py-3 text-center border-2 border-black text-xs font-medium text-gray-700 uppercase tracking-wider'>{t('home.name')}</th>
@@ -105,6 +107,9 @@ const ReservedDetail = () => {
             ))}
             </tbody>
           </table>
+       </>
+       } 
+
   
 
         <div className='mt-6'>
