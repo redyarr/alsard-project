@@ -145,7 +145,7 @@ cron.schedule('*/30 * * * *', async () => {
 
 
 // // run krdny backup function aka
- cron.schedule('0 17 * * *', async () => {
+ cron.schedule('0 16 * * *', async () => {
   backupDatabase();
   console.log('Backup process started');
 });
