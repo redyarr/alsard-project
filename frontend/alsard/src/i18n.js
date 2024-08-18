@@ -114,6 +114,7 @@ const resources = {
     }
   }
 };
+
 const storedLanguage = localStorage.getItem('language') || 'en';
 
 if (storedLanguage === 'ku') {

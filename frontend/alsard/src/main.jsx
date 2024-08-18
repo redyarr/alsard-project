@@ -4,8 +4,7 @@ import App from './App.jsx'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './components/AuthContext.jsx'
-import i18n from './i18n';
-
+import i18n from './i18n.js'
 
 const storedLanguage = localStorage.getItem('language') || 'en';
 if (storedLanguage === 'ku') {
@@ -27,7 +26,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
       <AuthProvider>
       <div className='main'>
-                <div className='gradient'/>
+      <div className='gradient'/>
       </div>
         <App />
       </AuthProvider>
